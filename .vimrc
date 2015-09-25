@@ -301,6 +301,8 @@ autocmd FileType unite call s:unite_my_settings()
 colorscheme molokai-dark
 
 let g:NERDTreeShowBookmarks=1		"起動時にBookmarkを表示
+" 隠しファイルをデフォルトで表示させる
+let NERDTreeShowHidden = 1
 nnoremap <silent> tr :NERDTree<CR>
 
 " ファイル指定で開かれた場合はNERDTreeは表示しない

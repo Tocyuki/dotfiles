@@ -152,4 +152,10 @@ let g:syntastic_auto_loc_list = 2
 " Usage: gcc
 
 
+"---------------------------------------------------
+" Plugin: nerdree
+"---------------------------------------------------
+let g:NERDTreeShowBookmarks=1			" 起動時にBookmarkを表示
+let NERDTreeShowHidden = 1				" 隠しファイルをデフォルトで表示させる
+nnoremap <silent> tr :NERDTree<CR>
 

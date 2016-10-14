@@ -1,9 +1,9 @@
-"---------------------------------------------------
-" Configration: NeoBundle設定 NeoBundle
-"---------------------------------------------------
 set encoding=utf-8
 scriptencoding utf-8
 
+"---------------------------------------------------
+" Configration: NeoBundle設定 NeoBundle
+"---------------------------------------------------
 if has('vim_starting')
   " 初回起動時のみruntimepathにNeoBundleのパスを指定する
   set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -48,8 +48,6 @@ if has('lua')
   " スニペット定義ファイル
   NeoBundle 'Shougo/neosnippet-snippets'
 endif
-" PHP関数説明補助
-NeoBundle 'violetyk/neocomplete-php.vim'
 " カラースキームmolokai
 NeoBundle 'tomasr/molokai'
 "----------------------------------------------------------
@@ -60,6 +58,7 @@ filetype plugin indent on
 
 " 未インストールのVimプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定
 NeoBundleCheck
+
 
 "---------------------------------------------------
 " Configration: 基本設定 Basics
@@ -94,16 +93,17 @@ set history=1000
 " Configration: マウスの有効化　Mouse
 "---------------------------------------------------
 " マウスでカーソル移動やスクロール移動が出来るようにする
-" if has('mouse')
-"   set mouse=a
-"   if has('mouse_sgr')
-"     set ttymouse=sgr
-"    elseif v:version > 703 || v:version is 703 && has('patch632')
-"     set ttymouse=sgr
-"   else
-"     set ttymouse=xterm2
-"   endif
-" endif
+if has('mouse')
+  set mouse=a
+  if has('mouse_sgr')
+    set ttymouse=sgr
+   elseif v:version > 703 || v:version is 703 && has('patch632')
+    set ttymouse=sgr
+  else
+    set ttymouse=xterm2
+  endif
+endif
+
 
 "---------------------------------------------------
 " Configration: ペースト設定 Paste
@@ -122,6 +122,7 @@ if &term =~ "xterm"
   inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
 
+
 "---------------------------------------------------
 " Configration: 文字コード設定 Encoding
 "---------------------------------------------------
@@ -133,6 +134,7 @@ set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 set fileformats=unix,dos,mac
 " □や○文字が崩れる問題を解決
 set ambiwidth=double
+
 
 "---------------------------------------------------
 " Configration: 表示設定 Apperance
@@ -192,6 +194,7 @@ set hlsearch
 " ESCキー2度押しでハイライトの切り替え
 nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
 
+
 "---------------------------------------------------
 " Plugin: ステータスバー設定 vim-airline
 "---------------------------------------------------
@@ -230,22 +233,10 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
 
 
 "---------------------------------------------------
-" Plugin: PHP関数説明補助 neocomplete-php.vim
-"---------------------------------------------------
-" 日本語説明表示設定
-let g:neocomplete_php_locale = 'ja'
-
-
-"---------------------------------------------------
-" Plugin: キーワード補完 neocomplete
+" Plugin: キーワード保管＆スニペット neocomplete neosnippet neosnippet-snippets
 "---------------------------------------------------
 " 自動起動設定
 let g:neocomplete#enable_at_startup = 1
-
-
-"---------------------------------------------------
-" Plugin: スニペット neosnippet neosnippet-snippets
-"---------------------------------------------------
 if neobundle#is_installed('neocomplete.vim')
   " Vim起動時にneocompleteを有効にする
   let g:neocomplete#enable_at_startup = 1
@@ -263,8 +254,11 @@ if neobundle#is_installed('neocomplete.vim')
   " エンターキーで補完候補の確定. スニペットの展開もエンターキーで確定
   " imap <expr><CR> neosnippet#expandable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "<C-y>" : "<CR>"
   " タブキーで補完候補の選択. スニペット内のジャンプもタブキーでジャンプ
-  imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+  " imap <expr><TAB> pumvisible() ? "<C-n>" : neosnippet#jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
+	imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+	smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "<Plug>(neosnippet_expand_or_jump)" : "<TAB>"
 endif
+
 
 "---------------------------------------------------
 " Plugin: カラースキーム molokai

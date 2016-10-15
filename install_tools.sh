@@ -88,7 +88,7 @@ install_ruby()
 	fi
 
 	# Ruby関連モジュールのインストール
-	yum -y install gcc make openssl-devel libffi-devel ruby-devel readline-devel rubygems sqlite-devel
+	yum -y install gcc make openssl-devel libffi-devel ruby-devel readline-devel rubygems sqlite-devel bzip2
 
 	# Rubyのインストール
 	/bin/bash -lc "rbenv install 2.3.0"

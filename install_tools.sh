@@ -3,7 +3,7 @@
 install_git()
 {
 	# 依存モジュールのインストール
-	yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker
+	yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel perl-ExtUtils-MakeMaker gcc make
 
 	# Gitのクローン
 	cd /usr/local/src

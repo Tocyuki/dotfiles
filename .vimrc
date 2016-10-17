@@ -21,6 +21,8 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 "----------------------------------------------------------
 " ここに追加したいVimプラグインを記述
+"
+NeoBundle 'scrooloose/nerdtree'
 " ステータスライン装飾
 NeoBundle 'bling/vim-airline'
 " コメントアウトプラグイン
@@ -201,8 +203,6 @@ nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
 " description
 let g:airline#extensions#tabline#enabled = 1
 " description
-set t_Co=256
-" description
 set laststatus=2
 
 
@@ -266,8 +266,24 @@ endif
 " molokaiがインストールされていればカラースキームにmolokaiを設定する
 if neobundle#is_installed('molokai')
   colorscheme molokai
+  hi Comment ctermfg=102
+  hi Visual  ctermbg=236
 endif
 " シンタックスハイライト有効
 syntax enable
 " 既に256色環境なら無くても良い
 set t_Co=256
+
+
+"---------------------------------------------------
+" Plugin: ファイルエクスプローラー NerdTree
+"---------------------------------------------------
+" :NERDTreeToggleのショートカットを定義
+nnoremap <silent><C-n> :NERDTreeToggle<CR>
+" 起動時にBookmarkを表示
+let g:NERDTreeShowBookmarks=1
+" 起動時にNerdTreeを表示
+" autocmd vimenter * NERDTree
+" ファイル名が指定されてVIMが起動した場合はNERDTreeを表示しない
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif

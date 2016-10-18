@@ -224,11 +224,11 @@ let g:user_emmet_settings = {
 "---------------------------------------------------
 " 自動起動ON
 let g:indent_guides_enable_on_vim_startup = 1
-
+" 無効にしたいファイルタイプの追加
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+" インデントの色の設定
 let g:indent_guides_auto_colors=0
-
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
-
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
 
 

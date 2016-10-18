@@ -170,6 +170,8 @@ set wildmenu
 "---------------------------------------------------
 " Configration: インデント設定 Indent
 "---------------------------------------------------
+" タブ入力時にスペースを入力する
+set expandtab
 " 自動でインデント
 set autoindent
 " 新しい行のインデントを現在行と同じ量にする
@@ -293,3 +295,6 @@ let g:NERDTreeShowBookmarks=1
 " ファイル名が指定されてVIMが起動した場合はNERDTreeを表示しない
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeDirArrowExpandable  = '>'
+let g:NERDTreeDirArrowCollapsible = '|'

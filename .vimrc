@@ -226,10 +226,16 @@ let g:user_emmet_settings = {
 let g:indent_guides_enable_on_vim_startup = 1
 " 無効にしたいファイルタイプの追加
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-" インデントの色の設定
+" 自動カラーを無効にする
 let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
+" 奇数インデントのカラー
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#262626 ctermbg=gray
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
+" 偶数インデントのカラー
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#3c3c3c ctermbg=darkgray
+" autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
+" ハイライト色の変化の幅
+let g:indent_guides_color_change_percent = 30
 
 
 "---------------------------------------------------

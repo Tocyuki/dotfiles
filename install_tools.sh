@@ -1,5 +1,25 @@
 #!/bin/bash
 
+usage()
+{
+cat << _EOT_
+Usage:
+  $0 [ git | vim | tmux | ruby | dotfiles ]
+
+Description:
+  Install Tools Script.
+  Install Tools are Git,Vim,Ruby and dotfiles.
+
+Options:
+  git     : Install Git with Latest Version.
+  vim     : Install Vim with Latest Version.
+  ruby    : Install Ruby 2.3.0
+  dotfiles: Clone dotfiles
+
+_EOT_
+exit 1
+}
+
 install_git()
 {
 	# 依存モジュールのインストール
@@ -119,6 +139,5 @@ case "$1" in
 	vim)			install_vim			;;
 	ruby)			install_ruby		;;
 	dotfiles)	clone_dotfiles	;;
-	*)
-		echo "Usage: $0 { git | tmux | vim | ruby | dotfiles }"
+	*)				usage
 esac

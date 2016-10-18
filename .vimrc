@@ -21,7 +21,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 "----------------------------------------------------------
 " ここに追加したいVimプラグインを記述
-"
+" 高機能ファイルエクスプローラー
 NeoBundle 'scrooloose/nerdtree'
 " ステータスライン装飾
 NeoBundle 'bling/vim-airline'

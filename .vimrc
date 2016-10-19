@@ -290,11 +290,15 @@ set t_Co=256
 nnoremap <silent><C-n> :NERDTreeToggle<CR>
 " 起動時にBookmarkを表示
 let g:NERDTreeShowBookmarks=1
-" 起動時にNerdTreeを表示
-" autocmd vimenter * NERDTree
 " ファイル名が指定されてVIMが起動した場合はNERDTreeを表示しない
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-let g:NERDTreeDirArrows = 1
+"無視するファイル
+let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
+" NerdTree上でマウス操作を可能にする
+let g:NERDTreeMouseMode=0
+let g:NERDTreeDirArrows = 0
+" ディレクトリが閉じてる時の記号を定義
 let g:NERDTreeDirArrowExpandable  = '>'
-let g:NERDTreeDirArrowCollapsible = '|'
+" ディレクトリが開いている時の記号を定義
+let g:NERDTreeDirArrowCollapsible = '-'

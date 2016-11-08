@@ -1,4 +1,7 @@
 # .bashrc
+# Global Settings
+# bashがviモードで操作できる
+set -o vi
 
 # User specific aliases and functions
 

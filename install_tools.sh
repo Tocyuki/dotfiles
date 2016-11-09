@@ -4,7 +4,7 @@ usage()
 {
 cat << _EOT_
 Usage:
-  $0 [ git | vim | tmux | ruby | dotfiles ]
+  $0 [ git | vim | tmux | ruby | link ]
 
 Description:
   Install Tools Script.
@@ -14,7 +14,7 @@ Options:
   git     : Install Git with Latest Version.
   vim     : Install Vim with Latest Version.
   ruby    : Install Ruby 2.3.0
-  dotfiles: Clone dotfiles
+  link    : Make Synbolik Link
 
 _EOT_
 exit 1
@@ -116,12 +116,8 @@ install_ruby()
 	/bin/bash -lc "rbenv global 2.3.0"
 }
 
-clone_dotfiles()
+make_links()
 {
-	# dotfilesのダウンロード
-	cd $HOME
-	git clone https://github.com/Tocyuki/dotfiles.git
-
 	# 既存設定ファイルの退避
 	mv $HOME/.vimrc $HOME/.vimrc_`date +%Y%m%d%s`
 	mv $HOME/.bashrc $HOME/.bashrc_`date +%Y%m%d%s`
@@ -138,6 +134,6 @@ case "$1" in
 	tmux)			install_tmux		;;
 	vim)			install_vim			;;
 	ruby)			install_ruby		;;
-	dotfiles)	clone_dotfiles	;;
+	link)	    make_links      ;;
 	*)				usage
 esac

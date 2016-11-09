@@ -119,9 +119,9 @@ install_ruby()
 make_links()
 {
 	# 既存設定ファイルの退避
-	mv $HOME/.vimrc $HOME/.vimrc_`date +%Y%m%d%s`
-	mv $HOME/.bashrc $HOME/.bashrc_`date +%Y%m%d%s`
-	mv $HOME/.tmux.conf $HOME/.tmux_`date +%Y%m%d%s`.conf
+	mv $HOME/.vimrc $HOME/.vimrc_`date +%Y%m%d%H%M`
+	mv $HOME/.bashrc $HOME/.bashrc_`date +%Y%m%d%H%M`
+	mv $HOME/.tmux.conf $HOME/.tmux_`date +%Y%m%d%H%M`.conf
 
 	# シンボリックリンクの作成
 	ln -s $HOME/dotfiles/.vimrc $HOME/.vimrc

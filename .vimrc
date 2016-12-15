@@ -159,8 +159,10 @@ set lazyredraw
 set ttyfast
 " 横カーソルラインを表示
 set cursorline
+" アンダーラインを引く(color terminal)
+autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 " 縦カーソルラインを表示
-" set cursorcolumn
+set cursorcolumn
 " 行番号の色
 highlight LineNr ctermfg=darkgray
 " コマンドモードの補完
@@ -271,6 +273,9 @@ endif
 "---------------------------------------------------
 " Plugin: カラースキーム molokai
 "---------------------------------------------------
+" Vimの背景色をターミナルの背景色と揃える
+autocmd ColorScheme * highlight Normal ctermbg=none
+autocmd ColorScheme * highlight LineNr ctermbg=none
 " molokaiがインストールされていればカラースキームにmolokaiを設定する
 if neobundle#is_installed('molokai')
   colorscheme molokai
@@ -299,6 +304,6 @@ let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeMouseMode=0
 let g:NERDTreeDirArrows = 0
 " ディレクトリが閉じてる時の記号を定義
-let g:NERDTreeDirArrowExpandable  = '>'
+let g:NERDTreeDirArrowExpandable  = '+'
 " ディレクトリが開いている時の記号を定義
 let g:NERDTreeDirArrowCollapsible = '-'

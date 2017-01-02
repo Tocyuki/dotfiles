@@ -135,8 +135,3 @@ fpath=(/path/to/homebrew/share/zsh-completions $fpath)
 
 autoload -U compinit
 compinit -u
-
-# rbenv global config
-export RBENV_ROOT="/opt/rbenv"
-export PATH="${RBENV_ROOT}/bin:${PATH}"
-eval "$(rbenv init -)"

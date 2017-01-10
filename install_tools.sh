@@ -4,7 +4,7 @@ usage()
 {
 cat << _EOT_
 Usage:
-  $0 [ git | vim | tmux | ruby | link ]
+  $0 [ git | vim | tmux | ansible | ruby | link ]
 
 Description:
   Install Tools Script.
@@ -13,6 +13,8 @@ Description:
 Options:
   git     : Install Git with Latest Version.
   vim     : Install Vim with Latest Version.
+  tmux    : Install tmux 2.3.0
+  ansible : Install ansible
   ruby    : Install Ruby 2.3.0
   link    : Make Synbolik Link
 
@@ -46,9 +48,9 @@ install_tmux()
 
 	# 依存モジュールのインストール
 	if [ $version -eq 7 ]; then
-		yum -y install libevent-devel ncurses-devel
+		yum -y install libevent-devel ncurses-devel wget
 	elif [ $version -eq 6 ]; then
-		yum -y remove libevent libevent-devel libevent-headers
+		yum -y remove libevent libevent-devel libevent-headers wget
 		cd /usr/local/src
 		wget https://github.com/libevent/libevent/releases/download/release-2.0.22-stable/libevent-2.0.22-stable.tar.gz
 		tar -xvf libevent-2.0.22-stable.tar.gz
@@ -86,6 +88,12 @@ install_vim()
 	./configure --with-features=huge --enable-multibyte --enable-luainterp=dynamic --enable-gpm --enable-cscope --enable-fontset
 	make
 	make install
+}
+
+install_ansible()
+{
+  yum -y install epel-release
+  yum -y install ansible sshpass
 }
 
 install_ruby()
@@ -133,6 +141,7 @@ case "$1" in
 	git)			install_git			;;
 	tmux)			install_tmux		;;
 	vim)			install_vim			;;
+	ansible)	install_ansible	;;
 	ruby)			install_ruby		;;
 	link)	    make_links      ;;
 	*)				usage

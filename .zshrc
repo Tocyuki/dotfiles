@@ -70,6 +70,11 @@ alias la='ls -la'
 alias ll='ls -l'
 
 
+# rbenv関連設定
+export RBENV_ROOT="~/.rbenv"
+export PATH="${RBENV_ROOT}/bin:${PATH}"
+ieval "$(rbenv init -)"
+
 # 未インストール項目をインストールする
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "

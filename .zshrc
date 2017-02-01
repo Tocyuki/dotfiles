@@ -68,14 +68,15 @@ alias lst='ls -ltr'
 alias l='ls -ltr'
 alias la='ls -la'
 alias ll='ls -l'
+alias ssh='TERM=xterm ssh'
 
 
 # 未インストール項目をインストールする
 if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
 fi
 
 # プラグインを読み込み、コマンドにパスを通す

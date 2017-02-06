@@ -1,4 +1,5 @@
 set encoding=utf-8
+
 scriptencoding utf-8
 
 "---------------------------------------------------
@@ -21,10 +22,21 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 "----------------------------------------------------------
 " ここに追加したいVimプラグインを記述
+" VimでGitコマンドを扱えるようにするプラグイン
+NeoBundle 'tpope/vim-fugitive'
+" 高機能統合インターフェース
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
+" 高機能ファイラー
+NeoBundle 'Shougo/vimfiler.vim'
 " 高機能ファイルエクスプローラー
 NeoBundle 'scrooloose/nerdtree'
+" Vim上でshellを使えるようにするプラグイン
+NeoBundle 'Shougo/vimshell.vim'
+" vimで非同期処理を実現させるプラグイン
+NeoBundle 'Shougo/vimproc.vim'
 " ステータスライン装飾
-NeoBundle 'bling/vim-airline'
+NeoBundle 'itchyny/lightline.vim'
 " コメントアウトプラグイン
 NeoBundle 'tomtom/tcomment_vim'
 " ペースト時に自動インデント無効化
@@ -202,12 +214,27 @@ nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
 
 
 "---------------------------------------------------
-" Plugin: ステータスバー設定 vim-airline
+" Plugin: ステータスバー設定 lightline.vim
 "---------------------------------------------------
-" description
-let g:airline#extensions#tabline#enabled = 1
-" description
 set laststatus=2
+
+
+"---------------------------------------------------
+" Plugin: 統合インターフェース Unite.vim
+"---------------------------------------------------
+let g:unite_enable_start_insert=0
+let mapleader = ",u"
+nnoremap [unite] <Nop>
+nmap <Leader> [unite]
+nnoremap [unite]u :<C-u>Unite -no-split<Space>
+" ファイルバッファ一覧表示
+nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
+" ディレクトリバッファ一覧表示
+nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" レジスタバッファ一覧表示
+nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
+" 最近表示したファイルの一覧表示
+nnoremap <silent> [unite]u :<C-u>Unite neomru/file<CR>
 
 
 "---------------------------------------------------
@@ -275,7 +302,7 @@ endif
 "---------------------------------------------------
 " Vimの背景色をターミナルの背景色と揃える
 autocmd ColorScheme * highlight Normal ctermbg=none
-autocmd ColorScheme * highlight LineNr ctermbg=none
+" autocmd ColorScheme * highlight LineNr ctermbg=none
 " molokaiがインストールされていればカラースキームにmolokaiを設定する
 if neobundle#is_installed('molokai')
   colorscheme molokai
@@ -289,15 +316,20 @@ set t_Co=256
 
 
 "---------------------------------------------------
+" Plugin: ファイラー vimfiler
+"---------------------------------------------------
+" ショートカットの設定
+let g:vimfiler_as_default_explorer = 1
+" modifiable の有効化
+set modifiable
+set write
+
+
+"---------------------------------------------------
 " Plugin: ファイルエクスプローラー NerdTree
 "---------------------------------------------------
 " :NERDTreeToggleのショートカットを定義
 nnoremap <silent><C-n> :NERDTreeToggle<CR>
-" 起動時にBookmarkを表示
-let g:NERDTreeShowBookmarks=1
-" ファイル名が指定されてVIMが起動した場合はNERDTreeを表示しない
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "無視するファイル
 let g:NERDTreeIgnore=['\.clean$', '\.swp$', '\.bak$', '\~$']
 " NerdTree上でマウス操作を可能にする

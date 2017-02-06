@@ -1,4 +1,5 @@
 export PATH="/usr/local/bin:$PATH"
+export TERM=xterm-256color
 
 # rbenv global setting
 if [ -d "$HOME/.rbenv" ]; then

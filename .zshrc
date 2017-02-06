@@ -11,8 +11,6 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-history-substring-search"
 # oh-my-zshのgitコマンドエイリアスプラグイン
 zplug "plugins/git", from:oh-my-zsh
-# cdの強化版
-zplug "b4b4r07/enhancd", use:init.sh
 # zshでpecoと連携するためのプラグイン
 zplug "mollifier/anyframe"
 # プロンプトテーマ
@@ -61,6 +59,9 @@ setopt hist_ignore_all_dups
 setopt hist_ignore_space
 # ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
+## cdrコマンドを使えるようにする
+autoload -Uz add-zsh-hock
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 
 
 # グローバルエイリアス

@@ -76,7 +76,7 @@ bindkey '^x^k'  anyframe-widget-kill
 # Gitブランチを切り替える
 bindkey '^xb'   anyframe-widget-checkout-git-branch
 bindkey '^x^b'  anyframe-widget-checkout-git-branch
-# anyframe-widget-insert-git-branch
+# Gitブランチ名をコマンドラインに挿入する
 bindkey '^xi'   anyframe-widget-insert-git-branch
 bindkey '^x^i'  anyframe-widget-insert-git-branch
 # ファイル名をコマンドラインに挿入する

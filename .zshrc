@@ -1,6 +1,8 @@
 source ~/.zplug/init.zsh
 
-# Plugin -------------------------------------------
+# ==============================
+# Plugin: zplug
+# ==============================
 # 入力中のコマンドを履歴から推測し表示する
 zplug "zsh-users/zsh-autosuggestions"
 # 補完ファイルの提供
@@ -17,26 +19,15 @@ zplug "mollifier/anyframe"
 zplug "Tocyuki/zsh_prompt_theme", as:theme
 # zplug
 zplug "zplug/zplug"
-# --------------------------------------------------
-
-# Anyframe key bind --------------------------------
-bindkey '^xb'   anyframe-widget-cdr
-bindkey '^x^b'  anyframe-widget-checkout-git-branch
-bindkey '^xr'   anyframe-widget-execute-history
-bindkey '^x^r'  anyframe-widget-execute-history
-bindkey '^xp'   anyframe-widget-put-history
-bindkey '^x^p'  anyframe-widget-put-history
-bindkey '^xg'   anyframe-widget-cd-ghq-repository
-bindkey '^x^g'  anyframe-widget-cd-ghq-repository
-bindkey '^xk'   anyframe-widget-kill
-bindkey '^x^k'  anyframe-widget-kill
-bindkey '^xi'   anyframe-widget-insert-git-branch
-bindkey '^x^i'  anyframe-widget-insert-git-branch
-bindkey '^xf'   anyframe-widget-insert-filename
-bindkey '^x^f'  anyframe-widget-insert-filename
-# --------------------------------------------------
+# fzf
+zplug "junegunn/fzf-bin", as:command, rename-to:"fzf", from:gh-r
+# 強化版cd
+zplug "b4b4r07/enhancd", use:init.sh
 
 
+# ==============================
+# Configuration: Global
+# ==============================
 # 文字コードの指定
 export LANG=ja_JP.UTF-8
 # 日本語ファイル名を表示可能にする
@@ -64,7 +55,44 @@ autoload -Uz add-zsh-hock
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 
 
-# グローバルエイリアス
+# ==============================
+# Plugin: Anyframe key bind
+# ==============================
+# 過去に移動したことのあるディレクトリに移動する
+bindkey '^xc'   anyframe-widget-cdr
+bindkey '^x^c'  anyframe-widget-cdr
+# historyのコマンドライン履歴から選んで実行する
+bindkey '^xr'   anyframe-widget-execute-history
+bindkey '^x^r'  anyframe-widget-execute-history
+# historyのコマンドライン履歴から選んでコマンドラインに挿入する
+bindkey '^xp'   anyframe-widget-put-history
+bindkey '^x^p'  anyframe-widget-put-history
+# ghqコマンドで管理しているリポジトリに移動する
+bindkey '^xg'   anyframe-widget-cd-ghq-repository
+bindkey '^x^g'  anyframe-widget-cd-ghq-repository
+# プロセスをkillする
+bindkey '^xk'   anyframe-widget-kill
+bindkey '^x^k'  anyframe-widget-kill
+# Gitブランチを切り替える
+bindkey '^xb'   anyframe-widget-checkout-git-branch
+bindkey '^x^b'  anyframe-widget-checkout-git-branch
+# anyframe-widget-insert-git-branch
+bindkey '^xi'   anyframe-widget-insert-git-branch
+bindkey '^x^i'  anyframe-widget-insert-git-branch
+# ファイル名をコマンドラインに挿入する
+bindkey '^xf'   anyframe-widget-insert-filename
+bindkey '^x^f'  anyframe-widget-insert-filename
+# tmuxセッションを選んでアタッチする
+bindkey '^xt'   anyframe-widget-tmux-attach
+bindkey '^x^t'  anyframe-widget-tmux-attach
+# anyframe-widgetから選んでそれを実行する
+bindkey '^xa'   anyframe-widget-select-widget
+bindkey '^x^a'  anyframe-widget-select-widget
+
+
+# ==============================
+# Alias
+# ==============================
 alias lst='ls -ltr'
 alias l='ls -ltr'
 alias la='ls -la'

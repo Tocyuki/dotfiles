@@ -50,7 +50,7 @@ NeoBundle 'tpope/vim-endwise'
 " 行末の半角スペース可視化
 NeoBundle 'bronson/vim-trailing-whitespace'
 " 閉じ括弧等の自動補完
-NeoBundle "kana/vim-smartinput"
+NeoBundle 'cohama/lexima.vim'
 " インデントに色を付けて見やすくする
 NeoBundle 'nathanaelkane/vim-indent-guides'
 " lua機能が有効になっている場合

@@ -8,6 +8,13 @@ if [ -d "$HOME/.rbenv" ]; then
   eval "$(rbenv init -)";
 fi
 
+# pyenv
+if [ -d "$HOME/.pyenv" ]; then
+  export PATH=$HOME/.pyenv/bin:$PATH;
+  export PYENV_ROOT=$HOME/.pyenv;
+  eval "$(pyenv init -)";
+fi
+
 ## golang
 export GOPATH=$HOME
 export PATH=$PATH:$GOPATH/bin

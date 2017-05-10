@@ -23,6 +23,8 @@ zplug "zplug/zplug"
 zplug "junegunn/fzf-bin", as:command, rename-to:"fzf", from:gh-r
 # 強化版cd
 zplug "b4b4r07/enhancd", use:init.sh
+# ウィンドウを大量に分割してコマンドの同時実行
+zplug "greymd/tmux-xpanes"
 
 
 # ==============================

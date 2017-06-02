@@ -52,7 +52,9 @@ NeoBundle 'bronson/vim-trailing-whitespace'
 " 閉じ括弧等の自動補完
 NeoBundle 'cohama/lexima.vim'
 " インデントに色を付けて見やすくする
-NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'nathanaelkane/vim-indent-guides'
+" インデントの可視化
+NeoBundle 'Yggdroot/indentLine'
 " lua機能が有効になっている場合
 if has('lua')
 " キーワード補完プラグイン

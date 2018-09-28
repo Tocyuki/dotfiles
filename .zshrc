@@ -21,6 +21,10 @@ zplug "Tocyuki/zsh_prompt_theme", as:theme
 zplug "zplug/zplug"
 # fzf
 zplug "junegunn/fzf-bin", as:command, rename-to:"fzf", from:gh-r
+# fzfによるtmux拡張
+zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
+# peco
+zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 # 強化版cd
 zplug "b4b4r07/enhancd", use:init.sh
 # ウィンドウを大量に分割してコマンドの同時実行
@@ -31,7 +35,7 @@ zplug "greymd/tmux-xpanes"
 # Configuration: Global
 # ==============================
 # 文字コードの指定
-export LANG=ja_JP.UTF-8
+# export LANG=ja_JP.UTF-8
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 # cdなしでディレクトリ移動

@@ -103,6 +103,8 @@ set backspace=indent,eol,start
 set wildmenu
 " コマンドヒストリー履歴数の設定
 set history=1000
+" 行末の余分なスペースを自動で削除する
+autocmd BufWritePre * :%s/\s\+$//ge
 
 
 "---------------------------------------------------

@@ -22,3 +22,4 @@ export PATH=$PATH:$GOPATH/bin
 # enhancd
 export ENHANCD_COMMAND=ecd
 export ENHANCD_FILTER=fzy:fzf:peco
+export PATH=/root/anaconda3/bin:$PATH

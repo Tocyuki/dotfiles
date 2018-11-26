@@ -16,7 +16,7 @@ zplug "plugins/git", from:oh-my-zsh
 # zshでpecoと連携するためのプラグイン
 zplug "mollifier/anyframe"
 # プロンプトテーマ
-zplug "Tocyuki/zsh_prompt_theme", as:theme
+zplug "dracula/zsh", as:theme
 # zplug
 zplug "zplug/zplug"
 # fzf
@@ -26,10 +26,9 @@ zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
 # peco
 zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
 # 強化版cd
-zplug "b4b4r07/enhancd", use:init.sh
+# zplug "b4b4r07/enhancd", use:init.sh
 # ウィンドウを大量に分割してコマンドの同時実行
 zplug "greymd/tmux-xpanes"
-
 
 # ==============================
 # Configuration: Global
@@ -44,6 +43,8 @@ setopt auto_cd
 setopt no_beep
 # ビープ音の停止(補完時)
 setopt nolistbeep
+# .zsh_historyに実行時刻を記録
+setopt extended_history
 # ヒストリ(履歴)を保存、数を増やす
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
@@ -59,7 +60,6 @@ setopt hist_reduce_blanks
 ## cdrコマンドを使えるようにする
 autoload -Uz add-zsh-hock
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-
 
 # ==============================
 # Plugin: Anyframe key bind
@@ -95,7 +95,6 @@ bindkey '^x^t'  anyframe-widget-tmux-attach
 bindkey '^xa'   anyframe-widget-select-widget
 bindkey '^x^a'  anyframe-widget-select-widget
 
-
 # ==============================
 # Alias
 # ==============================
@@ -104,7 +103,13 @@ alias l='ls -ltr'
 alias la='ls -la'
 alias ll='ls -l'
 alias ssh='TERM=xterm ssh'
+alias tmux='tmux -2'
 
+# ==============================
+# Environment variable
+# ==============================
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 
 # 未インストール項目をインストールする
 if ! zplug check --verbose; then

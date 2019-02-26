@@ -104,12 +104,21 @@ alias la='ls -la'
 alias ll='ls -l'
 alias ssh='TERM=xterm ssh'
 alias tmux='tmux -2'
+if [[ -e /usr/bin/nvim ]]; then
+  alias vim='nvim'
+fi
 
 # ==============================
 # Environment variable
 # ==============================
+# Golang
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+# Ruby
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+# dein.vim
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # 未インストール項目をインストールする
 if ! zplug check --verbose; then

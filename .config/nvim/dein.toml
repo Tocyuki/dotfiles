@@ -32,6 +32,10 @@ hook_add = '''
   source ~/.config/nvim/plugins/nerdtree.vim
 '''
 
+# Change Window Size
+[[plugins]]
+repo = 'simeji/winresizer'
+
 # ============================
 # Appearance
 # ============================
@@ -56,6 +60,10 @@ repo = 'Townk/vim-autoclose'
 # Auto Insert end for Ruby
 [[plugins]]
 repo = 'tpope/vim-endwise'
+
+# Give something that encloses the text
+[[plugins]]
+repo = 'tpope/vim-surround'
 
 # Commentout
 [[plugins]]
@@ -82,6 +90,8 @@ repo = 'roxma/vim-hug-neovim-rpc'
 repo = 'Shougo/neco-vim'
 [[plugins]]
 repo = 'Shougo/neco-syntax'
+[[plugins]]
+repo = 'ujihisa/neco-look'
 
 # Input Completion for Python
 [[plugins]]

@@ -33,3 +33,5 @@ nnoremap <C-l> <C-w>l
 " ウィンドウ分割ショートカット
 nnoremap vs :<C-u>vsplit<CR>
 nnoremap ss :<C-u>split<CR>
+" Terminal-Jobモードキーマップ
+tnoremap <Esc> <C-\><C-n>

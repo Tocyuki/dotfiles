@@ -11,14 +11,14 @@ repo = 'Shougo/neomru.vim'
 [[plugins]]
 repo = 'Shougo/denite.nvim'
 hook_add = '''
-  source ~/.config/nvim/plugins/denite.vim
+  source ~/.vim/dein/plugins/denite.vim
 '''
 
 # Search Count
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-anzu.vim
+  source ~/.vim/dein/plugins/vim-anzu.vim
 '''
 
 # Visualize Space
@@ -29,7 +29,7 @@ repo = 'bronson/vim-trailing-whitespace'
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
-  source ~/.config/nvim/plugins/nerdtree.vim
+  source ~/.vim/dein/plugins/nerdtree.vim
 '''
 
 # Change Window Size
@@ -43,7 +43,7 @@ repo = 'simeji/winresizer'
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-colors-solarized.vim
+  source ~/.vim/dein/plugins/vim-colors-solarized.vim
 '''
 
 # Status Bar
@@ -73,14 +73,14 @@ repo = 'tomtom/tcomment_vim'
 [[plugins]]
 repo = 'mattn/emmet-vim'
 hook_add = '''
-  source ~/.config/nvim/plugins/emmet-vim.vim
+  source ~/.vim/dein/plugins/emmet-vim.vim
 '''
 
 # Input Completion
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = '''
-  source ~/.config/nvim/plugins/deoplete.vim
+  source ~/.vim/dein/plugins/deoplete.vim
 '''
 [[plugins]]
 repo = 'roxma/nvim-yarp'
@@ -114,13 +114,12 @@ repo = 'w0rp/ale'
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 hook_add = '''
-  source ~/.config/nvim/plugins/fugitive.vim
+  source ~/.vim/dein/plugins/fugitive.vim
 '''
 
 # Visualize Change Line for Git
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-gitgutter.vim
+  source ~/.vim/dein/plugins/vim-gitgutter.vim
 '''
-

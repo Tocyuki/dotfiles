@@ -104,9 +104,6 @@ alias la='ls -la'
 alias ll='ls -l'
 alias ssh='TERM=xterm ssh'
 alias tmux='tmux -2'
-if [[ -e /usr/bin/nvim ]]; then
-  alias vim='nvim'
-fi
 
 # ==============================
 # Environment variable

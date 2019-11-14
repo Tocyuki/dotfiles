@@ -1,14 +1,14 @@
 # dotfiles
 ## 機能
-- NeoVim
+- Vim
 - tmux
 - Zsh
 
-## NeoVim
+## Vim
 ### プラグインマネージャ
 | プラグイン | 説明 |
 | --- | --- |
-| [Shougo/dein.vim](https://github.com/Shougo/dein.vim) | NeoVimのプラグインマネージャ |
+| [Shougo/dein.vim](https://github.com/Shougo/dein.vim) | Vimのプラグインマネージャ |
 | [Shougo/neomru.vim](https://github.com/Shougo/neomru.vim) | file_mru を使うためのプラグイン |
 
 ### 見た目

@@ -39,8 +39,6 @@
 | [tomtom/tcomment_vim](https://github.com/tomtom/tcomment_vim) | コメントアウトプラグイン |
 | [mattn/emmet-vim](https://github.com/mattn/emmet-vim) | HTML/CSSコーディング効率化プラグイン |
 | [Shougo/deoplete.nvim](https://github.com/Shougo/deoplete.nvim) | 非同期補完フレームワークプラグイン |
-| [roxma/nvim-yarp](https://github.com/roxma/nvim-yarp) | |
-| [roxma/vim-hug-neovim-rpc](https://github.com/roxma/vim-hug-neovim-rpc) | |
 | [Shougo/neco-vim](https://github.com/Shougo/neco-vim) | vimスクリプト補完プラグイン |
 | [Shougo/neco-syntax](https://github.com/Shougo/neco-syntax) | filetypeのsyntaxファイルの中にある記述を見て補完候補を追加するプラグイン |
 | [ujihisa/neco-look](https://github.com/ujihisa/neco-look) | 入力した文字列から始まる英単語を表示するプラグイン |

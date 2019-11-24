@@ -83,10 +83,6 @@ hook_add = '''
   source ~/.vim/dein/plugins/deoplete.vim
 '''
 [[plugins]]
-repo = 'roxma/nvim-yarp'
-[[plugins]]
-repo = 'roxma/vim-hug-neovim-rpc'
-[[plugins]]
 repo = 'Shougo/neco-vim'
 [[plugins]]
 repo = 'Shougo/neco-syntax'

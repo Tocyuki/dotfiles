@@ -106,6 +106,14 @@ alias ssh='TERM=xterm ssh'
 alias tmux='tmux -2'
 
 # ==============================
+# Custom Functions
+# ==============================
+stop-ec2-instance() {
+  InstanceId=$(aws ec2 describe-instances --profile $1 --filter "Name=tag:Name,Values=$2"| jq ".Reservations[].Instances[].InstanceId")
+  aws ec2 stop-instances --instance-ids $InstanceId
+}
+
+# ==============================
 # Environment variable
 # ==============================
 # Golang

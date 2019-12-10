@@ -63,6 +63,13 @@ repo = 'vim-airline/vim-airline-themes'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 
+# Indent
+[[plugins]]
+repo = 'Yggdroot/indentLine'
+hook_add = '''
+  source ~/.config/nvim/plugins/indentLine.vim
+'''
+
 # ============================
 # Coding Auxiliary
 # ============================

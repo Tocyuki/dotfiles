@@ -69,6 +69,12 @@ set wildmenu          " コマンドモードの補完
 autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 
 "---------------------------------------------------
+" Configration: Terminal
+"---------------------------------------------------
+autocmd TermOpen * setlocal norelativenumber
+autocmd TermOpen * setlocal nonumber
+
+"---------------------------------------------------
 " Configration: Indent
 "---------------------------------------------------
 set expandtab     " タブ入力時にスペースを入力する

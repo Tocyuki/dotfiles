@@ -40,6 +40,12 @@ hook_add = '''
   source ~/.config/nvim/plugins/fzf.vim
 '''
 
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+[[plugins]]
+repo = 'simeji/winresizer'
+
 # ============================
 # Appearance
 # ============================
@@ -49,6 +55,9 @@ repo = 'altercation/vim-colors-solarized'
 hook_add = '''
   source ~/.config/nvim/plugins/vim-colors-solarized.vim
 '''
+
+[[plugins]]
+repo = 'flazz/vim-colorschemes'
 
 # Status Bar
 [[plugins]]

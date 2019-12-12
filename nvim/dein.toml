@@ -41,9 +41,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'cespare/vim-toml'
-
-[[plugins]]
 repo = 'simeji/winresizer'
 
 # ============================
@@ -78,6 +75,10 @@ repo = 'Yggdroot/indentLine'
 hook_add = '''
   source ~/.config/nvim/plugins/indentLine.vim
 '''
+
+# Syntax Highlight
+[[plugins]]
+repo = 'cespare/vim-toml'
 
 # ============================
 # Coding Auxiliary

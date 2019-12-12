@@ -11,7 +11,7 @@
 
 
 readonly SCRIPT_DIR=$(cd $(dirname $0); pwd)
-readonly dotfiles='.zshrc .zshenv .vimrc .tmux.conf .gitconfig .config'
+readonly dotfiles='.zshrc .zshenv .vimrc .tmux.conf .gitconfig'
 
 for dotfile in $(echo $dotfiles)
 do
@@ -21,3 +21,12 @@ do
   ln -s $SCRIPT_DIR/$dotfile $HOME/$dotfile
 done
 
+if [ ! -e $HOME/.config ]; then
+  mkdir $HOME/.config
+fi
+
+if [ -e $HOME/.config/nvim ]; then
+  rm -f $HOME/.config/nvim
+fi
+
+ln -s $SCRIPT_DIR/nvim $HOME/.config/nvim

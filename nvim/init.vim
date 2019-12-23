@@ -46,7 +46,8 @@ set clipboard=unnamed                 " クリップボードへコピー
 set backspace=indent,eol,start        " バックスペースで特殊記号も削除可能に
 set wildmenu                          " CLモードで<Tab>キーによるファイル名補完を有効にする
 set history=10000                     " コマンドヒストリー履歴数の設定
-set splitright                        "画面を縦分割する際に右に開く
+set splitright                        " 画面を縦分割する際に右に開く
+set mouse=a                           " マウス操作を可能にする
 autocmd BufWritePre * :%s/\s\+$//ge   " 行末の余分なスペースを自動で削除する
 filetype plugin indent on             " ファイルタイプ別のVimプラグイン/インデントを有効にする
 
@@ -120,14 +121,6 @@ nnoremap <silent> bn :<C-u>bnext<CR>
 nnoremap <silent> bp :<C-u>bprev<CR>
 nnoremap <silent> bf :<C-u>bfirst<CR>
 nnoremap <silent> bl :<C-u>blast<CR>
-
-"---------------------------------------------------
-" Configration: Enable Mouse
-"---------------------------------------------------
-" マウスでカーソル移動やスクロール移動が出来るようにする
-if has('mouse')
-  set mouse=a
-endif
 
 "---------------------------------------------------
 " Configration: Paste from Clipboard

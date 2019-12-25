@@ -7,13 +7,6 @@ repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/neomru.vim'
 
-# Integration Interface
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-hook_add = '''
-  source ~/.config/nvim/plugins/denite.vim
-'''
-
 # Search Count
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
@@ -40,6 +33,7 @@ hook_add = '''
   source ~/.config/nvim/plugins/fzf.vim
 '''
 
+# Change Pane Size
 [[plugins]]
 repo = 'simeji/winresizer'
 
@@ -58,12 +52,10 @@ repo = 'flazz/vim-colorschemes'
 
 # Status Bar
 [[plugins]]
-repo = 'vim-airline/vim-airline'
+repo = 'itchyny/lightline.vim'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-airline.vim
+  source ~/.config/nvim/plugins/lightline.vim
 '''
-[[plugins]]
-repo = 'vim-airline/vim-airline-themes'
 
 # Icons
 [[plugins]]

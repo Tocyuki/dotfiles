@@ -30,3 +30,7 @@ if [ -e $HOME/.config/nvim ]; then
 fi
 
 ln -s $SCRIPT_DIR/nvim $HOME/.config/nvim
+
+if [ ! -e $HOME/.tmux/plugins/tpm ]; then
+  git clone https://github.com/tmux-plugins/tpm
+fi

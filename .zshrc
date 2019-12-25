@@ -121,6 +121,9 @@ alias tmux='tmux -2'
 if [[ -e /usr/local/bin/nvim ]]; then
   alias vim='nvim'
 fi
+if [[ -e /usr/local/bin/lazygit ]]; then
+  alias lg='lazygit'
+fi
 
 # 未インストール項目をインストールする
 if ! zplug check --verbose; then

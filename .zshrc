@@ -90,6 +90,26 @@ bindkey '^xa'   anyframe-widget-select-widget
 bindkey '^x^a'  anyframe-widget-select-widget
 
 # ==============================
+# Functions
+# ==============================
+function fzf-ec2(){
+  profile=$1
+  environment=$2
+  if [ $# -lt 1 ]; then
+    echo "Usage: fzf-ec2 <aws-profile> <environment-tag(optional)>"
+  elif [ -z $environment ]; then
+    aws ec2 describe-instances \
+      --profile ${profile} | \
+      jq -r '.Reservations[].Instances[].Tags[] | select(.Key == "Name").Value' | sort | fzf
+  else
+    aws ec2 describe-instances \
+      --filter "Name=tag-key,Values=Environment" "Name=tag-value,Values=${environment}" \
+      --profile ${profile} | \
+      jq -r '.Reservations[].Instances[].Tags[] | select(.Key == "Name").Value' | sort | fzf
+  fi
+}
+
+# ==============================
 # Alias
 # ==============================
 alias lst='ls -ltr'

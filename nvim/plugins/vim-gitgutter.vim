@@ -1,8 +1,8 @@
 set signcolumn=yes
 set updatetime=1000
 
-nnoremap [gitgutter] <Nop>
-nmap <C-h> [gitgutter]
-nmap [gitgutter]j <Plug>GitGutterNextHunk
-nmap [gitgutter]k <Plug>GitGutterPrevHunk
-nmap [gitgutter]u <Plug>GitGutterUndoHunk
+nmap ggs <Plug>(GitGutterPreviewHunk)
+nmap ggn <Plug>(GitGutterNextHunk)
+nmap ggp <Plug>(GitGutterPrevHunk)
+nmap ggu <Plug>(GitGutterUndoHunk)
+nmap ggh :GitGutterLineHighlightsToggle<CR>

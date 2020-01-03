@@ -120,6 +120,10 @@ repo = 'Vimjas/vim-python-pep8-indent'
 [[plugins]]
 repo = 'w0rp/ale'
 
+# Add surrounding character
+[[plugins]]
+repo = 'tpope/vim-surround'
+
 # ============================
 # Git
 # ============================

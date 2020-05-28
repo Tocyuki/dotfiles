@@ -1,2 +1,5 @@
 [core]
   editor = vim -c \"set fenc=utf-8\"
+[user]
+	name = Toshiyuki Kasai
+	email = tocguitar1@gmail.com

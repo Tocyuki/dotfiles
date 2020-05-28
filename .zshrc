@@ -93,20 +93,23 @@ bindkey '^x^a'  anyframe-widget-select-widget
 # Functions
 # ==============================
 function fzf-ec2(){
-  profile=$1
-  environment=$2
-  if [ $# -lt 1 ]; then
-    echo "Usage: fzf-ec2 <aws-profile> <environment-tag(optional)>"
-  elif [ -z $environment ]; then
-    aws ec2 describe-instances \
-      --profile ${profile} | \
-      jq -r '.Reservations[].Instances[].Tags[] | select(.Key == "Name").Value' | sort | fzf
-  else
-    aws ec2 describe-instances \
-      --filter "Name=tag-key,Values=Environment" "Name=tag-value,Values=${environment}" \
-      --profile ${profile} | \
-      jq -r '.Reservations[].Instances[].Tags[] | select(.Key == "Name").Value' | sort | fzf
+  if [ $1 -lt "-h" ]; then
+    echo "Usage: fzf-ec2 <aws-profile>"
+    exit 0
+  elif [ $# -eq 0 ]; then
+    profile="default"
   fi
+  aws --profile="$1" ec2 describe-instances --query \
+                          'sort_by(Reservations[].Instances[].{
+                            Z_LaunchTime:LaunchTime,B_InstanceId:InstanceId,
+                            A_NameTags:Tags[?Key==`Name`].Value|[0],
+                            C_InstanceType:InstanceType,
+                            D_State:State.Name,
+                            E_ExternalIP:PublicIpAddress,
+                            F_InternalIP:PrivateIpAddress,
+                            G_AZ:Placement.AvailabilityZone,
+                            H_Environment:Tags[?Key==`Environment`].Value|[0]},
+                            &Z_LaunchTime)' --output text | fzf
 }
 
 # ==============================

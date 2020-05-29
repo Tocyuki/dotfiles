@@ -1,59 +1,36 @@
-source ~/.zplug/init.zsh
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+  print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+  command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+  command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
 
 # ==============================
-# Plugin: zplug
+# Plugins
 # ==============================
-# zplug
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # 入力中のコマンドを履歴から推測し表示する
-zplug "zsh-users/zsh-autosuggestions"
+zinit light zsh-users/zsh-autosuggestions
 # 補完ファイルの提供
-zplug "zsh-users/zsh-completions"
+zinit light zsh-users/zsh-completions
 # zshのシンタックスハイライトプラグイン
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zinit light zsh-users/zsh-syntax-highlighting
 # zshのヒストリーサーチを便利にする
-zplug "zsh-users/zsh-history-substring-search"
-# oh-my-zshのgitコマンドエイリアスプラグイン
-zplug "plugins/git", from:oh-my-zsh
+zinit light zsh-users/zsh-history-substring-search
 # zshでpeco/pecol/fzfと連携するためのプラグイン
-zplug "mollifier/anyframe"
+zinit light mollifier/anyframe
 # プロンプトテーマ
-zplug "dracula/zsh", as:theme
-# fzf
-zplug "junegunn/fzf-bin", as:command, rename-to:"fzf", from:gh-r
-# fzfによるtmux拡張
-zplug "junegunn/fzf", as:command, use:bin/fzf-tmux
-# peco
-zplug "peco/peco", as:command, from:gh-r, use:"*amd64*"
+zinit light dracula/zsh
 # ウィンドウを大量に分割してコマンドの同時実行
-zplug "greymd/tmux-xpanes"
-# Gitリポジトリ管理
-zplug "motemen/ghq", from:gh-r, as:command, rename-to:ghq, lazy:true
-
-# ==============================
-# Configuration: Global
-# ==============================
-# 日本語ファイル名を表示可能にする
-setopt print_eight_bit
-# cdなしでディレクトリ移動
-setopt auto_cd
-# ビープ音の停止
-setopt no_beep
-# ビープ音の停止(補完時)
-setopt nolistbeep
-# .zsh_historyに実行時刻を記録
-setopt extended_history
-# 直前と同じコマンドの場合は履歴に追加しない
-setopt hist_ignore_dups
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
-# スペースから始まるコマンド行はヒストリに残さない
-setopt hist_ignore_space
-# ヒストリに保存するときに余分なスペースを削除する
-setopt hist_reduce_blanks
-## cdrコマンドを使えるようにする
-autoload -Uz add-zsh-hock
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+zinit light greymd/tmux-xpanes
+# oh-my-zshのgitコマンドエイリアスプラグイン
+zinit snippet OMZ::plugins/git/git.plugin.zsh
 
 # ==============================
 # Plugin: Anyframe key bind
@@ -90,27 +67,40 @@ bindkey '^xa'   anyframe-widget-select-widget
 bindkey '^x^a'  anyframe-widget-select-widget
 
 # ==============================
-# Functions
+# Configuration: Global
 # ==============================
-function fzf-ec2(){
-  if [ $1 -lt "-h" ]; then
-    echo "Usage: fzf-ec2 <aws-profile>"
-    exit 0
-  elif [ $# -eq 0 ]; then
-    profile="default"
-  fi
-  aws --profile="$1" ec2 describe-instances --query \
-                          'sort_by(Reservations[].Instances[].{
-                            Z_LaunchTime:LaunchTime,B_InstanceId:InstanceId,
-                            A_NameTags:Tags[?Key==`Name`].Value|[0],
-                            C_InstanceType:InstanceType,
-                            D_State:State.Name,
-                            E_ExternalIP:PublicIpAddress,
-                            F_InternalIP:PrivateIpAddress,
-                            G_AZ:Placement.AvailabilityZone,
-                            H_Environment:Tags[?Key==`Environment`].Value|[0]},
-                            &Z_LaunchTime)' --output text | fzf
-}
+# 日本語ファイル名を表示可能にする
+setopt print_eight_bit
+# cdなしでディレクトリ移動
+setopt auto_cd
+# ビープ音の停止
+setopt no_beep
+# ビープ音の停止(補完時)
+setopt nolistbeep
+# .zsh_historyに実行時刻を記録
+setopt extended_history
+# 直前と同じコマンドの場合は履歴に追加しない
+setopt hist_ignore_dups
+# 同じコマンドをヒストリに残さない
+setopt hist_ignore_all_dups
+# スペースから始まるコマンド行はヒストリに残さない
+setopt hist_ignore_space
+# ヒストリに保存するときに余分なスペースを削除する
+setopt hist_reduce_blanks
+# cdrコマンドを使えるようにする
+autoload -Uz add-zsh-hock
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+# 文字コード
+export LANG=ja_JP.UTF-8
+# ヒストリー設定
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+# Golangパス設定
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+# dein.vimパス設定
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # ==============================
 # Alias
@@ -121,22 +111,9 @@ alias la='ls -la'
 alias ll='ls -l'
 alias ssh='TERM=xterm ssh'
 alias tmux='tmux -2'
-if [[ -e /usr/local/bin/nvim ]]; then
-  alias vim='nvim'
-fi
-if [[ -e /usr/local/bin/lazygit ]]; then
+if [[ -e $(which lazygit) ]]; then
   alias lg='lazygit'
 fi
 
-# 未インストール項目をインストールする
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# コマンドをリンクして、PATH に追加し、プラグインは読み込む
-zplug load --verbose
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+

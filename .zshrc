@@ -69,6 +69,8 @@ bindkey '^x^a'  anyframe-widget-select-widget
 # ==============================
 # Configuration: Global
 # ==============================
+# 補完の有効化
+autoload -U compinit && compinit
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 # cdなしでディレクトリ移動

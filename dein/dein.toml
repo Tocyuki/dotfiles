@@ -1,6 +1,6 @@
-# ============================
+# ==============================
 # Global
-# ============================
+# ==============================
 # Plugin Manager
 [[plugins]]
 repo = 'Shougo/dein.vim'
@@ -11,7 +11,7 @@ repo = 'Shougo/neomru.vim'
 [[plugins]]
 repo = 'osyo-manga/vim-anzu'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-anzu.vim
+  source ~/.config/dein/plugins/vim-anzu.vim
 '''
 
 # Visualize Space
@@ -22,7 +22,7 @@ repo = 'bronson/vim-trailing-whitespace'
 [[plugins]]
 repo = 'scrooloose/nerdtree'
 hook_add = '''
-  source ~/.config/nvim/plugins/nerdtree.vim
+  source ~/.config/dein/plugins/nerdtree.vim
 '''
 [[plugins]]
 repo = 'junegunn/fzf'
@@ -30,21 +30,21 @@ build = './install --all'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 hook_add = '''
-  source ~/.config/nvim/plugins/fzf.vim
+  source ~/.config/dein/plugins/fzf.vim
 '''
 
 # Change Pane Size
 [[plugins]]
 repo = 'simeji/winresizer'
 
-# ============================
+# ==============================
 # Appearance
-# ============================
+# ==============================
 # Theme
 [[plugins]]
 repo = 'altercation/vim-colors-solarized'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-colors-solarized.vim
+  source ~/.config/dein/plugins/vim-colors-solarized.vim
 '''
 
 [[plugins]]
@@ -54,7 +54,7 @@ repo = 'flazz/vim-colorschemes'
 [[plugins]]
 repo = 'vim-airline/vim-airline'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-airline.vim
+  source ~/.config/dein/plugins/vim-airline.vim
 '''
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
@@ -67,55 +67,16 @@ repo = 'ryanoasis/vim-devicons'
 [[plugins]]
 repo = 'Yggdroot/indentLine'
 hook_add = '''
-  source ~/.config/nvim/plugins/indentLine.vim
+  source ~/.config/dein/plugins/indentLine.vim
 '''
 
 # Syntax Highlight
 [[plugins]]
 repo = 'cespare/vim-toml'
 
-# ============================
-# Coding Auxiliary
-# ============================
-# Auto Close
-[[plugins]]
-repo = 'Townk/vim-autoclose'
-
-# Auto Insert end for Ruby
-[[plugins]]
-repo = 'tpope/vim-endwise'
-
-# Commentout
-[[plugins]]
-repo = 'tomtom/tcomment_vim'
-
-# HTML/CSS Coding Auxiliary
-[[plugins]]
-repo = 'mattn/emmet-vim'
-hook_add = '''
-  source ~/.config/nvim/plugins/emmet-vim.vim
-'''
-
-# Input Completion
-[[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = '''
-  source ~/.config/nvim/plugins/deoplete.vim
-'''
-repo = 'Shougo/neco-vim'
-[[plugins]]
-repo = 'Shougo/neco-syntax'
-
-# Input Completion for Python
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-[[plugins]]
-repo = 'deoplete-plugins/deoplete-jedi'
-
-# Indent Auxiliary for Python
-[[plugins]]
-repo = 'Vimjas/vim-python-pep8-indent'
-
+# ==============================
+# Coding Auxiliary for Common
+# ==============================
 # Asynchronous Coding Check
 [[plugins]]
 repo = 'w0rp/ale'
@@ -124,20 +85,71 @@ repo = 'w0rp/ale'
 [[plugins]]
 repo = 'tpope/vim-surround'
 
-# ============================
+# Auto Close
+[[plugins]]
+repo = 'Townk/vim-autoclose'
+
+# Commentout
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+# Input Completion
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+hook_add = '''
+  source ~/.config/dein/plugins/deoplete.vim
+'''
+[[plugins]]
+repo = 'Shougo/neco-vim'
+[[plugins]]
+repo = 'Shougo/neco-syntax'
+
+# HTML/CSS Coding Auxiliary
+[[plugins]]
+repo = 'mattn/emmet-vim'
+hook_add = '''
+  source ~/.config/dein/plugins/emmet-vim.vim
+'''
+
+# ==============================
+# Coding Auxiliary
+# ==============================
+# All
+[[plugins]]
+repo = 'vim-syntastic/syntastic'
+
+# Ruby
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
+# Python
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+[[plugins]]
+repo = 'deoplete-plugins/deoplete-jedi'
+[[plugins]]
+repo = 'Vimjas/vim-python-pep8-indent'
+
+# Terraform
+[[plugins]]
+repo = 'hashivim/vim-terraform'
+[[plugins]]
+repo = 'juliosueiras/vim-terraform-completion'
+
+# ==============================
 # Git
-# ============================
+# ==============================
 # Git on Vim
 [[plugins]]
 repo = 'tpope/vim-fugitive'
 hook_add = '''
-  source ~/.config/nvim/plugins/fugitive.vim
+  source ~/.config/dein/plugins/fugitive.vim
 '''
 
 # Visualize Change Line for Git
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 hook_add = '''
-  source ~/.config/nvim/plugins/vim-gitgutter.vim
+  source ~/.config/dein/plugins/vim-gitgutter.vim
 '''
 

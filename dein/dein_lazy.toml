@@ -2,5 +2,5 @@
 repo = 'Shougo/deoplete.nvim'
 on_event = 'InsertEnter'
 hook_add = '''
-  source ~/.config/nvim/plugins/deoplete.vim
+  source ~/.config/dein/plugins/deoplete.vim
 '''

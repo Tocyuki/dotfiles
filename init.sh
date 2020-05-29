@@ -18,7 +18,7 @@ if [ $(uname) = "Linux" ]; then
   fi
 
     go get github.com/x-motemen/ghq
-elif [ $(uname) = "Drawin" ]; then
+elif [ $(uname) = "Darwin" ]; then
   brew update
   brew install vim
   brew install tmux

@@ -10,7 +10,7 @@ nnoremap <Leader>h :History<CR>
 " vim command history
 nnoremap <Leader>H :History:<CR>
 " git ls-files result
-nnoremap <Leader>f :GFiles<CR>
+nnoremap <Leader>g :GFiles<CR>
 " git status result
 nnoremap <Leader>s :GFiles?<CR>
 " line in loaded buffer

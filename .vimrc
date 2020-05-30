@@ -123,8 +123,8 @@ nnoremap <silent> bl :<C-u>blast<CR>
 " ==============================
 " Configration: Clipboard
 " ==============================
-set clipboard+=unnamed                " クリップボードへコピー
-set clipboard+=autoselect             "
+set clipboard+=unnamed    " クリップボードへコピー
+set clipboard+=autoselect "
 " クリップボードからペーストする時だけインデントしないようにする
 if &term =~ "xterm"
   let &t_SI .= "\e[?2004h"

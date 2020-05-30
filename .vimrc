@@ -81,6 +81,7 @@ set smartindent   " 新しい行のインデントを現在行と同じ量にす
 set tabstop=2     " Tabの表示幅
 set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set shiftwidth=2  " インデント幅設定
+retab 2           " タブとスペースを変換
 
 " ==============================
 " Configration: Searching

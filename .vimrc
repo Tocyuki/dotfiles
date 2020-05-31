@@ -1,28 +1,62 @@
 " ==============================
 " Configration: dein.vim
 " ==============================
-if &compatible
-  set nocompatible
-endif
+" dein.vim settings {{{
+" install dir {{{
+let s:dein_dir = expand('~/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+" }}}
 
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-  call dein#load_toml('~/.config/dein/dein.toml', {'lazy': 0})
-  call dein#load_toml('~/.config/dein/dein_lazy.toml', {'lazy': 1})
+" dein installation check {{{
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . s:dein_repo_dir
+endif
+" }}}
+
+" begin settings {{{
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
+
+  " .toml file
+  let s:rc_dir = expand('~/.config/dein')
+  if !isdirectory(s:rc_dir)
+    call mkdir(s:rc_dir, 'p')
+  endif
+  let s:toml = s:rc_dir . '/dein.toml'
+  let s:toml_lazy = s:rc_dir . '/dein_lazy.toml'
+
+  " for vim
   if !has('nvim')
     call dein#add('roxma/nvim-yarp')
     call dein#add('roxma/vim-hug-neovim-rpc')
   endif
+
+  " read toml and cache
+  call dein#load_toml(s:toml, {'lazy': 0})
+  call dein#load_toml(s:toml_lazy, {'lazy': 1})
+
+  " end settings
   call dein#end()
   call dein#save_state()
 endif
+" }}}
 
+" plugin installation check {{{
 if dein#check_install()
   call dein#install()
 endif
+" }}}
 
-filetype plugin indent on
+" plugin remove check {{{
+let s:removed_plugins = dein#check_clean()
+if len(s:removed_plugins) > 0
+  call map(s:removed_plugins, "delete(v:val, 'rf')")
+  call dein#recache_runtimepath()
+endif
+" }}}
 
 " ==============================
 " Configration: Encoding Charactor
@@ -37,6 +71,10 @@ set ambiwidth=double                          " □や○文字が崩れる問�
 " ==============================
 " Configration: Basics
 " ==============================
+filetype plugin indent on
+if &compatible
+  set nocompatible
+endif
 set noswapfile                        " swapファイルを作成しない
 set scrolloff=5                       " スクロール時の余白確保
 set textwidth=0                       " 一行に長い文章を書いていても自動折り返しをしない

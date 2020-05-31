@@ -103,6 +103,8 @@ hook_add = '''
 repo = 'Shougo/neco-vim'
 [[plugins]]
 repo = 'Shougo/neco-syntax'
+[[plugins]]
+repo = 'ujihisa/neco-look'
 
 # HTML/CSS Coding Auxiliary
 [[plugins]]
@@ -114,6 +116,10 @@ hook_add = '''
 # Syntax check
 [[plugins]]
 repo = 'vim-syntastic/syntastic'
+
+# Replacement preview
+[[plugins]]
+repo = 'markonm/traces.vim'
 
 # ==============================
 # Coding Auxiliary for Language

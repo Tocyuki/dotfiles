@@ -42,12 +42,6 @@ repo = 'simeji/winresizer'
 # ==============================
 # Theme
 [[plugins]]
-repo = 'altercation/vim-colors-solarized'
-hook_add = '''
-  source ~/.config/dein/plugins/vim-colors-solarized.vim
-'''
-
-[[plugins]]
 repo = 'flazz/vim-colorschemes'
 
 # Status Bar
@@ -94,17 +88,29 @@ repo = 'Townk/vim-autoclose'
 repo = 'tomtom/tcomment_vim'
 
 # Input Completion
+# [[plugins]]
+# repo = 'Shougo/deoplete.nvim'
+# hook_add = '''
+#   source ~/.config/dein/plugins/deoplete.vim
+# '''
+# [[plugins]]
+# repo = 'Shougo/neco-vim'
+# [[plugins]]
+# repo = 'Shougo/neco-syntax'
+# [[plugins]]
+# repo = 'ujihisa/neco-look'
+
+# Input Completion
 [[plugins]]
-repo = 'Shougo/deoplete.nvim'
-hook_add = '''
-  source ~/.config/dein/plugins/deoplete.vim
-'''
+repo = 'prabirshrestha/async.vim'
 [[plugins]]
-repo = 'Shougo/neco-vim'
+repo = 'prabirshrestha/asyncomplete.vim'
 [[plugins]]
-repo = 'Shougo/neco-syntax'
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
 [[plugins]]
-repo = 'ujihisa/neco-look'
+repo = 'prabirshrestha/vim-lsp'
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
 
 # HTML/CSS Coding Auxiliary
 [[plugins]]

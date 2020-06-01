@@ -95,7 +95,8 @@ filetype plugin indent on             " ファイルタイプ別のVimプラグ�
 " ==============================
 " Configration: Apperance
 " ==============================
-syntax enable         " シンタックスハイライトを有効にする
+syntax on
+colorscheme railscasts
 set title             " ウインドウのタイトルバーにファイルのパス情報等を表示する
 set showcmd           " 入力中のコマンドを表示する
 set showmatch         " 括弧の対応をハイライト
@@ -174,4 +175,11 @@ if &term =~ "xterm"
 
   inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
 endif
+
+" ==============================
+" Configration: Terminal
+" ==============================
+" 開く時下に開く
+set splitbelow
+set termwinsize=15x0
 

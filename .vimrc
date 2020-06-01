@@ -106,7 +106,6 @@ set lazyredraw        " コマンド実行中は再描画しない
 set ttyfast           " 高速ターミナル接続を行う
 set cursorcolumn      " 横カーソルラインを表示
 set cursorline        " 横カーソルラインを表示
-set wildmenu          " コマンドモードの補完
 " アンダーラインを引く(color terminal)
 autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
 
@@ -119,7 +118,6 @@ set smartindent   " 新しい行のインデントを現在行と同じ量にす
 set tabstop=2     " Tabの表示幅
 set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set shiftwidth=2  " インデント幅設定
-retab 2           " タブとスペースを変換
 
 " ==============================
 " Configration: Searching

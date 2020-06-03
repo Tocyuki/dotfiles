@@ -1,7 +1,6 @@
 " ==============================
 " Configration: dein.vim
 " ==============================
-" dein.vim settings {{{
 " install dir {{{
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -61,9 +60,8 @@ endif
 " ==============================
 " Configration: Encoding Charactor
 " ==============================
-set encoding=utf-8                            " 文字コードをUTF-8に設定
 scriptencoding utf-8                          " スクリプトファイルの文字コードをUTF-8に設定
-set fileencoding=utf-8                        " 保存時の文字コード
+set encoding=utf-8                            " 文字コードをUTF-8に設定
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac                  " 改行コードの自動判別. 左側が優先される
 set ambiwidth=double                          " □や○文字が崩れる問題を解決
@@ -75,6 +73,7 @@ filetype plugin indent on
 if &compatible
   set nocompatible
 endif
+set ambiwidth=single
 set noswapfile                        " swapファイルを作成しない
 set scrolloff=5                       " スクロール時の余白確保
 set textwidth=0                       " 一行に長い文章を書いていても自動折り返しをしない
@@ -107,8 +106,7 @@ set lazyredraw        " コマンド実行中は再描画しない
 set ttyfast           " 高速ターミナル接続を行う
 set cursorcolumn      " 横カーソルラインを表示
 set cursorline        " 横カーソルラインを表示
-" アンダーラインを引く(color terminal)
-autocmd ColorScheme * highlight CursorLine cterm=underline ctermfg=NONE ctermbg=NONE
+set splitbelow        " Terminalを下に開く
 
 " ==============================
 " Configration: Indent
@@ -127,11 +125,9 @@ set incsearch   " インクリメンタルサーチ １文字入力毎に検索�
 set ignorecase  " 検索パターンに大文字小文字を区別しない
 set smartcase   " 検索パターンに大文字を含んでいたら大文字小文字を区別する
 set hlsearch    " 検索結果をハイライト
-" ESCキー2度押しでハイライトの切り替え
-nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
 
 " ==============================
-" Configration: Window Operation Shortcut
+" Configration: Window Operation
 " ==============================
 " Vimのキーバインドでウィンドウ間を移動
 nnoremap <C-h> <C-w>h
@@ -161,7 +157,7 @@ nnoremap <silent> bl :<C-u>blast<CR>
 " Configration: Clipboard
 " ==============================
 set clipboard+=unnamed    " クリップボードへコピー
-set clipboard+=autoselect "
+set clipboard+=autoselect
 " クリップボードからペーストする時だけインデントしないようにする
 if &term =~ "xterm"
   let &t_SI .= "\e[?2004h"
@@ -177,9 +173,15 @@ if &term =~ "xterm"
 endif
 
 " ==============================
-" Configration: Terminal
+" Configration: Keymap
 " ==============================
-" 開く時下に開く
-set splitbelow
-set termwinsize=15x0
+let g:mapleader = "\<Space>"
+" Space + w で保存
+nnoremap <Leader>w :w<CR>
+" ESCキー2度押しでハイライトの切り替え
+nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
+" Lazygitの起動
+nnoremap lg :tab term ++close lazygit<CR>
+" スペース + . でvimrcを開く
+nnoremap <Leader>. :new ~/.vimrc<CR>
 

@@ -19,6 +19,9 @@ if [ $(uname) = "Linux" ]; then
   fi
 
     go get github.com/x-motemen/ghq
+    go get -d github.com/skanehira/docui
+    cd $GOPATH/src/github.com/skanehira/docui
+    GO111MODULE=on go install
 elif [ $(uname) = "Darwin" ]; then
   brew update
   brew install vim
@@ -32,6 +35,8 @@ elif [ $(uname) = "Darwin" ]; then
   brew install docker
   brew cask install docker
   brew cask install font-inconsolatalgc-nerd-font
+  brew tap skanehira/docui
+  brew install docui
 else
   echo "This is unsupported OS!! You can use it only Ubuntu or Mac OSX."
   exit 1

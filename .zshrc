@@ -94,6 +94,7 @@ autoload -Uz add-zsh-hock
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 # 文字コード
 export LANG=ja_JP.UTF-8
+export LC_CTYPE=en_US.UTF-8
 # ヒストリー設定
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000

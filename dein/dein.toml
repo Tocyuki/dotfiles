@@ -42,6 +42,8 @@ repo = 'simeji/winresizer'
 # ==============================
 # Theme
 [[plugins]]
+repo = 'jpo/vim-railscasts-theme'
+[[plugins]]
 repo = 'flazz/vim-colorschemes'
 
 # Status Bar

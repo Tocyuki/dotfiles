@@ -64,7 +64,8 @@ scriptencoding utf-8                          " スクリプトファイルの�
 set encoding=utf-8                            " 文字コードをUTF-8に設定
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac                  " 改行コードの自動判別. 左側が優先される
-set ambiwidth=double                          " □や○文字が崩れる問題を解決
+set ambiwidth=single                          " lazygitを開いた時に表示が崩れる問題の対応
+" set ambiwidth=double                          " □や○文字が崩れる問題を解決
 
 " ==============================
 " Configration: Basics
@@ -73,7 +74,6 @@ filetype plugin indent on
 if &compatible
   set nocompatible
 endif
-set ambiwidth=single
 set noswapfile                        " swapファイルを作成しない
 set scrolloff=5                       " スクロール時の余白確保
 set textwidth=0                       " 一行に長い文章を書いていても自動折り返しをしない
@@ -127,33 +127,6 @@ set smartcase   " 検索パターンに大文字を含んでいたら大文字�
 set hlsearch    " 検索結果をハイライト
 
 " ==============================
-" Configration: Window Operation
-" ==============================
-" Vimのキーバインドでウィンドウ間を移動
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-" 画面縦分割
-nnoremap vs :<C-u>vsplit<CR>
-nnoremap ss :<C-u>split<CR>
-" タブ操作
-nnoremap <silent> tf :<C-u>tabfirst<CR>
-nnoremap <silent> tl :<C-u>tablast<CR>
-nnoremap <silent> tn :<C-u>tabnext<CR>
-nnoremap <silent> tN :<C-u>tabNext<CR>
-nnoremap <silent> tp :<C-u>tabprevious<CR>
-nnoremap <silent> te :<C-u>tabedit<CR>
-nnoremap <silent> tc :<C-u>tabclose<CR>
-nnoremap <silent> to :<C-u>tabonly<CR>
-nnoremap <silent> ts :<C-u>tabs<CR>
-" バッファ操作
-nnoremap <silent> bn :<C-u>bnext<CR>
-nnoremap <silent> bp :<C-u>bprev<CR>
-nnoremap <silent> bf :<C-u>bfirst<CR>
-nnoremap <silent> bl :<C-u>blast<CR>
-
-" ==============================
 " Configration: Clipboard
 " ==============================
 set clipboard+=unnamed    " クリップボードへコピー
@@ -188,4 +161,28 @@ nnoremap du :tab term ++close docui<CR>
 nnoremap <Leader>. :new ~/.vimrc<CR>
 " スペース + t でTerminalを開く
 nnoremap <Leader>t :term ++close<CR>
+" Vimのキーバインドでウィンドウ間を移動
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" 画面縦分割
+nnoremap vs :<C-u>vsplit<CR>
+" 画面横分割
+nnoremap ss :<C-u>split<CR>
+" タブ操作
+nnoremap <silent> tf :<C-u>tabfirst<CR>
+nnoremap <silent> tl :<C-u>tablast<CR>
+nnoremap <silent> tn :<C-u>tabnext<CR>
+nnoremap <silent> tN :<C-u>tabnew<CR>
+nnoremap <silent> tp :<C-u>tabprevious<CR>
+nnoremap <silent> te :<C-u>tabedit<CR>
+nnoremap <silent> tc :<C-u>tabclose<CR>
+nnoremap <silent> to :<C-u>tabonly<CR>
+nnoremap <silent> ts :<C-u>tabs<CR>
+" バッファ操作
+nnoremap <silent> bn :<C-u>bnext<CR>
+nnoremap <silent> bp :<C-u>bprev<CR>
+nnoremap <silent> bf :<C-u>bfirst<CR>
+nnoremap <silent> bl :<C-u>blast<CR>
 

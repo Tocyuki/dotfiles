@@ -29,7 +29,11 @@ command! FZFMru call fzf#run({
 nnoremap <Leader>r :FZFMru<CR>
 
 " custom file finder
+" command! FZFFileList call fzf#run({
+"             \ 'source': 'find . -type d -name .git -prune -o ! -name .DS_Store',
+"             \ 'sink': 'e'})
 command! FZFFileList call fzf#run({
-            \ 'source': 'find . -type d -name .git -prune -o ! -name .DS_Store',
+            \ 'source': 'ag --hidden --ignore .git -g ""',
             \ 'sink': 'e'})
 nnoremap <Leader>f :FZFFileList<CR>
+

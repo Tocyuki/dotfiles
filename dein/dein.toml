@@ -29,6 +29,7 @@ repo = 'junegunn/fzf'
 build = './install --all'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
+merged = 0
 hook_add = '''
   source ~/.config/dein/plugins/fzf.vim
 '''
@@ -36,6 +37,10 @@ hook_add = '''
 # Change Pane Size
 [[plugins]]
 repo = 'simeji/winresizer'
+
+# Google Translate
+[[plugins]]
+repo = 'skanehira/translate.vim'
 
 # ==============================
 # Appearance
@@ -73,6 +78,10 @@ repo = 'cespare/vim-toml'
 # ==============================
 # Coding Auxiliary for Common
 # ==============================
+# Snipet
+[[plugins]]
+repo = 'SirVer/ultisnips'
+
 # Asynchronous Coding Check
 [[plugins]]
 repo = 'w0rp/ale'
@@ -88,19 +97,6 @@ repo = 'Townk/vim-autoclose'
 # Commentout
 [[plugins]]
 repo = 'tomtom/tcomment_vim'
-
-# Input Completion
-# [[plugins]]
-# repo = 'Shougo/deoplete.nvim'
-# hook_add = '''
-#   source ~/.config/dein/plugins/deoplete.vim
-# '''
-# [[plugins]]
-# repo = 'Shougo/neco-vim'
-# [[plugins]]
-# repo = 'Shougo/neco-syntax'
-# [[plugins]]
-# repo = 'ujihisa/neco-look'
 
 # Input Completion
 [[plugins]]
@@ -129,6 +125,18 @@ repo = 'vim-syntastic/syntastic'
 [[plugins]]
 repo = 'markonm/traces.vim'
 
+# Make markdown table
+[[plugins]]
+repo = 'mattn/vim-maketable'
+
+# Markdown Preview
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+build = '''
+cd app & yarn install
+'''
+
 # ==============================
 # Coding Auxiliary for Language
 # ==============================
@@ -138,17 +146,7 @@ repo = 'tpope/vim-endwise'
 
 # Python
 [[plugins]]
-repo = 'davidhalter/jedi-vim'
-[[plugins]]
-repo = 'deoplete-plugins/deoplete-jedi'
-[[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
-
-# Terraform
-[[plugins]]
-repo = 'hashivim/vim-terraform'
-[[plugins]]
-repo = 'juliosueiras/vim-terraform-completion'
 
 # ==============================
 # Git

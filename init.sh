@@ -20,7 +20,7 @@ if [ $(uname) = "Linux" ]; then
 
     go get github.com/x-motemen/ghq
     go get -d github.com/skanehira/docui
-    cd $GOPATH/src/github.com/skanehira/docui
+    cd ${GOPATH}/src/github.com/skanehira/docui
     GO111MODULE=on go install
 elif [ $(uname) = "Darwin" ]; then
   brew update
@@ -64,4 +64,8 @@ if [ ! -d ${HOME}/.config/dein ]; then
   mkdir ${HOME}/.config
   ln -s $(cd $(dirname $0); pwd)/dein ${HOME}/.config/dein
 fi
+
+go get -d github.com/skanehira/gtran
+cd ${GOPATH}/src/github.com/skanehira/gtran
+GO111MODULE=on go install
 

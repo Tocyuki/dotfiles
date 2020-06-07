@@ -25,7 +25,7 @@ if dein#load_state(s:dein_dir)
     call mkdir(s:rc_dir, 'p')
   endif
   let s:toml = s:rc_dir . '/dein.toml'
-  let s:toml_lazy = s:rc_dir . '/dein_lazy.toml'
+  " let s:toml_lazy = s:rc_dir . '/dein_lazy.toml'
 
   " for vim
   if !has('nvim')
@@ -35,7 +35,7 @@ if dein#load_state(s:dein_dir)
 
   " read toml and cache
   call dein#load_toml(s:toml, {'lazy': 0})
-  call dein#load_toml(s:toml_lazy, {'lazy': 1})
+  " call dein#load_toml(s:toml_lazy, {'lazy': 1})
 
   " end settings
   call dein#end()
@@ -70,7 +70,8 @@ set ambiwidth=single                          " lazygitを開いた時に表示�
 " ==============================
 " Configration: Basics
 " ==============================
-filetype plugin indent on
+autocmd BufWritePre * :%s/\s\+$//ge   " 行末の余分なスペースを自動で削除する
+filetype plugin indent on             " ファイルタイプ別のVimプラグイン/インデントを有効にする
 if &compatible
   set nocompatible
 endif
@@ -88,8 +89,10 @@ set wildmenu                          " CLモードで<Tab>キーによるファ
 set history=10000                     " コマンドヒストリー履歴数の設定
 set splitright                        " 画面を縦分割する際に右に開く
 set mouse=a                           " マウス操作を可能にする
-autocmd BufWritePre * :%s/\s\+$//ge   " 行末の余分なスペースを自動で削除する
-filetype plugin indent on             " ファイルタイプ別のVimプラグイン/インデントを有効にする
+set virtualedit=block                 " 矩形選択でテキストがないところを選択できるようにする
+set helplang=ja                       " ヘルプの表示を日本語優先にする
+set autowrite                         " 他のバッファに移動する際に自動保存する
+set shell=fish                        " Default shellをfishにする
 
 " ==============================
 " Configration: Apperance
@@ -107,6 +110,9 @@ set ttyfast           " 高速ターミナル接続を行う
 set cursorcolumn      " 横カーソルラインを表示
 set cursorline        " 横カーソルラインを表示
 set splitbelow        " Terminalを下に開く
+set laststatus=2      " ステータスラインを表示
+set showtabline=2     " タブを常に表示
+set t_Co=256
 
 " ==============================
 " Configration: Indent
@@ -146,9 +152,25 @@ if &term =~ "xterm"
 endif
 
 " ==============================
+" Configration: Undo
+" ==============================
+if has('persistent_undo')
+  let undo_path = expand('~/.vim/undo')
+  if !isdirectory(undo_path)
+    call mkdir(undo_path, 'p')
+  endif
+  let &undodir = undo_path
+  set undofile
+endif
+
+" ==============================
 " Configration: Keymap
 " ==============================
 let g:mapleader = "\<Space>"
+" kill buffer
+nnoremap <Leader>k :bd<CR>
+" カーソル下の単語を置換後の文字を入力するだけの状態にする
+nnoremap <Leader>d :%s;\<<C-R><C-W>\>;g<Left><Left>;
 " Space + w で保存
 nnoremap <Leader>w :w<CR>
 " ESCキー2度押しでハイライトの切り替え
@@ -157,8 +179,8 @@ nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
 nnoremap lg :tab term ++close lazygit<CR>
 " docuiの起動
 nnoremap du :tab term ++close docui<CR>
-" スペース + . でvimrcを開く
-nnoremap <Leader>. :new ~/.vimrc<CR>
+" スペース + , でvimrcを開く
+nnoremap <Leader>, :new ~/.vimrc<CR>
 " スペース + t でTerminalを開く
 nnoremap <Leader>t :term ++close<CR>
 " Vimのキーバインドでウィンドウ間を移動

@@ -1,5 +1,8 @@
 [core]
   editor = vim -c \"set fenc=utf-8\"
 [user]
-	name = Toshiyuki Kasai
-	email = tocguitar1@gmail.com
+  name = Toshiyuki Kasai
+  email = tocguitar1@gmail.com
+[ghq]
+  root = ~/.ghq
+  root = ~/.go/src

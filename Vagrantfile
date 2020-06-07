@@ -7,6 +7,6 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :shell, inline: <<-EOT
     cd /vagrant
-    sh init.sh
+    sh setup.sh
   EOT
 end

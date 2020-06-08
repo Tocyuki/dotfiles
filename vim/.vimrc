@@ -98,7 +98,7 @@ set shell=fish                        " Default shellをfishにする
 " Configration: Apperance
 " ==============================
 syntax on
-colorscheme railscasts
+colorscheme iceberg   " Vimカラースキーム設定
 set title             " ウインドウのタイトルバーにファイルのパス情報等を表示する
 set showcmd           " 入力中のコマンドを表示する
 set showmatch         " 括弧の対応をハイライト

@@ -47,8 +47,6 @@ repo = 'skanehira/translate.vim'
 # ==============================
 # Theme
 [[plugins]]
-repo = 'jpo/vim-railscasts-theme'
-[[plugins]]
 repo = 'flazz/vim-colorschemes'
 
 # Status Bar

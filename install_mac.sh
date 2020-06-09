@@ -38,6 +38,12 @@ sh ${SCRIPT_DIR}/tmux/setup.sh
 
 echo
 echo "=============================="
+echo "Install gibo"
+echo "=============================="
+brew install gibo
+
+echo
+echo "=============================="
 echo "Install Golang"
 echo "=============================="
 brew install go

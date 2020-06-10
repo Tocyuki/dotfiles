@@ -3,6 +3,9 @@ set -e
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 
+brew tap homebrew/cask-fonts
+brew cask install font-inconsolatalgc-nerd-font
+
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 
 fish -C "fisher add jethrokuan/z"
@@ -15,4 +18,3 @@ fish -C "fisher add decors/fish-ghq"
 
 chsh -s $(which fish)
 exit 0
-

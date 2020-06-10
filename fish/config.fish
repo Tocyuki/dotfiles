@@ -27,4 +27,3 @@ alias gdc='git diff (git log --pretty=oneline | fzf | awk "{print \$1}")'
 
 # use vi mode in fish
 fish_vi_key_bindings
-

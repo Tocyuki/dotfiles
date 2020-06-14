@@ -6,3 +6,7 @@ My dotfiles
 - tmux
 - fish
 
+## Supported OS
+- Mac
+- Ubuntu
+

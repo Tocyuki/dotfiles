@@ -10,3 +10,8 @@ My dotfiles
 - Mac
 - Ubuntu
 
+## Usage
+### Installation
+```
+$ sh setup.sh
+```

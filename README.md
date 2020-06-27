@@ -17,3 +17,6 @@ $ git clone https://github.com/Tocyuki/dotfiles.git
 $ cd dotfiles
 $ sh setup.sh
 ```
+
+## Author
+- [Tocyuki](https://twitter.com/Tocyuki)

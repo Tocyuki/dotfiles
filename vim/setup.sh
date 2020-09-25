@@ -10,11 +10,11 @@ if [ ! -d ${HOME}/.cache/dein ]; then
   rm -f /tmp/installer.sh
 fi
 
-git clone https://github.com/skanehira/gtran.git
-cd gtran
+git clone https://github.com/skanehira/gtran.git /tmp/gtran
+cd /tmp/gtran
 go install
 cd ..
-rm -rf gtran
+rm -rf /tmp/gtran
 
 [ -d ${HOME}/.config/dein -o -L ${HOME}/.config/dein ] && rm -rf ${HOME}/.config/dein
 [ ! -L ${HOME}/.config/dein ] && ln -s ${SCRIPT_DIR}/dein ${HOME}/.config/dein

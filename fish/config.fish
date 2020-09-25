@@ -24,6 +24,7 @@ alias gd='git diff'
 alias gl='git log'
 alias gc='git checkout .'
 alias gdc='git diff (git log --pretty=oneline | fzf | awk "{print \$1}")'
+alias idea='idea (ghq root)/(ghq list | fzf)'
 
 # use vi mode in fish
 fish_vi_key_bindings

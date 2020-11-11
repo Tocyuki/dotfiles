@@ -13,6 +13,7 @@ set -x LSCOLORS gxfxcxdxbxegedabagacad
 set -x EDITOR vim
 set -x LC_CTYPE "en_US.UTF-8"
 set -x GO111MODULE auto
+set -x DOCKER_CONTENT_TRUST 1
 set -g theme_display_git_ahead_verbose yes
 set -g theme_nerd_fonts yes
 
@@ -22,9 +23,7 @@ alias ll='ls -lahG'
 alias gs='git status'
 alias gd='git diff'
 alias gl='git log'
+alias glog='git log --oneline'
 alias gc='git checkout .'
-alias gdc='git diff (git log --pretty=oneline | fzf | awk "{print \$1}")'
-alias idea='idea (ghq root)/(ghq list | fzf)'
+alias gdc='git diff (git log --oneline | fzf | awk "{print \$1}")'
 
-# use vi mode in fish
-fish_vi_key_bindings

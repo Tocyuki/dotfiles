@@ -38,10 +38,6 @@ hook_add = '''
 [[plugins]]
 repo = 'simeji/winresizer'
 
-# Google Translate
-[[plugins]]
-repo = 'skanehira/translate.vim'
-
 # ==============================
 # Appearance
 # ==============================

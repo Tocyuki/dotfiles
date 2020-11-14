@@ -10,17 +10,14 @@ if [ ! -d ${HOME}/.cache/dein ]; then
   rm -f /tmp/installer.sh
 fi
 
-git clone https://github.com/skanehira/gtran.git /tmp/gtran
-cd /tmp/gtran
-go install
-cd ..
-rm -rf /tmp/gtran
-
 [ -d ${HOME}/.config/dein -o -L ${HOME}/.config/dein ] && rm -rf ${HOME}/.config/dein
 [ ! -L ${HOME}/.config/dein ] && ln -s ${SCRIPT_DIR}/dein ${HOME}/.config/dein
 
 [ -e ${HOME}/.vimrc -o -L ${HOME}/.vimrc ] && rm -rf ${HOME}/.vimrc
 [ ! -L ${HOME}/.vimrc ] && ln -s ${SCRIPT_DIR}/.vimrc ${HOME}/.vimrc
+
+[ -e ${HOME}/.ideavimrc -o -L ${HOME}/.ideavimrc ] && rm -rf ${HOME}/.ideavimrc
+[ ! -L ${HOME}/.ideavimrc ] && ln -s ${SCRIPT_DIR}/.ideavimrc ${HOME}/.ideavimrc
 
 exit 0
 

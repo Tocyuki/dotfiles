@@ -1,0 +1,17 @@
+set surround
+set multiple-cursors
+set commentary
+set easymotion
+set ideajoin
+
+nnoremap == :action ReformatCode<CR>
+vnoremap == :action ReformatCode<CR>
+
+nnoremap vs :<C-u>vsplit<CR>
+nnoremap ss :<C-u>split<CR>
+nnoremap <C-n> :<C-u>tabnext<CR>
+nnoremap <C-p> :<C-u>tabprevious<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l

@@ -10,12 +10,11 @@ set -x FZF_DEFAULT_COMMAND "ag -g ."
 set -x FZF_DEFAULT_COMMAND 'ag --hidden --ignore .git -g ""'
 set -x TERM xterm-256color
 set -x LSCOLORS gxfxcxdxbxegedabagacad
-set -x EDITOR vim
 set -x LC_CTYPE "en_US.UTF-8"
 set -x GO111MODULE auto
 set -x DOCKER_CONTENT_TRUST 1
 set -g theme_display_git_ahead_verbose yes
-set -g theme_nerd_fonts yes
+set -g theme_show_exit_status yes
 
 # alias
 alias lg="lazygit"
@@ -25,5 +24,5 @@ alias gd='git diff'
 alias gl='git log'
 alias glog='git log --oneline'
 alias gc='git checkout .'
-alias gdc='git diff (git log --oneline | fzf | awk "{print \$1}")'
+alias gdo='git diff (git log --oneline | fzf | awk "{print \$1}")'
 

@@ -36,8 +36,6 @@ text="Install fish & fisher"
 decoration
 if [ $OS_TYPE == "Darwin" ]; then
   brew install fish
-  brew cask install font-inconsolatalgc-nerd-font
-  brew cask install fonts-powerline
 elif [ $OS_TYPE == "Linux" ]; then
   apt-add-repository -y ppa:fish-shell/release-3
   apt-get install -y fish

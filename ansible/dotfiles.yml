@@ -1,0 +1,95 @@
+---
+# ==============================
+# fish
+# ==============================
+- name: register fish command path
+  command: which fish
+  register: fish_command_path
+
+- name: add fish to /etc/shells
+  lineinfile:
+    dest: /etc/shells
+    line: "{{ fish_command_path.stdout}}"
+  become: yes
+  when: ansible_os_family == "Darwin"
+  tags:
+    - fish
+
+- name: change default shell to fish
+  command: chsh -s {{ fish_command_path.stdout }}
+  become: yes
+  tags:
+    - fish
+
+- name: cretate .config directory
+  file:
+    path: ~/.config/fish/functions
+    state: directory
+    mode: 0755
+  tags:
+    - fish
+
+- name: install fisher
+  get_url:
+    url: https://git.io/fisher
+    dest: ~/.config/fish/functions/fisher.fish
+  tags:
+    - fish
+
+- name: install fish plugins
+  command: fish -C "fisher install {{ item }}"
+  loop:
+    - jorgebucaran/fisher
+    - jethrokuan/z
+    - oh-my-fish/theme-bobthefish
+    - jethrokuan/fzf
+    - decors/fish-ghq
+    - edc/bass
+  tags:
+    - fish
+
+# ==============================
+# vim
+# ==============================
+- name: get dein.vim installer
+  get_url:
+    url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
+    dest: ~/installer.sh
+    mode: 0755
+  tags:
+    - vim
+
+- name: install dein.vim
+  shell: sh ~/installer.sh ~/.cache/dein
+  tags:
+    - vim
+
+# ==============================
+# tmux
+# ==============================
+- name: install tpm
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+  tags:
+    - tmux
+
+# ==============================
+# dotfiles
+# ==============================
+- name: copy dotfiles
+  copy:
+    src: ../{{ item.file }}
+    dest: ~/{{ item.dest }}
+  loop:
+    - { file: ".gitconfig", dest: "~/" }
+    - { file: ".vimrc", dest: "~/" }
+    - { file: ".ideavimrc", dest: "~/" }
+    - { file: ".tmux.conf", dest: "~/" }
+    - { file: "dein", dest: "~/.config" }
+    - { file: "config.fish", dest: "~/.config/fish" }
+  tags:
+    - dotfiles
+    - vim
+    - tmux
+    - fish

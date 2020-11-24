@@ -2,7 +2,8 @@
 My dotfiles
 
 ## Feature
-- Vim
+- some development tools
+- vim
 - tmux
 - fish
 
@@ -15,6 +16,5 @@ My dotfiles
 ```
 $ git clone https://github.com/Tocyuki/dotfiles.git
 $ cd dotfiles
-$ sh setup.sh
+$ make deploy
 ```
-

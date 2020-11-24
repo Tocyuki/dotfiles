@@ -26,7 +26,6 @@ hook_add = '''
 '''
 [[plugins]]
 repo = 'junegunn/fzf'
-build = './install --all'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 merged = 0
@@ -64,8 +63,6 @@ repo = 'Yggdroot/indentLine'
 hook_add = '''
   source ~/.config/dein/plugins/indentLine.vim
 '''
-[[plugins]]
-repo = 'cohama/lexima.vim'
 
 # Syntax Highlight for TOML
 [[plugins]]
@@ -96,15 +93,11 @@ repo = 'tomtom/tcomment_vim'
 
 # Input Completion
 [[plugins]]
-repo = 'prabirshrestha/async.vim'
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-[[plugins]]
-repo = 'mattn/vim-lsp-settings'
+repo = 'neoclide/coc.nvim'
+rev = 'release'
+on_i = 1
+merged = '0'
+hook_source = 'call coil398#init#coc#hook_source()'
 
 # HTML/CSS Coding Auxiliary
 [[plugins]]
@@ -133,6 +126,10 @@ build = '''
 cd app & yarn install
 '''
 
+# Auto close parentheses
+[[plugins]]
+repo = 'cohama/lexima.vim'
+
 # ==============================
 # Coding Auxiliary for Language
 # ==============================
@@ -143,13 +140,6 @@ repo = 'tpope/vim-endwise'
 # Python
 [[plugins]]
 repo = 'Vimjas/vim-python-pep8-indent'
-
-# Terraform
-[[plugins]]
-repo = 'hashivim/vim-terraform'
-hook_add = '''
-  source ~/.config/dein/plugins/vim-terraform.vim
-'''
 
 # fish
 [[plugins]]

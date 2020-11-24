@@ -172,8 +172,8 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
 " Lazygitの起動
 nnoremap lg :tab term ++close lazygit<CR>
-" docuiの起動
-nnoremap du :tab term ++close docui<CR>
+" Lazydockerの起動
+nnoremap ld :tab term ++close lazydocker<CR>
 " スペース + , でvimrcを開く
 nnoremap <Leader>, :new ~/.vimrc<CR>
 " スペース + t でTerminalを開く
@@ -202,4 +202,3 @@ nnoremap <silent> bn :<C-u>bnext<CR>
 nnoremap <silent> bp :<C-u>bprev<CR>
 nnoremap <silent> bf :<C-u>bfirst<CR>
 nnoremap <silent> bl :<C-u>blast<CR>
-

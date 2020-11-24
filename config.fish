@@ -15,9 +15,13 @@ set -x GO111MODULE auto
 set -x DOCKER_CONTENT_TRUST 1
 set -g theme_display_git_ahead_verbose yes
 set -g theme_show_exit_status yes
+set -g theme_date_timezone Asia/Tokyo
+set -U FZF_LEGACY_KEYBINDINGS 0
+set --universal theme_nerd_fonts yes
 
 # alias
 alias lg="lazygit"
+alias ld="lazydocker"
 alias ll='ls -lahG'
 alias gs='git status'
 alias gd='git diff'

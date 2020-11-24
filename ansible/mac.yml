@@ -1,0 +1,28 @@
+---
+- name: install brew packages
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+    update_homebrew: yes
+  loop:
+    - git
+    - fish
+    - vim
+    - tmux
+    - docker
+    - lazygit
+    - lazydocker
+    - go
+    - nodejs
+    - ghq
+    - ag
+    - fzf
+    - awscli
+    - github/gh/gh
+    - tree
+    - curl
+    - htop
+    - yarn
+    - watch
+  tags:
+    - package

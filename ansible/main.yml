@@ -1,0 +1,14 @@
+---
+- hosts: localhost
+  tasks:
+    - name: install packages for mac
+      import_tasks: mac.yml
+      when: ansible_os_family == "Darwin"
+
+    - name: install packages for mac
+      import_tasks: ubuntu.yml
+      when: ansible_os_family == "Debian"
+      become: yes
+
+    - name: setup dotfiles
+      import_tasks: dotfiles.yml

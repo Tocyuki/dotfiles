@@ -4,14 +4,21 @@ set commentary
 set easymotion
 set ideajoin
 
+nnoremap <Space>t :action ActivateTerminalToolWindow<CR>
 nnoremap == :action ReformatCode<CR>
 vnoremap == :action ReformatCode<CR>
 
+" 画面縦分割
 nnoremap vs :<C-u>vsplit<CR>
+" 画面横分割
 nnoremap ss :<C-u>split<CR>
+" タブ移動
 nnoremap <C-n> :<C-u>tabnext<CR>
 nnoremap <C-p> :<C-u>tabprevious<CR>
+" Vimのキーバインドでウィンドウ間を移動
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" ウィンドウ閉じる
+nnoremap <Space>k :q<CR>

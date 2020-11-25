@@ -29,4 +29,5 @@ alias gl='git log'
 alias glog='git log --oneline'
 alias gc='git checkout .'
 alias gdo='git diff (git log --oneline | fzf | awk "{print \$1}")'
+alias k="kubectl"
 

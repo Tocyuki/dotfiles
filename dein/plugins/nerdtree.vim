@@ -1,4 +1,4 @@
-map <C-t> :NERDTreeToggle<CR>
+map <Space>e :NERDTreeToggle<CR>
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▼'
 let g:NERDTreeShowBookmarks=1

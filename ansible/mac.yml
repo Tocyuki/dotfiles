@@ -25,6 +25,7 @@
     - yarn
     - watch
     - tfenv
+    - tflint
   tags:
     - package
 
@@ -48,6 +49,7 @@
     - virtualbox
     - vagrant
     - visual-studio-code
+    - intellij-idea
   tags:
     - package
 

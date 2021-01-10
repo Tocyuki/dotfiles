@@ -4,9 +4,15 @@ set commentary
 set easymotion
 set ideajoin
 
-nnoremap <Space>t :action ActivateTerminalToolWindow<CR>
+" コードフォーマット
 nnoremap == :action ReformatCode<CR>
 vnoremap == :action ReformatCode<CR>
+" ターミナル開く
+nnoremap <Space>t :action ActivateTerminalToolWindow<CR>
+nnoremap <Space>f :action ActivateFindToolWindow<CR>
+nnoremap <Space>e :action ActivateProjectToolWindow<CR>
+" ウィンドウ閉じる
+nnoremap <Space>k :q<CR>
 
 " 画面縦分割
 nnoremap vs :<C-u>vsplit<CR>
@@ -20,5 +26,4 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" ウィンドウ閉じる
-nnoremap <Space>k :q<CR>
+

@@ -2,7 +2,7 @@
 - name: install brew packages
   homebrew:
     name: "{{ item }}"
-    state: latest
+    state: present
     update_homebrew: yes
   loop:
     - git
@@ -26,3 +26,25 @@
     - watch
   tags:
     - package
+
+- name: add tap repository
+  homebrew_tap:
+    tap: homebrew/cask-fonts
+    state: present
+  tags:
+    - package
+
+- name: install cask packages
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    install_options: force
+  loop:
+    - alfred
+    - docker
+    - font-hack-nerd-font
+    - visual-studio-code
+    - google-chrome
+  tags:
+    - package
+

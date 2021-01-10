@@ -177,7 +177,7 @@ nnoremap ld :tab term ++close lazydocker<CR>
 " スペース + , でvimrcを開く
 nnoremap <Leader>, :new ~/.vimrc<CR>
 " スペース + t でTerminalを開く
-nnoremap <Leader>t :term ++close<CR>
+nnoremap <Leader>t :term ++close ++rows=20<CR>
 " Vimのキーバインドでウィンドウ間を移動
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

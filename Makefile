@@ -1,8 +1,6 @@
 init.mac:
 	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	@brew tap homebrew/cask-fonts
-	@brew install --cask font-hack-nerd-font
-	@brew install ansible
+	@brew install ansible@2.8
 
 deploy:
 	@ansible-playbook -i localhost, -c local ansible/main.yml -K

@@ -12,7 +12,7 @@
 - name: install apt packages
   apt:
     name: "{{ item }}"
-    state: latest
+    state: present
     update_cache: yes
   loop:
     - git

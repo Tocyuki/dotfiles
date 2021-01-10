@@ -43,8 +43,10 @@
     - alfred
     - docker
     - font-hack-nerd-font
-    - visual-studio-code
     - google-chrome
+    - virtualbox
+    - vagrant
+    - visual-studio-code
   tags:
     - package
 

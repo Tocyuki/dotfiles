@@ -81,7 +81,7 @@
 - name: copy dotfiles
   copy:
     src: ../{{ item.file }}
-    dest: ~/{{ item.dest }}
+    dest: "{{ item.dest }}"
   loop:
     - { file: ".gitconfig", dest: "~/" }
     - { file: ".vimrc", dest: "~/" }
@@ -91,6 +91,4 @@
     - { file: "config.fish", dest: "~/.config/fish" }
   tags:
     - dotfiles
-    - vim
-    - tmux
-    - fish
+

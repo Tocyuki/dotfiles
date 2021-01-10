@@ -1,5 +1,7 @@
 #!/bin/bash
 
+OS_TYPE=`uname`
+
 usage()
 {
 cat << _EOT_

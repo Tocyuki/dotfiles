@@ -37,7 +37,7 @@
     - package
 
 - name: install cask packages
-  homebrew_cask:
+  community.general.homebrew_cask:
     name: "{{ item }}"
     state: present
     install_options: force

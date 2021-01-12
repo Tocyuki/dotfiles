@@ -8,7 +8,8 @@ help: ## Print this help
 
 init: ## Install homebrew & ansible
 	@/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	@brew install ansible@2.8
+	@brew install ansible
+	@ansible-galaxy collection install community.general
 
 deploy: ## Deploy all playbook
 	@ansible-playbook -i localhost, -c local ansible/main.yml -K

@@ -50,6 +50,7 @@
     - vagrant
     - visual-studio-code
     - intellij-idea
+    - deepl
   tags:
     - package
 

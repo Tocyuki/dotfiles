@@ -26,11 +26,23 @@
     - watch
     - tfenv
     - tflint
+    - driftctl
+    - gpg
   tags:
     - package
 
 - name: install poetry
   shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+  tags:
+    - package
+
+- name: install pip module
+  pip:
+    name: "{{ item }}"
+  loop:
+    - pep8
+    - flake8
+    - pylint
   tags:
     - package
 

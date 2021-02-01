@@ -31,18 +31,20 @@
   tags:
     - package
 
-- name: install poetry
-  shell: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-  tags:
-    - package
-
 - name: install pip module
   pip:
     name: "{{ item }}"
+    executable: pip3
   loop:
     - pep8
     - flake8
     - pylint
+    - poetry
+  tags:
+    - package
+
+- name: add poetry auto complete
+  shell: poetry completions fish > ~/.config/fish/completions/poetry.fish
   tags:
     - package
 
@@ -67,7 +69,6 @@
     - vagrant
     - visual-studio-code
     - intellij-idea
-    - deepl
   tags:
     - package
 

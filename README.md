@@ -9,12 +9,16 @@ My dotfiles
 
 ## Supported OS
 - Mac
-- Ubuntu
 
-## Usage
+## Run
 ### Installation
 ```
 $ git clone https://github.com/Tocyuki/dotfiles.git
 $ cd dotfiles
 $ make deploy
+```
+
+### Usage
+```
+$ make help
 ```

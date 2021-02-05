@@ -171,9 +171,9 @@ nnoremap <Leader>w :w<CR>
 " ESCキー2度押しでハイライトの切り替え
 nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
 " Lazygitの起動
-nnoremap lg :tab term ++close lazygit<CR>
+nnoremap lzg :tab term ++close lazygit<CR>
 " Lazydockerの起動
-nnoremap ld :tab term ++close lazydocker<CR>
+nnoremap lzd :tab term ++close lazydocker<CR>
 " スペース + , でvimrcを開く
 nnoremap <Leader>, :new ~/.vimrc<CR>
 " スペース + t でTerminalを開く

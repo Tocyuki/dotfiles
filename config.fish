@@ -35,3 +35,6 @@ alias gc='git checkout .'
 alias gdo='git diff (git log --oneline | fzf | awk "{print \$1}")'
 alias k="kubectl"
 
+# github cli auto complete
+eval (gh completion -s fish| source)
+

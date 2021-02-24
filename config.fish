@@ -1,4 +1,5 @@
 # env
+set -x EDITOR idea
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x LANG "en_US.UTF-8"
 set -x HOMEBREW_INSTALL_CLEANUP 1
@@ -34,7 +35,15 @@ alias glog='git log --oneline'
 alias gc='git checkout .'
 alias gdo='git diff (git log --oneline | fzf | awk "{print \$1}")'
 alias k="kubectl"
+alias ghw='gh repo view -w (ghq list | fzf)'
 
 # github cli auto complete
 eval (gh completion -s fish| source)
+
+# github cli function
+function ghcr
+  gh repo create $argv
+  ghq get $argv[1]
+  $EDITOR (ghq list --full-path -e $argv[1])
+end
 

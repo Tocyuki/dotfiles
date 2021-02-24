@@ -89,6 +89,7 @@
     - { file: ".tmux.conf", dest: "~/" }
     - { file: "dein", dest: "~/.config" }
     - { file: "config.fish", dest: "~/.config/fish" }
+    - { file: "coc-settings.json", dest: "~/.vim" }
   tags:
     - dotfiles
 

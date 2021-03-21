@@ -1,4 +1,4 @@
-[![Check for Mac](https://github.com/Tocyuki/dotfiles/actions/workflows/mac.yml/badge.svg)](https://github.com/Tocyuki/dotfiles/actions/workflows/mac.yml)
+[![Test](https://github.com/Tocyuki/dotfiles/actions/workflows/test.yml/badge.svg)](https://github.com/Tocyuki/dotfiles/actions/workflows/test.yml)
 
 # dotfiles
 

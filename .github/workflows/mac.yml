@@ -13,8 +13,14 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: initialize
-        run: make init
+      - name: install homebrew
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - name: install ansible
+        run: brew install ansible
+
+      - name: install collection with ansible galaxy
+        run: ansible-galaxy collection install community.general
 
       - name: deploy
-        run: make deploy
+        run: ansible-playbook -i localhost, -c local ansible/main.yml -K

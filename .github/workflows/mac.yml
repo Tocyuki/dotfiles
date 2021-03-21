@@ -1,4 +1,4 @@
-name: Check for Mac
+name: Mac OS
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-11.0
+    runs-on: macos-latest
 
     steps:
       - name: checkout

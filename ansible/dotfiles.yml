@@ -35,7 +35,6 @@
 - name: install fish plugins
   command: fish -C "fisher install {{ item }}"
   loop:
-    - ilancosman/tide
     - jethrokuan/z
     - oh-my-fish/theme-bobthefish
     - jethrokuan/fzf

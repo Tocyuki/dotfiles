@@ -24,8 +24,10 @@ repo = 'scrooloose/nerdtree'
 hook_add = '''
   source ~/.config/dein/plugins/nerdtree.vim
 '''
+
 [[plugins]]
 repo = 'junegunn/fzf'
+
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 merged = 0
@@ -150,6 +152,13 @@ repo = 'dag/vim-fish'
 repo = 'hashivim/vim-hashicorp-tools'
 hook_add = '''
   source ~/.config/dein/plugins/vim-hashicorp-tools.vim
+'''
+
+# json
+[[plugins]]
+repo = 'elzr/vim-json'
+hook_add = '''
+  source ~/.config/dein/plugins/vim-json.vim
 '''
 
 # ==============================

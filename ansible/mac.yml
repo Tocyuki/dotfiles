@@ -20,14 +20,12 @@
     - awscli
     - github/gh/gh
     - tree
-    - curl
     - htop
     - yarn
     - watch
     - tfenv
     - tflint
     - driftctl
-    - gpg
   tags:
     - package
 
@@ -44,6 +42,7 @@
     - package
 
 - name: add poetry auto complete
+  ignore_errors: true
   shell: poetry completions fish > ~/.config/fish/completions/poetry.fish
   tags:
     - package

@@ -1,56 +1,173 @@
 " ==============================
-" Configration: dein.vim
+" Configration: vim-plug
 " ==============================
-" install dir
-let s:dein_dir = expand('~/.cache/dein')
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+" vim-plugがインストールされてなかったら自動でインストールする
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+endif
 
-" dein installation check
-if &runtimepath !~# '/dein.vim'
-  if !isdirectory(s:dein_repo_dir)
-    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+call plug#begin('~/.vim/plugged')
+  Plug 'bronson/vim-trailing-whitespace'
+  Plug 'simeji/winresizer'
+  Plug 'flazz/vim-colorschemes'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'Townk/vim-autoclose'
+  Plug 'tomtom/tcomment_vim'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'dag/vim-fish'
+  Plug 'cespare/vim-toml'
+  Plug 'tpope/vim-surround'
+  Plug 'markonm/traces.vim'
+  Plug 'vim-jp/vimdoc-ja'
+
+  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'Yggdroot/indentLine'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'mattn/emmet-vim'
+  Plug 'tpope/vim-endwise'
+  Plug 'elzr/vim-json'
+  Plug 'tpope/vim-fugitive'
+  Plug 'hashivim/vim-terraform'
+call plug#end()
+
+let mapleader = "\<Space>"
+set helplang=ja
+
+" ==============================
+" Plugin: vim-terraform
+" ==============================
+let g:terraform_align = 1
+let g:terraform_fmt_on_save = 1
+let g:terraform_binary_path = "/usr/local/bin/terraform"
+
+" ==============================
+" Plugin: fzf
+" ==============================
+" buffer list
+nnoremap <Leader>b :Buffers<CR>
+" vim command history
+nnoremap <Leader>C :Commands<CR>
+" git commits info
+nnoremap <Leader>c :Commits<CR>
+" opened file history
+nnoremap <Leader>h :History<CR>
+" vim command history
+nnoremap <Leader>H :History:<CR>
+" ls -a result
+nnoremap <Leader>f :Files<CR>
+" git ls-files result
+nnoremap <Leader>g :GFiles<CR>
+" git status result
+nnoremap <Leader>s :GFiles?<CR>
+" line in loaded buffer
+nnoremap <Leader>l :Lines<CR>
+" ag search result
+nnoremap <Leader>a :Ag<CR>
+
+" ==============================
+" Plugin: NERDTree
+" ==============================
+map <Leader>e :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
+let g:NERDTreeShowBookmarks = 1
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeIgnore = ['\.git$', '\.clean$', '\.swp$', '\.bak$', '\~$']
+
+" ==============================
+" Plugin: vim-devicons
+" ==============================
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+
+" ==============================
+" Plugin: indentLine
+" ==============================
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#708090'
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_fileTypeExclude = ['help', 'nerdtree']
+
+" ==============================
+" Plugin: Vim Airline
+" ==============================
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_powerline_fonts = 1
+nmap <C-n> <Plug>AirlineSelectNextTab
+nmap <C-p> <Plug>AirlineSelectPrevTab
+
+" ==============================
+" Plugin: vim-json
+" ==============================
+let g:vim_json_syntax_conceal = 0
+
+" ==============================
+" Plugin: emmet-vim
+" ==============================
+" ショートカット設定
+let g:user_emmet_expandabbr_key = '<c-e>'
+" lang設定をjaになるよう設定
+let g:user_emmet_settings = {'variables': {'lang' : 'ja'}}
+
+" ==============================
+" Plugin: fugitive
+" ==============================
+nmap <C-g> [fugitive]
+" git checkout [FILE_NAME]
+nnoremap <silent> [fugitive]r :Gread<CR>
+nnoremap <silent> [fugitive]b :Gblame<CR>
+
+" ==============================
+" Plugin: coc-vim
+" ==============================
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap <silent> <Space><Space> :<C-u>CocList<cr>
+let g:coc_global_extensions = [
+  \  'coc-yank'
+  \, 'coc-json'
+  \, 'coc-yaml'
+  \, 'coc-toml'
+  \, 'coc-markdownlint'
+  \, 'coc-cfn-lint'
+  \, 'coc-stylelintplus'
+  \, 'coc-spell-checker'
+  \, 'coc-fzf-preview'
+  \, 'coc-tsserver'
+  \, 'coc-snippets'
+  \, 'coc-prettier'
+  \, 'coc-pairs'
+  \, 'coc-fzf-preview'
+  \, 'coc-explorer'
+  \, 'coc-rust-analyzer'
+  \, 'coc-html'
+  \, 'coc-phpls'
+  \, 'coc-python'
+  \, 'coc-sh'
+  \, 'coc-vimlsp'
+  \, 'coc-sql'
+  \, 'coc-go'
+  \, ]
+nnoremap <silent> <Leader>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
   endif
-  execute 'set runtimepath^=' . s:dein_repo_dir
-endif
-
-" begin settings
-if dein#load_state(s:dein_dir)
-  call dein#begin(s:dein_dir)
-
-  " .toml file
-  let s:rc_dir = expand('~/.config/dein')
-  if !isdirectory(s:rc_dir)
-    call mkdir(s:rc_dir, 'p')
-  endif
-  let s:toml = s:rc_dir . '/dein.toml'
-  " let s:toml_lazy = s:rc_dir . '/dein_lazy.toml'
-
-  " for vim
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
-
-  " read toml and cache
-  call dein#load_toml(s:toml, {'lazy': 0})
-  " call dein#load_toml(s:toml_lazy, {'lazy': 1})
-
-  " end settings
-  call dein#end()
-  call dein#save_state()
-endif
-
-" plugin installation check
-if dein#check_install()
-  call dein#install()
-endif
-
-" plugin remove check
-let s:removed_plugins = dein#check_clean()
-if len(s:removed_plugins) > 0
-  call map(s:removed_plugins, "delete(v:val, 'rf')")
-  call dein#recache_runtimepath()
-endif
+endfunction
 
 " ==============================
 " Configration: Encoding Charactor
@@ -70,24 +187,25 @@ filetype plugin indent on             " ファイルタイプ別のVimプラグ�
 if &compatible
   set nocompatible
 endif
-set noswapfile                        " swapファイルを作成しない
-set scrolloff=5                       " スクロール時の余白確保
-set textwidth=0                       " 一行に長い文章を書いていても自動折り返しをしない
-set autoread                          " 他で書き換えられたら自動で読み直す
-set hidden                            " 編集中でも他のファイルを開けるようにする
-set formatoptions=lmoq                " テキスト整形オプション、マルチバイト系を追加
-set showcmd                           " コマンドをステータス行に表示
-set showmode                          " 現在のモードを表示
-set nobackup                          " バックアップ取らない
-set backspace=indent,eol,start        " バックスペースで特殊記号も削除可能に
-set wildmenu                          " CLモードで<Tab>キーによるファイル名補完を有効にする
-set history=10000                     " コマンドヒストリー履歴数の設定
-set splitright                        " 画面を縦分割する際に右に開く
-set mouse=a                           " マウス操作を可能にする
-set virtualedit=block                 " 矩形選択でテキストがないところを選択できるようにする
-set helplang=ja                       " ヘルプの表示を日本語優先にする
-set autowrite                         " 他のバッファに移動する際に自動保存する
-set shell=fish                        " Default shellをfishにする
+set noswapfile                 " swapファイルを作成しない
+set scrolloff=5                " スクロール時の余白確保
+set textwidth=0                " 一行に長い文章を書いていても自動折り返しをしない
+set autoread                   " 他で書き換えられたら自動で読み直す
+set hidden                     " 編集中でも他のファイルを開けるようにする
+set formatoptions=lmoq         " テキスト整形オプション、マルチバイト系を追加
+set showcmd                    " コマンドをステータス行に表示
+set showmode                   " 現在のモードを表示
+set nobackup                   " バックアップ取らない
+set nowritebackup              "
+set backspace=indent,eol,start " バックスペースで特殊記号も削除可能に
+set wildmenu                   " CLモードで<Tab>キーによるファイル名補完を有効にする
+set history=10000              " コマンドヒストリー履歴数の設定
+set splitright                 " 画面を縦分割する際に右に開く
+set mouse=a                    " マウス操作を可能にする
+set virtualedit=block          " 矩形選択でテキストがないところを選択できるようにする
+set helplang=ja                " ヘルプの表示を日本語優先にする
+set autowrite                  " 他のバッファに移動する際に自動保存する
+set shell=fish                 " Default shellをfishにする
 
 " ==============================
 " Configration: Apperance
@@ -161,21 +279,16 @@ endif
 " ==============================
 " Configration: Keymap
 " ==============================
-let g:mapleader = "\<Space>"
 " kill buffer
 nnoremap <Leader>k :bd<CR>
 " カーソル下の単語を置換後の文字を入力するだけの状態にする
 nnoremap <Leader>d :%s;\<<C-R><C-W>\>;g<Left><Left>;
-" Space + w で保存
-nnoremap <Leader>w :w<CR>
 " ESCキー2度押しでハイライトの切り替え
-nnoremap <Esc><Esc> :<C-u>set nohlsearch!<CR>
+nnoremap <Esc><Esc> :set nohlsearch!<CR>
 " Lazygitの起動
 nnoremap lzg :tab term ++close lazygit<CR>
 " Lazydockerの起動
 nnoremap lzd :tab term ++close lazydocker<CR>
-" スペース + , でvimrcを開く
-nnoremap <Leader>, :new ~/.vimrc<CR>
 " スペース + t でTerminalを開く
 nnoremap <Leader>t :term ++close ++rows=20<CR>
 " Vimのキーバインドでウィンドウ間を移動

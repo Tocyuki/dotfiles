@@ -1,5 +1,5 @@
 "スペース2回でCocList
-nmap <silent> <space><space> :<C-u>CocList<cr>
+nmap <silent> <shift><shift> :<C-u>CocList<cr>
 "スペースhでHover
 nmap <silent> <space>ch :<C-u>call CocAction('doHover')<cr>
 "スペースdfでDefinition
@@ -11,6 +11,8 @@ nmap <silent> <space>crn <Plug>(coc-rename)
 "スペースfmtでFormat
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
+highlight CocErrorSign ctermfg=15 ctermbg=196
+highlight CocWarningSign ctermfg=0 ctermbg=172
 " Remap for rename current word
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -27,6 +29,8 @@ endfunction<space>fmt <Plug>(coc-format)
 let g:coc_global_extensions = [
   \  'coc-yank'
   \, 'coc-json'
+  \, 'coc-yaml'
+  \, 'coc-fzf-preview'
   \, 'coc-tsserver'
   \, 'coc-snippets'
   \, 'coc-prettier'
@@ -34,5 +38,8 @@ let g:coc_global_extensions = [
   \, 'coc-fzf-preview'
   \, 'coc-explorer'
   \, 'coc-rust-analyzer'
-  \, 'coc-python'
+  \, 'coc-python',
+  \, 'coc-sh',
+  \, 'coc-sql',
+  \, 'coc-go'
   \, ]

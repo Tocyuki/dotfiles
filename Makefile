@@ -20,9 +20,6 @@ package: ## Install require packages
 fish: ## Install fish
 	@ansible-playbook -i localhost, -c local ansible/main.yml -K --tags fish
 
-vim: ## Install vim
-	@ansible-playbook -i localhost, -c local ansible/main.yml --tags vim
-
 tmux: ## Install tmux
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags tmux
 

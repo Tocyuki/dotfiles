@@ -17,7 +17,7 @@
   tags:
     - fish
 
-- name: cretate .config directory
+- name: create .config directory
   file:
     path: ~/.config/fish/functions
     state: directory
@@ -35,31 +35,14 @@
 - name: install fish plugins
   command: fish -C "fisher install {{ item }}"
   loop:
-    - jorgebucaran/fisher
+    - ilancosman/tide
     - jethrokuan/z
     - oh-my-fish/theme-bobthefish
     - jethrokuan/fzf
     - decors/fish-ghq
-    - edc/bass
     - evanlucas/fish-kubectl-completions
   tags:
     - fish
-
-# ==============================
-# vim
-# ==============================
-- name: get dein.vim installer
-  get_url:
-    url: https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
-    dest: ~/installer.sh
-    mode: 0755
-  tags:
-    - vim
-
-- name: install dein.vim
-  shell: sh ~/installer.sh ~/.cache/dein
-  tags:
-    - vim
 
 # ==============================
 # tmux
@@ -83,7 +66,6 @@
     - { file: ".vimrc", dest: "~/" }
     - { file: ".ideavimrc", dest: "~/" }
     - { file: ".tmux.conf", dest: "~/" }
-    - { file: "dein", dest: "~/.config" }
     - { file: "config.fish", dest: "~/.config/fish" }
     - { file: "coc-settings.json", dest: "~/.vim" }
   tags:

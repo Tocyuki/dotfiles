@@ -9,9 +9,8 @@
 - name: add fish to /etc/shells
   lineinfile:
     dest: /etc/shells
-    line: "{{ fish_command_path.stdout}}"
+
   become: yes
-  when: ansible_os_family == "Darwin"
   tags:
     - fish
 

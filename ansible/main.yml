@@ -3,7 +3,6 @@
   tasks:
     - name: install packages for mac
       import_tasks: mac.yml
-      when: ansible_os_family == "Darwin"
 
     - name: setup dotfiles
       import_tasks: dotfiles.yml

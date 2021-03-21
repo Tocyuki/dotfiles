@@ -2,10 +2,6 @@
 # ==============================
 # fish
 # ==============================
-- name: register fish command path
-  command: which fish
-  register: fish_command_path
-
 - name: add fish to /etc/shells
   lineinfile:
     path: /etc/shells
@@ -16,7 +12,7 @@
     - fish
 
 - name: change default shell to fish
-  command: chsh -s {{ fish_command_path.stdout }}
+  command: chsh -s /usr/local/bin/fish
   become: yes
   tags:
     - fish

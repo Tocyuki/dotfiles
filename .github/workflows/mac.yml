@@ -1,0 +1,20 @@
+name: Check for Mac
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: macos-11.0
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: initialize
+        run: make init
+
+      - name: deploy
+        run: make deploy

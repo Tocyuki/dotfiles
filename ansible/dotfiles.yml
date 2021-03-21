@@ -8,7 +8,8 @@
 
 - name: add fish to /etc/shells
   lineinfile:
-    dest: /etc/shells
+    path: /etc/shells
+    line: /usr/local/bin/fish
     state: present
   become: yes
   tags:

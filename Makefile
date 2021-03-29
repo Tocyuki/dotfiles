@@ -1,5 +1,7 @@
 .PHONY: $(shell egrep -o ^[a-zA-Z_-]+: $(MAKEFILE_LIST) | sed 's/://')
 
+PYTHON_INTERPRETER=`which python3`
+
 help: ## Print this help
 	@echo "Usage: make [target]"
 	@echo
@@ -20,7 +22,7 @@ init-ubuntu: ## Install homebrew & ansible for Ubuntu
 	@sudo ansible-galaxy collection install community.general
 
 deploy: ## Deploy all playbook
-	@ansible-playbook -i localhost, -c local ansible/main.yml -K
+	@ansible-playbook -i localhost, -c local ansible/main.yml -K -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
 dotfiles: ## Linking dotfils
-	@ansible-playbook -i localhost, -c local ansible/main.yml --tags dotfiles
+	@ansible-playbook -i localhost, -c local ansible/main.yml --tags dotfiles -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"

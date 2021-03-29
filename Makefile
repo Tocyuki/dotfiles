@@ -13,6 +13,7 @@ init-mac: ## Install homebrew & ansible for Mac
 
 init-ubuntu: ## Install homebrew & ansible for Ubuntu
 	@sudo apt update
+	@sudo apt install make
 	@sudo apt install software-properties-common
 	@sudo apt-add-repository --yes --update ppa:ansible/ansible
 	@sudo apt install ansible

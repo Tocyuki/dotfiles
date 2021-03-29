@@ -78,6 +78,14 @@
 # ==============================
 # dotfiles
 # ==============================
+- name: create .vim directory
+  file:
+    path: ~/.vim
+    state: directory
+    mode: "0755"
+  tags:
+    - dotfiles
+
 - name: copy dotfiles
   copy:
     src: ../{{ item.file }}

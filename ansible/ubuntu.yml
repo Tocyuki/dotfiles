@@ -31,11 +31,6 @@
   tags:
     - package
 
-- name: install act
-  shell: curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
-  tags:
-    - package
-
 - name: install yarn
   npm:
     name: yarn

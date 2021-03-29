@@ -12,11 +12,11 @@ init-mac: ## Install homebrew & ansible for Mac
 	@ansible-galaxy collection install community.general
 
 init-ubuntu: ## Install homebrew & ansible for Ubuntu
-	@apt update
-	@apt install software-properties-common
-	@apt-add-repository --yes --update ppa:ansible/ansible
-	@apt install ansible
-	@ansible-galaxy collection install community.general
+	@sudo apt update
+	@sudo apt install software-properties-common
+	@sudo apt-add-repository --yes --update ppa:ansible/ansible
+	@sudo apt install ansible
+	@sudo ansible-galaxy collection install community.general
 
 deploy: ## Deploy all playbook
 	@ansible-playbook -i localhost, -c local ansible/main.yml -K

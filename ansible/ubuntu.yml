@@ -1,0 +1,63 @@
+---
+- apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: C99B11DEB97541F0
+  tags:
+    - package
+
+- apt_repository:
+    repo: deb https://cli.github.com/packages stable main
+  tags:
+    - package
+
+- name: install apt packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - python3-dev
+    - python3-pip
+    - fish
+    - docker
+    - silversearcher-ag
+    - fzf
+    - nodejs
+    - npm
+    - awscli
+    - tree
+    - htop
+    - watch
+    - gh
+  tags:
+    - package
+
+- name: install act
+  shell: curl https://raw.githubusercontent.com/nektos/act/master/install.sh | sudo bash
+  tags:
+    - package
+
+- name: install yarn
+  npm:
+    name: yarn
+    global: yes
+  tags:
+    - package
+
+- name: install snap packages
+  snap:
+    name: "{{ item }}"
+    state: present
+    classic: yes
+  loop:
+    - go
+  tags:
+    - package
+
+- name: install go packages
+  shell: GOPATH=~/go go get github.com/{{ item }}
+  loop:
+    - x-motemen/ghq
+    - jesseduffield/lazygit
+    - jesseduffield/lazydocker
+  tags:
+    - package

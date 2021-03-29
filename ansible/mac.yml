@@ -26,6 +26,7 @@
     - tfenv
     - tflint
     - driftctl
+    - act
   tags:
     - package
 
@@ -70,4 +71,3 @@
     - intellij-idea
   tags:
     - package
-

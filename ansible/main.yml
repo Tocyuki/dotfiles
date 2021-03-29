@@ -3,6 +3,21 @@
   tasks:
     - name: install packages for mac
       import_tasks: mac.yml
+      vars:
+        fish_path: /usr/local/bin/fish
+      when:
+        - ansible_distribution == 'MacOSX'
+        - ansible_distribution_major_version in ["10"]
 
-    - name: setup dotfiles
-      import_tasks: dotfiles.yml
+    - name: install packages for ubuntu
+      become: true
+      import_tasks: ubuntu.yml
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_major_version in ["18", "20"]
+
+    - name: install common packages
+      import_tasks: common.yml
+      vars:
+        bin_path: "{% if ansible_distribution == 'MacOSX' %}/usr/loca/bin{% elif ansible_distribution == 'Ubuntu' %}/usr/bin{% endif %}"
+      when: ansible_distribution in ["Ubuntu", "MacOSX"]

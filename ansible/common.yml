@@ -5,14 +5,14 @@
 - name: add fish to /etc/shells
   lineinfile:
     path: /etc/shells
-    line: /usr/local/bin/fish
+    line: "{{ bin_path }}/fish"
     state: present
   become: yes
   tags:
     - fish
 
 - name: change default shell to fish
-  command: chsh -s /usr/local/bin/fish
+  command: chsh -s {{ bin_path }}/fish
   become: yes
   tags:
     - fish
@@ -54,6 +54,28 @@
     - tmux
 
 # ==============================
+# pip
+# ==============================
+- name: install pip module
+  pip:
+    name: "{{ item }}"
+    executable: pip3
+  loop:
+    - pep8
+    - flake8
+    - pylint
+    - poetry
+    - docker-compose
+  tags:
+    - pip
+
+- name: add poetry auto complete
+  ignore_errors: true
+  shell: poetry completions fish > ~/.config/fish/completions/poetry.fish
+  tags:
+    - pip
+
+# ==============================
 # dotfiles
 # ==============================
 - name: copy dotfiles
@@ -69,4 +91,3 @@
     - { file: "coc-settings.json", dest: "~/.vim" }
   tags:
     - dotfiles
-

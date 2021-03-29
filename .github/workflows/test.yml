@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  test:
+  MacOS:
     runs-on: macos-latest
 
     steps:
@@ -23,4 +23,24 @@ jobs:
         run: ansible-galaxy collection install community.general
 
       - name: deploy
-        run: ansible-playbook -i localhost, -c local ansible/main.yml -K
+        run: ansible-playbook -i localhost, -c local ansible/main.yml -K -e "ansible_python_interpreter=/usr/local/bin/python3"
+
+  Ubuntu:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: install ansible
+        run: |
+          sudo apt update
+          sudo apt install software-properties-common
+          sudo apt-add-repository --yes --update ppa:ansible/ansible
+          sudo apt install ansible
+
+      - name: install collection with ansible galaxy
+        run: ansible-galaxy collection install community.general
+
+      - name: deploy
+        run: ansible-playbook -i localhost, -c local ansible/main.yml -e "ansible_python_interpreter=/usr/bin/python3"

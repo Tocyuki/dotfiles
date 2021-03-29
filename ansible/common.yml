@@ -83,11 +83,11 @@
     src: ../{{ item.file }}
     dest: "{{ item.dest }}"
   loop:
-    - { file: ".gitconfig", dest: "~/" }
-    - { file: ".vimrc", dest: "~/" }
-    - { file: ".ideavimrc", dest: "~/" }
-    - { file: ".tmux.conf", dest: "~/" }
-    - { file: "config.fish", dest: "~/.config/fish" }
-    - { file: "coc-settings.json", dest: "~/.vim" }
+    - { file: ".gitconfig", dest: "~/.gitconfig" }
+    - { file: ".vimrc", dest: "~/.vimrc" }
+    - { file: ".ideavimrc", dest: "~/.ideavimrd" }
+    - { file: ".tmux.conf", dest: "~/.tmux.conf" }
+    - { file: "config.fish", dest: "~/.config/fish/config.fish" }
+    - { file: "coc-settings.json", dest: "~/.vim/coc-settings.json" }
   tags:
     - dotfiles

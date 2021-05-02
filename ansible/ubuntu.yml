@@ -6,7 +6,27 @@
     - package
 
 - apt_repository:
-    repo: deb https://cli.github.com/packages stable main
+    repo: "{{ item }}"
+  loop:
+    - ppa:lazygit-team/release
+    - "deb https://cli.github.com/packages stable main"
+  tags:
+    - package
+
+- name: install snap packages
+  snap:
+    name: "{{ item }}"
+    state: present
+    classic: yes
+  loop:
+    - go
+  tags:
+    - package
+
+- name: install go packages
+  shell: GOPATH=~/go go get github.com/{{ item }}
+  loop:
+    - x-motemen/ghq
   tags:
     - package
 
@@ -28,6 +48,7 @@
     - htop
     - watch
     - gh
+    - lazygit
   tags:
     - package
 
@@ -38,21 +59,7 @@
   tags:
     - package
 
-- name: install snap packages
-  snap:
-    name: "{{ item }}"
-    state: present
-    classic: yes
-  loop:
-    - go
-  tags:
-    - package
-
-- name: install go packages
-  shell: GOPATH=~/go go get github.com/{{ item }}
-  loop:
-    - x-motemen/ghq
-    - jesseduffield/lazygit
-    - jesseduffield/lazydocker
-  tags:
-    - package
+- name: install lazydocker
+  shell: curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+  args:
+    warn: no

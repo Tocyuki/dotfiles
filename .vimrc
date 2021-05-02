@@ -12,7 +12,6 @@ call plug#begin('~/.vim/plugged')
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'simeji/winresizer'
   Plug 'flazz/vim-colorschemes'
-  Plug 'ryanoasis/vim-devicons'
   Plug 'Townk/vim-autoclose'
   Plug 'tomtom/tcomment_vim'
   Plug 'airblade/vim-gitgutter'
@@ -21,8 +20,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'tpope/vim-surround'
   Plug 'markonm/traces.vim'
   Plug 'vim-jp/vimdoc-ja'
+  Plug 'easymotion/vim-easymotion'
 
-  Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'vim-airline/vim-airline'
@@ -71,29 +70,12 @@ nnoremap <Leader>l :Lines<CR>
 nnoremap <Leader>a :Ag<CR>
 
 " ==============================
-" Plugin: NERDTree
-" ==============================
-map <Leader>e :NERDTreeToggle<CR>
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
-let g:NERDTreeShowBookmarks = 1
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeIgnore = ['\.git$', '\.clean$', '\.swp$', '\.bak$', '\~$']
-
-" ==============================
-" Plugin: vim-devicons
-" ==============================
-let g:webdevicons_enable_nerdtree = 1
-let g:webdevicons_conceal_nerdtree_brackets = 1
-
-" ==============================
 " Plugin: indentLine
 " ==============================
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#708090'
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_fileTypeExclude = ['help', 'nerdtree']
+let g:indentLine_fileTypeExclude = ['help']
 
 " ==============================
 " Plugin: Vim Airline
@@ -124,15 +106,16 @@ let g:user_emmet_settings = {'variables': {'lang' : 'ja'}}
 nmap <C-g> [fugitive]
 " git checkout [FILE_NAME]
 nnoremap <silent> [fugitive]r :Gread<CR>
+" git blame
 nnoremap <silent> [fugitive]b :Gblame<CR>
 
 " ==============================
 " Plugin: coc-vim
 " ==============================
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> cd <Plug>(coc-definition)
+nmap <silent> cy <Plug>(coc-type-definition)
+nmap <silent> ci <Plug>(coc-implementation)
+nmap <silent> cr <Plug>(coc-references)
 nmap <silent> <Space><Space> :<C-u>CocList<cr>
 let g:coc_global_extensions = [
   \  'coc-yank'
@@ -281,14 +264,16 @@ endif
 " ==============================
 " kill buffer
 nnoremap <Leader>k :bd<CR>
+" 保存
+nnoremap <Leader>w :w<CR>
 " カーソル下の単語を置換後の文字を入力するだけの状態にする
 nnoremap <Leader>d :%s;\<<C-R><C-W>\>;g<Left><Left>;
 " ESCキー2度押しでハイライトの切り替え
 nnoremap <Esc><Esc> :set nohlsearch!<CR>
 " Lazygitの起動
-nnoremap lzg :tab term ++close lazygit<CR>
+nnoremap <C-l>g :tab term ++close lazygit<CR>
 " Lazydockerの起動
-nnoremap lzd :tab term ++close lazydocker<CR>
+nnoremap <C-l>d :tab term ++close lazydocker<CR>
 " スペース + t でTerminalを開く
 nnoremap <Leader>t :term ++close ++rows=20<CR>
 " Vimのキーバインドでウィンドウ間を移動
@@ -300,18 +285,20 @@ nnoremap <C-l> <C-w>l
 nnoremap vs :<C-u>vsplit<CR>
 " 画面横分割
 nnoremap ss :<C-u>split<CR>
-" タブ操作
-nnoremap <silent> tf :<C-u>tabfirst<CR>
-nnoremap <silent> tl :<C-u>tablast<CR>
-nnoremap <silent> tn :<C-u>tabnext<CR>
-nnoremap <silent> tN :<C-u>tabnew<CR>
-nnoremap <silent> tp :<C-u>tabprevious<CR>
-nnoremap <silent> te :<C-u>tabedit<CR>
-nnoremap <silent> tc :<C-u>tabclose<CR>
-nnoremap <silent> to :<C-u>tabonly<CR>
-nnoremap <silent> ts :<C-u>tabs<CR>
-" バッファ操作
-nnoremap <silent> bn :<C-u>bnext<CR>
-nnoremap <silent> bp :<C-u>bprev<CR>
-nnoremap <silent> bf :<C-u>bfirst<CR>
-nnoremap <silent> bl :<C-u>blast<CR>
+
+" ==============================
+" Configration: netrw
+" ==============================
+nnoremap <Leader>e :Ex<CR>
+" ファイルツリーの表示形式、1にするとls -laのような表示になります
+let g:netrw_liststyle=1
+" ヘッダを非表示にする
+let g:netrw_banner=0
+" サイズを(K,M,G)で表示する
+let g:netrw_sizestyle="H"
+" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
+" プレビューウィンドウを垂直分割で表示する
+let g:netrw_preview=1
+" 表示形式をTreeViewに変更
+let g:netrw_liststyle = 3

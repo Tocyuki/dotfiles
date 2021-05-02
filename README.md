@@ -14,6 +14,7 @@ My dotfiles
 ## Supported OS
 
 - Mac
+- Ubuntu
 
 ## Run
 
@@ -22,6 +23,7 @@ My dotfiles
 ```bash
 git clone https://github.com/Tocyuki/dotfiles.git
 cd dotfiles
+make init-{mac,ubuntu}
 make deploy
 ```
 

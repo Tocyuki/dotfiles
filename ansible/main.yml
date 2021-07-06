@@ -7,7 +7,7 @@
         fish_path: /usr/local/bin/fish
       when:
         - ansible_distribution == 'MacOSX'
-        - ansible_distribution_major_version in ["10"]
+        - ansible_distribution_major_version in ["10", "11"]
 
     - name: install packages for ubuntu
       become: true

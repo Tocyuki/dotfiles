@@ -27,6 +27,7 @@
     - tflint
     - driftctl
     - act
+    - kayac/tap/ecspresso
   tags:
     - package
 
@@ -50,8 +51,10 @@
 
 - name: add tap repository
   homebrew_tap:
-    tap: homebrew/cask-fonts
+    tap: "{{ item }}"
     state: present
+  loop:
+    - homebrew/cask-fonts
   tags:
     - package
 

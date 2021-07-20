@@ -28,6 +28,7 @@
     - driftctl
     - act
     - kayac/tap/ecspresso
+    - mysql-client
   tags:
     - package
 

@@ -23,6 +23,9 @@ set -x GOBIN $GOPATH/bin
 set -x PATH $PATH $GOBIN
 set -x PATH $PATH /usr/local/opt/ansible@2.8/bin
 set -x PATH $PATH $HOME/.poetry/bin
+set -x PATH $PATH /usr/local/opt/mysql-client/bin
+set -gx LDFLAGS "-L/usr/local/opt/mysql-client/lib"
+set -gx CPPFLAGS "-I/usr/local/opt/mysql-client/include"
 
 # alias
 alias lg="lazygit"

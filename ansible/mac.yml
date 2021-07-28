@@ -1,5 +1,6 @@
 ---
 - name: install brew packages
+  ignore_errors: true
   homebrew:
     name: "{{ item }}"
     state: present
@@ -73,5 +74,6 @@
     - vagrant
     - visual-studio-code
     - intellij-idea
+    - 1password
   tags:
     - package

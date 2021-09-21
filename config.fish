@@ -1,5 +1,5 @@
 # env
-set -x EDITOR idea
+set -x EDITOR vim
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x LANG "en_US.UTF-8"
 set -x HOMEBREW_INSTALL_CLEANUP 1
@@ -24,6 +24,7 @@ set -x PATH $PATH $GOBIN
 set -x PATH $PATH /usr/local/opt/ansible@2.8/bin
 set -x PATH $PATH $HOME/.poetry/bin
 set -x PATH $PATH /usr/local/opt/mysql-client/bin
+set -x PATH $PATH $HOME/.bin
 set -gx LDFLAGS "-L/usr/local/opt/mysql-client/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/mysql-client/include"
 

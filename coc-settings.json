@@ -10,5 +10,7 @@
         "settings": {}
     }
   },
-  "python.jediEnabled": false
+  "python.jediEnabled": false,
+  "explorer.icon.enableVimDevicons": true,
+  "explorer.file.showHiddenFiles": true
 }

@@ -11,8 +11,7 @@ endif
 call plug#begin('~/.vim/plugged')
   Plug 'bronson/vim-trailing-whitespace'
   Plug 'simeji/winresizer'
-  Plug 'flazz/vim-colorschemes'
-  Plug 'Townk/vim-autoclose'
+  Plug 'jiangmiao/auto-pairs'
   Plug 'tomtom/tcomment_vim'
   Plug 'airblade/vim-gitgutter'
   Plug 'dag/vim-fish'
@@ -21,18 +20,18 @@ call plug#begin('~/.vim/plugged')
   Plug 'markonm/traces.vim'
   Plug 'vim-jp/vimdoc-ja'
   Plug 'easymotion/vim-easymotion'
-
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'Yggdroot/indentLine'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'mattn/emmet-vim'
   Plug 'tpope/vim-endwise'
   Plug 'elzr/vim-json'
   Plug 'tpope/vim-fugitive'
   Plug 'hashivim/vim-terraform'
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'overcache/NeoSolarized'
 call plug#end()
 
 let mapleader = "\<Space>"
@@ -70,20 +69,13 @@ nnoremap <Leader>l :Lines<CR>
 nnoremap <Leader>a :Ag<CR>
 
 " ==============================
-" Plugin: indentLine
-" ==============================
-let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#708090'
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-let g:indentLine_fileTypeExclude = ['help']
-
-" ==============================
 " Plugin: Vim Airline
 " ==============================
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_powerline_fonts = 1
+let g:airline_theme = 'solarized_flood'
 nmap <C-n> <Plug>AirlineSelectNextTab
 nmap <C-p> <Plug>AirlineSelectPrevTab
 
@@ -128,6 +120,7 @@ let g:coc_global_extensions = [
   \, 'coc-spell-checker'
   \, 'coc-fzf-preview'
   \, 'coc-tsserver'
+  \, 'coc-eslint'
   \, 'coc-snippets'
   \, 'coc-prettier'
   \, 'coc-pairs'
@@ -136,6 +129,7 @@ let g:coc_global_extensions = [
   \, 'coc-rust-analyzer'
   \, 'coc-html'
   \, 'coc-phpls'
+  \, 'coc-solargraph'
   \, 'coc-python'
   \, 'coc-sh'
   \, 'coc-vimlsp'
@@ -151,6 +145,19 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" ==============================
+" Plugin: coc-explorer
+" ==============================
+nnoremap <Leader>e :CocCommand explorer<CR>
+
+" ==============================
+" Plugin: vim-easymotion
+" ==============================
+" 任意の2文字から始まる文字列の先頭にジャンプ
+map <Leader>m <Plug>(easymotion-bd-f2)
+" ウィンドウを飛び越えて移動
+nmap <Leader>m <Plug>(easymotion-overwin-f2)
 
 " ==============================
 " Configration: Encoding Charactor
@@ -194,7 +201,8 @@ set shell=fish                 " Default shellをfishにする
 " Configration: Apperance
 " ==============================
 syntax on
-colorscheme iceberg   " Vimカラースキーム設定
+colorscheme NeoSolarized
+set termguicolors     " Requirements for NeoSolarized
 set title             " ウインドウのタイトルバーにファイルのパス情報等を表示する
 set showcmd           " 入力中のコマンドを表示する
 set showmatch         " 括弧の対応をハイライト
@@ -267,13 +275,13 @@ nnoremap <Leader>k :bd<CR>
 " 保存
 nnoremap <Leader>w :w<CR>
 " カーソル下の単語を置換後の文字を入力するだけの状態にする
-nnoremap <Leader>d :%s;\<<C-R><C-W>\>;g<Left><Left>;
+nnoremap <Leader>r :%s;\<<C-R><C-W>\>;g<Left><Left>;
 " ESCキー2度押しでハイライトの切り替え
 nnoremap <Esc><Esc> :set nohlsearch!<CR>
 " Lazygitの起動
-nnoremap <C-l>g :tab term ++close lazygit<CR>
+nnoremap ;lg :tab term ++close lazygit<CR>
 " Lazydockerの起動
-nnoremap <C-l>d :tab term ++close lazydocker<CR>
+nnoremap ;ld :tab term ++close lazydocker<CR>
 " スペース + t でTerminalを開く
 nnoremap <Leader>t :term ++close ++rows=20<CR>
 " Vimのキーバインドでウィンドウ間を移動
@@ -286,19 +294,3 @@ nnoremap vs :<C-u>vsplit<CR>
 " 画面横分割
 nnoremap ss :<C-u>split<CR>
 
-" ==============================
-" Configration: netrw
-" ==============================
-nnoremap <Leader>e :Ex<CR>
-" ファイルツリーの表示形式、1にするとls -laのような表示になります
-let g:netrw_liststyle=1
-" ヘッダを非表示にする
-let g:netrw_banner=0
-" サイズを(K,M,G)で表示する
-let g:netrw_sizestyle="H"
-" 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-let g:netrw_timefmt="%Y/%m/%d(%a) %H:%M:%S"
-" プレビューウィンドウを垂直分割で表示する
-let g:netrw_preview=1
-" 表示形式をTreeViewに変更
-let g:netrw_liststyle = 3

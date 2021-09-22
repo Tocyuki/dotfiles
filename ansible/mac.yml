@@ -30,6 +30,7 @@
     - act
     - kayac/tap/ecspresso
     - mysql-client
+    - postman
   tags:
     - package
 

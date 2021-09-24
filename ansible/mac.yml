@@ -30,7 +30,6 @@
     - act
     - kayac/tap/ecspresso
     - mysql-client
-    - postman
     - docker
   tags:
     - package
@@ -76,5 +75,6 @@
     - visual-studio-code
     - intellij-idea
     - 1password
+    - postman
   tags:
     - package

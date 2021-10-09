@@ -160,6 +160,13 @@ map <Leader>m <Plug>(easymotion-bd-f2)
 nmap <Leader>m <Plug>(easymotion-overwin-f2)
 
 " ==============================
+" Plugin: NeoSolarized
+" ==============================
+colorscheme NeoSolarized
+set termguicolors     " Requirements for NeoSolarized
+set background=dark   " Requirements for NeoSolarized
+
+" ==============================
 " Configration: Encoding Charactor
 " ==============================
 scriptencoding utf-8                          " スクリプトファイルの文字コードをUTF-8に設定
@@ -201,8 +208,6 @@ set shell=fish                 " Default shellをfishにする
 " Configration: Apperance
 " ==============================
 syntax on
-colorscheme NeoSolarized
-set termguicolors     " Requirements for NeoSolarized
 set title             " ウインドウのタイトルバーにファイルのパス情報等を表示する
 set showcmd           " 入力中のコマンドを表示する
 set showmatch         " 括弧の対応をハイライト

@@ -93,7 +93,7 @@
   loop:
     - { file: ".gitconfig", dest: "~/.gitconfig" }
     - { file: ".vimrc", dest: "~/.vimrc" }
-    - { file: ".ideavimrc", dest: "~/.ideavimrd" }
+    - { file: ".ideavimrc", dest: "~/.ideavimrc" }
     - { file: ".tmux.conf", dest: "~/.tmux.conf" }
     - { file: "config.fish", dest: "~/.config/fish/config.fish" }
     - { file: "coc-settings.json", dest: "~/.vim/coc-settings.json" }

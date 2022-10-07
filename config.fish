@@ -1,4 +1,5 @@
 # env
+set -x AWS_DEFAULT_REGION ap-northeast-1
 set -x EDITOR vim
 set -x XDG_CONFIG_HOME $HOME/.config
 set -x LANG "en_US.UTF-8"

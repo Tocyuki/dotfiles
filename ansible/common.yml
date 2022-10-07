@@ -37,9 +37,10 @@
   loop:
     - jethrokuan/z
     - oh-my-fish/theme-bobthefish
-    - jethrokuan/fzf
     - decors/fish-ghq
     - evanlucas/fish-kubectl-completions
+    - edc/bass
+    - PatrickF1/fzf.fish
   tags:
     - fish
 

@@ -29,8 +29,10 @@
     - driftctl
     - act
     - kayac/tap/ecspresso
+    - fujiwara/tap/lambroll
     - mysql-client
     - docker
+    - jq
   tags:
     - package
 
@@ -67,14 +69,13 @@
     state: present
     install_options: force
   loop:
-    - alfred
     - font-hack-nerd-font
     - google-chrome
-    - virtualbox
-    - vagrant
-    - visual-studio-code
     - intellij-idea
     - 1password
     - postman
+    - slack
+    - iterm2
   tags:
     - package
+

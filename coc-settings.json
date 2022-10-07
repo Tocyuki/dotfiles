@@ -11,6 +11,7 @@
     }
   },
   "python.jediEnabled": false,
-  "explorer.icon.enableVimDevicons": true,
+  "explorer.icon.enableNerdFont": true,
+  "explorer.icon.source": "vim-devicons",
   "explorer.file.showHiddenFiles": true
 }

@@ -20,7 +20,6 @@
     - fish
     - vim
     - tmux
-    - docker
     - lazygit
     - lazydocker
     - go
@@ -41,7 +40,6 @@
     - kayac/tap/ecspresso
     - fujiwara/tap/lambroll
     - mysql-client
-    - docker
     - jq
     - fd
     - bat
@@ -62,6 +60,7 @@
     - postman
     - slack
     - iterm2
+    - docker
   tags:
     - package
 

@@ -1,4 +1,14 @@
 ---
+- name: add tap repository
+  homebrew_tap:
+    tap: "{{ item }}"
+    state: present
+  loop:
+    - homebrew/cask-fonts
+    - gjbae1212/gossm
+  tags:
+    - package
+
 - name: install brew packages
   ignore_errors: true
   homebrew:
@@ -35,6 +45,23 @@
     - jq
     - fd
     - bat
+    - gossm
+  tags:
+    - package
+
+- name: install cask packages
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    install_options: force
+  loop:
+    - font-hack-nerd-font
+    - google-chrome
+    - intellij-idea
+    - 1password
+    - postman
+    - slack
+    - iterm2
   tags:
     - package
 
@@ -53,31 +80,6 @@
 - name: add poetry auto complete
   ignore_errors: true
   shell: poetry completions fish > ~/.config/fish/completions/poetry.fish
-  tags:
-    - package
-
-- name: add tap repository
-  homebrew_tap:
-    tap: "{{ item }}"
-    state: present
-  loop:
-    - homebrew/cask-fonts
-  tags:
-    - package
-
-- name: install cask packages
-  community.general.homebrew_cask:
-    name: "{{ item }}"
-    state: present
-    install_options: force
-  loop:
-    - font-hack-nerd-font
-    - google-chrome
-    - intellij-idea
-    - 1password
-    - postman
-    - slack
-    - iterm2
   tags:
     - package
 

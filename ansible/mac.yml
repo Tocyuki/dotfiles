@@ -33,6 +33,8 @@
     - mysql-client
     - docker
     - jq
+    - fd
+    - bat
   tags:
     - package
 

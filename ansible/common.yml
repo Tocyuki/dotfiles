@@ -2,17 +2,24 @@
 # ==============================
 # fish
 # ==============================
+- name: register fish path
+  command: which fish
+  register: fish_bin_path
+  changed_when: false
+  tags:
+    - fish
+
 - name: add fish to /etc/shells
   lineinfile:
     path: /etc/shells
-    line: "{{ bin_path }}/fish"
+    line: "{{ fish_bin_path.stdout }}/fish"
     state: present
   become: yes
   tags:
     - fish
 
 - name: change default shell to fish
-  command: chsh -s {{ bin_path }}/fish
+  command: chsh -s "{{ fish_bin_path.stdout }}/fish"
   become: yes
   tags:
     - fish

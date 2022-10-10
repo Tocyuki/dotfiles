@@ -12,14 +12,14 @@
 - name: add fish to /etc/shells
   lineinfile:
     path: /etc/shells
-    line: "{{ fish_bin_path.stdout }}/fish"
+    line: "{{ fish_bin_path.stdout }}"
     state: present
   become: yes
   tags:
     - fish
 
 - name: change default shell to fish
-  command: chsh -s "{{ fish_bin_path.stdout }}/fish"
+  command: chsh -s "{{ fish_bin_path.stdout }}"
   become: yes
   tags:
     - fish

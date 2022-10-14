@@ -61,6 +61,7 @@
     - slack
     - iterm2
     - docker
+    - google-japanese-ime
   tags:
     - package
 

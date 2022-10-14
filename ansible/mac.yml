@@ -33,7 +33,7 @@
     - htop
     - yarn
     - watch
-    - tfenv
+    - anyenv
     - tflint
     - driftctl
     - act
@@ -62,6 +62,11 @@
     - iterm2
     - docker
     - google-japanese-ime
+  tags:
+    - package
+
+- name: run anyenv init
+  command: anyenv install --init
   tags:
     - package
 

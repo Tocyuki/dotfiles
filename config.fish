@@ -28,6 +28,7 @@ set -x PATH $PATH /usr/local/opt/mysql-client/bin
 set -x PATH $PATH $HOME/.bin
 set -gx LDFLAGS "-L/usr/local/opt/mysql-client/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/mysql-client/include"
+set -Ux fish_user_paths $HOME/.anyenv/envs/*/bin $fish_user_paths
 
 # alias
 alias lg="lazygit"

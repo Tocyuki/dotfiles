@@ -5,6 +5,7 @@
     state: present
   loop:
     - homebrew/cask-fonts
+    - homebrew/cask-drivers
     - gjbae1212/gossm
   tags:
     - package
@@ -44,6 +45,8 @@
     - fd
     - bat
     - gossm
+    - vagrant
+    - displaylink
   tags:
     - package
 

@@ -47,6 +47,8 @@
     - gossm
     - vagrant
     - displaylink
+    - gibo
+    - act
   tags:
     - package
 

@@ -6,7 +6,7 @@
       vars:
       when:
         - ansible_distribution == 'MacOSX'
-        - ansible_distribution_major_version in ["10", "11", "12"]
+        - ansible_distribution_major_version in ["11", "12", "13"]
 
     - name: install packages for ubuntu
       become: true

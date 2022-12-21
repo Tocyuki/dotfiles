@@ -9,12 +9,12 @@ help: ## Print this help
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 
 init-mac: ## Install homebrew & ansible for Mac
-	@/bin/bash -c "`curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh`"
-	@echo '# Set ATH, MANPATH, etc., for Homebrew.' >> /Users/`users`/.zprofile
-	@echo 'eval "`/opt/homebrew/bin/brew shellenv`"' >> /Users/`users`/.zprofile
-	@eval "`/opt/homebrew/bin/brew shellenv`"
+	@sh init_mac.sh
 	@brew install ansible
 	@ansible-galaxy collection install community.general
+
+init-mac: ## Initialize anyenv
+	@anyenv install --init
 
 init-ubuntu: ## Install homebrew & ansible for Ubuntu
 	@sudo apt -y update

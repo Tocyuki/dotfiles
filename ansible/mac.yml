@@ -70,6 +70,13 @@
   tags:
     - package
 
+- name: install cdktf
+  npm:
+    name: cdktf
+    global: yes
+  tags:
+    - package
+
 - name: install pip module
   pip:
     name: "{{ item }}"

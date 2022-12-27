@@ -66,6 +66,7 @@
     - iterm2
     - docker
     - google-japanese-ime
+    - notion
   tags:
     - package
 

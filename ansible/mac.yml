@@ -48,6 +48,7 @@
     - gibo
     - act
     - deno
+    - grep
   tags:
     - package
 

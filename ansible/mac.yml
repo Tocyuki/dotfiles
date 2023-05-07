@@ -50,6 +50,8 @@
     - deno
     - grep
     - yukiarrr/tap/ecsk
+    - kubectl
+    - minikube
   tags:
     - package
 

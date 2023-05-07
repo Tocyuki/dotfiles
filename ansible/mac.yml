@@ -7,7 +7,6 @@
     - homebrew/cask-fonts
     - homebrew/cask-drivers
     - gjbae1212/gossm
-    - yukiarrr/tap/ecsk
   tags:
     - package
 
@@ -50,6 +49,7 @@
     - act
     - deno
     - grep
+    - yukiarrr/tap/ecsk
   tags:
     - package
 

@@ -34,7 +34,6 @@
     - htop
     - yarn
     - watch
-    - anyenv
     - tflint
     - driftctl
     - act
@@ -52,6 +51,8 @@
     - yukiarrr/tap/ecsk
     - kubectl
     - minikube
+    - asdf
+    - exercism
   tags:
     - package
 

@@ -66,12 +66,13 @@
     - google-chrome
     - intellij-idea
     - 1password
-    - postman
     - slack
     - iterm2
     - docker
     - google-japanese-ime
     - notion
+    - anki
+
   tags:
     - package
 

@@ -1,10 +1,14 @@
+" Plugin
 set surround
 set multiple-cursors
 set commentary
 set easymotion
 set ideajoin
+set NERDTree
 
 let mapleader = "\<Space>"
+" NERDTree
+nnoremap <Leader>e :NERDTreeToggle<CR>
 " コードフォーマット
 nnoremap == :action ReformatCode<CR>
 vnoremap == :action ReformatCode<CR>

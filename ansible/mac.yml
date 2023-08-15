@@ -53,6 +53,7 @@
     - minikube
     - asdf
     - exercism
+    - azure-cli
   tags:
     - package
 

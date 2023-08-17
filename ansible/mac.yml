@@ -5,7 +5,6 @@
     state: present
   loop:
     - homebrew/cask-fonts
-    - homebrew/cask-drivers
     - gjbae1212/gossm
   tags:
     - package
@@ -54,6 +53,7 @@
     - asdf
     - exercism
     - azure-cli
+    - argocd
   tags:
     - package
 

@@ -73,7 +73,6 @@
     - flake8
     - pylint
     - poetry
-    - docker-compose
   tags:
     - pip
 

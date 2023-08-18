@@ -13,9 +13,6 @@ init-mac: ## Install homebrew & ansible for Mac
 	@brew install ansible
 	@ansible-galaxy collection install community.general
 
-init-mac: ## Initialize anyenv
-	@anyenv install --init
-
 init-ubuntu: ## Install homebrew & ansible for Ubuntu
 	@sudo apt -y update
 	@sudo apt -y install make

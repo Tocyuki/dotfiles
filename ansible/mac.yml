@@ -28,7 +28,7 @@
     - ag
     - fzf
     - awscli
-    - github/gh/gh
+    - gh
     - tree
     - htop
     - yarn

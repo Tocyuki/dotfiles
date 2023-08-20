@@ -76,6 +76,7 @@
     - warp
     - displaylink
     - logi-options-plus
+    - zsa-wally
   tags:
     - package
 

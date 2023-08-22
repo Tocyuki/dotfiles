@@ -56,3 +56,8 @@ function ghcr
   $EDITOR (ghq list --full-path -e $argv[1])
 end
 
+# ghq command for warp
+function c
+  cd (ghq list --full-path | fzf)
+end
+

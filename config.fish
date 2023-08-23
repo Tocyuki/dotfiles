@@ -46,6 +46,9 @@ alias ghw='gh repo view -w (ghq list | fzf)'
 # add homebrew path
 eval (/opt/homebrew/bin/brew shellenv)
 
+# for asdf
+source /opt/homebrew/opt/asdf/libexec/asdf.fish
+
 # github cli auto complete
 eval (gh completion -s fish| source)
 

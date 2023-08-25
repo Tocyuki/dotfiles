@@ -22,10 +22,11 @@ set --universal theme_nerd_fonts yes
 set -x GOPATH $HOME/go
 set -x GOBIN $GOPATH/bin
 set -x PATH $PATH $GOBIN
-set -x PATH $PATH /usr/local/opt/ansible@2.8/bin
 set -x PATH $PATH $HOME/.poetry/bin
-set -x PATH $PATH /usr/local/opt/mysql-client/bin
 set -x PATH $PATH $HOME/.bin
+set -x PATH $PATH /usr/local/opt/ansible@2.8/bin
+set -x PATH $PATH /usr/local/opt/mysql-client/bin
+set -x PATH $PATH /Applications/IntelliJ\ \IDEA.app/Contents/MacOS
 set -gx LDFLAGS "-L/usr/local/opt/mysql-client/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/mysql-client/include"
 set -Ux fish_user_paths $HOME/.anyenv/envs/*/bin $fish_user_paths

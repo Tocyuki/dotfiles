@@ -54,6 +54,8 @@
     - exercism
     - azure-cli
     - argocd
+    - percona-toolkit
+    - alp
   tags:
     - package
 

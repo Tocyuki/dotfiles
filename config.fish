@@ -30,10 +30,10 @@ set -x PATH $PATH $HOME/.poetry/bin
 set -x PATH $PATH $HOME/.bin
 set -x PATH $PATH /usr/local/opt/ansible@2.8/bin
 set -x PATH $PATH /usr/local/opt/mysql-client/bin
-set -x PATH $PATH /Applications/IntelliJ\ \IDEA.app/Contents/MacOS
 set -gx LDFLAGS "-L/usr/local/opt/mysql-client/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/mysql-client/include"
 set -Ux fish_user_paths $HOME/.anyenv/envs/*/bin $fish_user_paths
+set -gx PATH $PATH $HOME/.krew/bin
 
 # alias
 alias lg="lazygit"
@@ -63,10 +63,5 @@ function ghcr
   gh repo create $argv
   ghq get $argv[1]
   $EDITOR (ghq list --full-path -e $argv[1])
-end
-
-# ghq command for warp
-function c
-  cd (ghq list --full-path | fzf)
 end
 

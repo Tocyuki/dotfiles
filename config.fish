@@ -1,3 +1,11 @@
+# config
+set --universal theme_nerd_fonts yes
+set -g theme_display_git_ahead_verbose yes
+set -g theme_show_exit_status yes
+set -g theme_date_timezone Asia/Tokyo
+set -g theme_display_k8s_context yes
+set -g theme_display_k8s_namespace yes
+
 # env
 set -x AWS_DEFAULT_REGION ap-northeast-1
 set -x EDITOR vim
@@ -12,11 +20,7 @@ set -x LSCOLORS gxfxcxdxbxegedabagacad
 set -x LC_CTYPE "en_US.UTF-8"
 set -x GO111MODULE auto
 set -x DOCKER_CONTENT_TRUST 1
-set -g theme_display_git_ahead_verbose yes
-set -g theme_show_exit_status yes
-set -g theme_date_timezone Asia/Tokyo
 set -U FZF_LEGACY_KEYBINDINGS 0
-set --universal theme_nerd_fonts yes
 
 # path
 set -x GOPATH $HOME/go
@@ -42,6 +46,7 @@ alias glog='git log --oneline'
 alias gc='git checkout .'
 alias gdo='git diff (git log --oneline | fzf | awk "{print \$1}")'
 alias k="kubectl"
+alias t="terraform"
 alias ghw='gh repo view -w (ghq list | fzf)'
 
 # add homebrew path

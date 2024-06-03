@@ -32,7 +32,6 @@ set -x PATH $PATH /usr/local/opt/ansible@2.8/bin
 set -x PATH $PATH /usr/local/opt/mysql-client/bin
 set -gx LDFLAGS "-L/usr/local/opt/mysql-client/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/mysql-client/include"
-set -Ux fish_user_paths $HOME/.anyenv/envs/*/bin $fish_user_paths
 set -gx PATH $PATH $HOME/.krew/bin
 
 # alias

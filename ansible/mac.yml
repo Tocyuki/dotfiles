@@ -50,7 +50,6 @@
     - yukiarrr/tap/ecsk
     - kubectl
     - minikube
-    - asdf
     - exercism
     - azure-cli
     - argocd

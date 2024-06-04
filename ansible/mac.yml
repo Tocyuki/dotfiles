@@ -57,6 +57,7 @@
     - alp
     - k9s
     - jnv
+    - mise
   tags:
     - package
 

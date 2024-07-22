@@ -33,6 +33,7 @@ set -x PATH $PATH /usr/local/opt/mysql-client/bin
 set -gx LDFLAGS "-L/usr/local/opt/mysql-client/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/mysql-client/include"
 set -gx PATH $PATH $HOME/.krew/bin
+set -gx PATH $PATH $HOME/.cargo/bin
 
 # alias
 alias lg="lazygit"

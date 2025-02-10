@@ -58,6 +58,8 @@
     - k9s
     - jnv
     - mise
+    - asdf
+    - poetry
   tags:
     - package
 
@@ -99,7 +101,6 @@
     - pep8
     - flake8
     - pylint
-    - poetry
   tags:
     - package
 
@@ -108,4 +109,3 @@
   shell: poetry completions fish > ~/.config/fish/completions/poetry.fish
   tags:
     - package
-

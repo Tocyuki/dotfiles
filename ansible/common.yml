@@ -72,7 +72,6 @@
     - pep8
     - flake8
     - pylint
-    - poetry
   tags:
     - pip
 
@@ -81,6 +80,8 @@
   shell: poetry completions fish > ~/.config/fish/completions/poetry.fish
   tags:
     - pip
+  when:
+    - ansible_distribution == 'Ubuntu'
 
 # ==============================
 # dotfiles

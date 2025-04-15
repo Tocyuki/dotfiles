@@ -31,6 +31,7 @@ set -x PATH $PATH /usr/local/opt/ansible@2.8/bin
 set -x PATH $PATH /usr/local/opt/mysql-client/bin
 set -x PATH $PATH $HOME/.bin
 set -x PATH $PATH /usr/local/opt/libpq/bin
+set -x PATH $PATH (aqua root-dir)/bin
 set -gx LDFLAGS "-L/usr/local/opt/mysql-client/lib"
 set -gx CPPFLAGS "-I/usr/local/opt/mysql-client/include"
 set -Ux fish_user_paths $HOME/.anyenv/envs/*/bin $fish_user_paths
@@ -50,8 +51,6 @@ alias gdo='git diff (git log --oneline | fzf | awk "{print \$1}")'
 alias k="kubectl"
 alias t="terraform"
 alias ghw='gh repo view -w (ghq list | fzf)'
-alias python='python3'
-alias pip='pip3'
 
 # add homebrew path
 eval (/opt/homebrew/bin/brew shellenv)
@@ -65,20 +64,6 @@ function ghcr
   ghq get $argv[1]
   $EDITOR (ghq list --full-path -e $argv[1])
 end
-
-# ASDF configuration code
-if test -z $ASDF_DATA_DIR
-    set _asdf_shims "$HOME/.asdf/shims"
-else
-    set _asdf_shims "$ASDF_DATA_DIR/shims"
-end
-
-# Do not use fish_add_path (added in Fish 3.2) because it
-# potentially changes the order of items in PATH
-if not contains $_asdf_shims $PATH
-    set -gx --prepend PATH $_asdf_shims
-end
-set --erase _asdf_shims
 
 # Created by `pipx` on 2025-01-10 00:43:12
 set PATH $PATH /Users/tocyuki/.local/bin

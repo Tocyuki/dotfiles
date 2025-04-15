@@ -57,9 +57,8 @@
     - alp
     - k9s
     - jnv
-    - mise
-    - asdf
     - poetry
+    - aqua
   tags:
     - package
 

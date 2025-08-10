@@ -1,0 +1,32 @@
+---
+- name: Get git repository root
+  command: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+  tags:
+    - zsh
+
+- name: install zsh package manager
+  homebrew:
+    name: sheldon
+    state: present
+    update_homebrew: yes
+  tags:
+    - zsh
+
+- name: link dotfiles
+  file:
+    src: "{{ git_root.stdout }}/{{ item.file }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { file: ".zshrc", dest: "~/.zshrc" }
+    - { file: ".config/sheldon/plugins.toml", dest: "~/.config/sheldon/plugins.toml" }
+    - { file: ".p10k.zsh", dest: "~/.p10k.zsh" }
+  tags:
+    - dotfiles
+    - zsh
+

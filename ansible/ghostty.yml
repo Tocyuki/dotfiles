@@ -1,0 +1,30 @@
+---
+- name: Get git repository root
+  command: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+  tags:
+    - ghostty
+
+- name: install ghostty
+  homebrew:
+    name: ghostty
+    state: present
+    update_homebrew: yes
+  tags:
+    - ghostty
+
+- name: link dotfiles
+  file:
+    src: "{{ git_root.stdout }}/{{ item.file }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { file: ".config/ghostty/config", dest: "~/.config/ghostty/config" }
+  tags:
+    - dotfiles
+    - ghostty
+

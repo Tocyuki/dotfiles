@@ -1,0 +1,51 @@
+---
+- name: Get git repository root
+  command: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+  tags:
+    - tools
+
+- name: install aqua
+  homebrew:
+    name: aqua
+    state: present
+    update_homebrew: true
+  tags:
+    - tools
+
+- name: link dotfiles
+  file:
+    src: "{{ git_root.stdout }}/{{ item.file }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { file: "aqua.yaml", dest: "~/.config/aqua/aqua.yaml" }
+    - { file: ".gitconfig", dest: "~/.gitconfig" }
+  tags:
+    - dotfiles
+    - tools
+
+- name: aqua - install tools
+  ansible.builtin.command: aqua i -l
+  args:
+    chdir: "{{ git_root.stdout }}/"
+  tags:
+    - tools
+
+- name: aqua - list global tools
+  ansible.builtin.command: aqua list -i
+  register: aqua_tools
+  changed_when: false
+  tags:
+    - tools
+
+- name: show aqua tools list
+  ansible.builtin.debug:
+    msg: "{{ aqua_tools.stdout_lines }}"
+  tags:
+    - tools
+

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
--eu
+set -eu
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo '# Set ATH, MANPATH, etc., for Homebrew.' >> $HOME/.zprofile

@@ -1,0 +1,32 @@
+---
+- name: install brew packages
+  ignore_errors: true
+  homebrew:
+    name: "{{ item }}"
+    state: present
+    update_homebrew: yes
+  loop:
+    - ag
+    - tree
+    - watch
+    - azure-cli
+    - chatgpt
+  tags:
+    - brew
+
+- name: install cask packages
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    install_options: force
+  loop:
+    - google-chrome
+    - 1password
+    - slack
+    - notion
+    - anki
+    - displaylink
+    - logi-options-plus
+  tags:
+    - brew
+

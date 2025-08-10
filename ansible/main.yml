@@ -1,19 +1,24 @@
 ---
 - hosts: localhost
   tasks:
-    - name: install packages for mac
-      import_tasks: mac.yml
-      vars:
-      when:
-        - ansible_distribution == 'MacOSX'
+    - name: install brew packages
+      import_tasks: brew.yml
 
-    - name: install packages for ubuntu
-      become: true
-      import_tasks: ubuntu.yml
-      when:
-        - ansible_distribution == 'Ubuntu'
+    - name: setup fonts
+      import_tasks: fonts.yml
 
-    - name: install common packages
-      import_tasks: common.yml
-      vars:
-      when: ansible_distribution in ["Ubuntu", "MacOSX"]
+    - name: install tools via aqua
+      import_tasks: tools.yml
+
+    - name: setup zsh
+      import_tasks: zsh.yml
+
+    - name: setup ghostty
+      import_tasks: ghostty.yml
+
+    - name: setup tmux
+      import_tasks: tmux.yml
+
+    - name: setup neovim
+      import_tasks: neovim.yml
+

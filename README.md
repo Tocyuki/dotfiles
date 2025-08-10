@@ -4,30 +4,20 @@
 
 My dotfiles
 
-## Feature
-
-- some development tools
-- vim
-- tmux
-- fish
-
 ## Supported OS
 
 - Mac
-- Ubuntu
 
-## Run
-
-### Installation
+## Installation
 
 ```bash
 git clone https://github.com/Tocyuki/dotfiles.git
 cd dotfiles
-make init-{mac,ubuntu}
+make init
 make deploy
 ```
 
-### Usage
+## Usage
 
 ```bash
 make help

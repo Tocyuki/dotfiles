@@ -1,0 +1,61 @@
+# `sheldon` configuration file
+# ----------------------------
+#
+# You can modify this file directly or you can use one of the following
+# `sheldon` commands which are provided to assist in editing the config file:
+#
+# - `sheldon add` to add a new plugin to the config file
+# - `sheldon edit` to open up the config file in the default editor
+# - `sheldon remove` to remove a plugin from the config file
+#
+# See the documentation for more https://github.com/rossmacarthur/sheldon#readme
+
+shell = "zsh"
+
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
+[templates]
+defer = "{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}"
+
+# 入力中のコマンドを履歴から推測し表示する
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+# zshのシンタックスハイライトプラグイン
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+
+# 補完ファイルの提供
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+# zshのヒストリーサーチを便利にする
+[plugins.zsh-history-substring-search]
+github = "zsh-users/zsh-history-substring-search"
+
+# zshでpeco/pecol/fzfと連携するためのプラグイン
+[plugins.anyframe]
+github = "mollifier/anyframe"
+
+# ウィンドウを大量に分割してコマンドの同時実行
+[plugins.tmux-xpanes]
+github = "greymd/tmux-xpanes"
+
+# oh-my-zsh の Git 関連だけを読み込む
+[plugins.omz-lib]
+github = "ohmyzsh/ohmyzsh"
+use = ["lib/git.zsh"]
+
+[plugins.omz-git]
+github = "ohmyzsh/ohmyzsh"
+use = ["plugins/git/git.plugin.zsh"]
+
+# Theme
+[plugins.powerlevel10k]
+github = "romkatv/powerlevel10k"
+
+# For example:
+#
+# [plugins.base16]
+# github = "chriskempson/base16-shell"

@@ -1,36 +1,9 @@
-### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-  print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-  command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-  command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-    print -P "%F{160}▓▒░ The clone has failed.%f%b"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-### End of Zinit's installer chunk
-
-# ==============================
-# Plugins
-# ==============================
-# 入力中のコマンドを履歴から推測し表示する
-zinit light zsh-users/zsh-autosuggestions
-# 補完ファイルの提供
-zinit light zsh-users/zsh-completions
-# zshのシンタックスハイライトプラグイン
-zinit light zsh-users/zsh-syntax-highlighting
-# zshのヒストリーサーチを便利にする
-zinit light zsh-users/zsh-history-substring-search
-# zshでpeco/pecol/fzfと連携するためのプラグイン
-zinit light mollifier/anyframe
-# プロンプトテーマ
-zinit light dracula/zsh
-# ウィンドウを大量に分割してコマンドの同時実行
-zinit light greymd/tmux-xpanes
-# oh-my-zshのgitコマンドエイリアスプラグイン
-zinit snippet OMZ::plugins/git/git.plugin.zsh
 
 # ==============================
 # Plugin: Anyframe key bind
@@ -104,19 +77,37 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 # dein.vimパス設定
 export XDG_CONFIG_HOME="$HOME/.config"
+# aqua path
+export PATH="$PATH:$(aqua root-dir)/bin"
+# sheldon editor path
+export EDITOR=nvim sheldon edit
+export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
+export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua/aqua.yaml"
+
+# ==============================
+# Key Bind
+# ==============================
+# Ctrl-a/e を zsh 標準の行頭/行末へ
+bindkey -e
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
 
 # ==============================
 # Alias
 # ==============================
+alias vim='nvim'
 alias lst='ls -ltr'
 alias l='ls -ltr'
 alias la='ls -la'
 alias ll='ls -l'
 alias ssh='TERM=xterm ssh'
-alias tmux='tmux -2'
-if [[ -e $(which lazygit) ]]; then
-  alias lg='lazygit'
-fi
+alias t='terraform'
+alias lg='lazygit'
+alias ld='lazydocker'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+eval "$(sheldon source)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

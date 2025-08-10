@@ -1,0 +1,4 @@
+shell-integration = zsh
+theme = Desert
+font-family = "JetBrainsMono Nerd Font"
+fullscreen = true

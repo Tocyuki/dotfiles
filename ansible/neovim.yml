@@ -1,0 +1,32 @@
+---
+- name: Get git repository root
+  command: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+  tags:
+    - neovim
+
+- name: create .vim directory
+  file:
+    path: ~/.vim
+    state: directory
+    mode: "0755"
+  tags:
+    - neovim
+
+- name: link dotfiles
+  file:
+    src: "{{ git_root.stdout }}/{{ item.file }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { file: ".ideavimrc", dest: "~/.ideavimrc" }
+    - { file: ".config/nvim/init.vim", dest: "~/.config/nvim/init.vim" }
+    - { file: "coc-settings.json", dest: "~/.vim/coc-settings.json" }
+  tags:
+    - dotfiles
+    - neovim
+

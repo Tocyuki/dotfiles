@@ -1,0 +1,37 @@
+---
+- name: Get git repository root
+  command: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+  tags:
+    - tmux
+
+- name: install tpm
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+  tags:
+    - tmux
+
+- name: install tmux
+  homebrew:
+    name: tmux
+    state: present
+    update_homebrew: yes
+  tags:
+    - tmux
+
+- name: link .tmux.conf
+  file:
+    src: "{{ git_root.stdout }}/{{ item.file }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { file: ".tmux.conf", dest: "~/.tmux.conf" }
+  tags:
+    - dotfiles
+    - tmux
+

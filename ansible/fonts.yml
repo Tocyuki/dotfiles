@@ -1,0 +1,11 @@
+---
+- name: install nerd font
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - font-hack-nerd-font
+    - font-jetbrains-mono-nerd-font
+  tags:
+    - fonts
+

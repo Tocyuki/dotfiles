@@ -16,6 +16,15 @@
   tags:
     - tools
 
+- name: create aqua directory
+  file:
+    path: ~/.config/aqua
+    state: directory
+    mode: "0755"
+  tags:
+    - dotfiles
+    - tools
+
 - name: link dotfiles
   file:
     src: "{{ git_root.stdout }}/{{ item.file }}"

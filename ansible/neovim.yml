@@ -10,9 +10,12 @@
 
 - name: create .vim directory
   file:
-    path: ~/.vim
+    path: "{{ item }}"
     state: directory
     mode: "0755"
+  loop:
+    - "~/.vim"
+    - "~/.config/nvim"
   tags:
     - neovim
 

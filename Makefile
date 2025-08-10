@@ -13,6 +13,9 @@ init: ## Install homebrew & ansible for Mac
 	@brew install ansible
 	@ansible-galaxy collection install community.general
 
+deploy: ## Install all packages & Linking dotfiles
+	@ansible-playbook -i localhost, -c local ansible/main.yml -K -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
+
 install-brew: ## Install brew packages
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags brew -K -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
@@ -31,9 +34,9 @@ setup-ghostty: ## Setup ghostty
 setup-tmux: ## Setup tmux
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags tmux -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
+setup-neovim: ## Setup neovim
+	@ansible-playbook -i localhost, -c local ansible/main.yml --tags neovim -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
+
 dotfiles: ## Linking dotfils
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags dotfiles -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
-
-deploy: ## Install all packages & Linking dotfiles
-	@ansible-playbook -i localhost, -c local ansible/main.yml -K -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 

@@ -2,3 +2,23 @@ shell-integration = zsh
 theme = Desert
 font-family = "JetBrainsMono Nerd Font"
 fullscreen = true
+
+# 日本語対応設定
+font-feature = -calt
+font-feature = -liga
+font-feature = -kern
+font-feature = -dlig
+font-feature = -hlig
+font-thicken = true
+
+# 日本語フォールバック
+font-family-bold = "JetBrainsMono Nerd Font"
+font-family-italic = "JetBrainsMono Nerd Font"
+font-family-bold-italic = "JetBrainsMono Nerd Font"
+
+# 文字間隔調整
+adjust-cell-width = 0
+adjust-cell-height = 0
+
+# 文字エンコーディング
+term = xterm-256color

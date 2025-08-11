@@ -16,6 +16,15 @@
   tags:
     - ghostty
 
+- name: create ghostty directory
+  file:
+    path: ~/.config/ghostty
+    state: directory
+    mode: "0755"
+  tags:
+    - dotfiles
+    - ghostty
+
 - name: link dotfiles
   file:
     src: "{{ git_root.stdout }}/{{ item.file }}"

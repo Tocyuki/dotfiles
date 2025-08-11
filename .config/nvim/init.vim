@@ -120,7 +120,7 @@ require('gitsigns').setup {
     untracked    = { hl = 'GitSignsAdd', text = '┆', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
   },
   signcolumn = true,  -- サイン列を表示
-  numhl      = false, -- 行番号ハイライトはオフ
+  numhl      = true,  -- 行番号ハイライトはオフ
   linehl     = false, -- 行ハイライトはオフ
   word_diff  = false, -- ワード単位の差分はオフ
   watch_gitdir = {

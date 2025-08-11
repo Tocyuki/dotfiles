@@ -16,7 +16,7 @@
   tags:
     - zsh
 
-- name: create aqua directory
+- name: create sheldon directory
   file:
     path: ~/.config/sheldon
     state: directory

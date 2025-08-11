@@ -15,9 +15,17 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: initialize
-        run: make init
+      - name: install homebrew
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - name: install claudecode
+        run: /bin/bash -c "$(curl -fsSL https://claude.ai/install.sh)"
+
+      - name: install ansible
+        run: brew install ansible
+
+      - name: install collection with ansible galaxy
+        run: ansible-galaxy collection install community.general
 
       - name: deploy
-        run: make deploy
-
+        run: ansible-playbook -i localhost, -c local ansible/main.yml -K -e "ansible_python_interpreter=/usr/local/bin/python3"

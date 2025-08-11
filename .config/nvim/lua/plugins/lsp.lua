@@ -34,6 +34,7 @@ return {
           "gopls",
           "gh_actions_ls",
           "nginx_language_server",
+          "ansiblels",
         },
       })
 

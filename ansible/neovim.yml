@@ -15,7 +15,8 @@
     mode: "0755"
   loop:
     - "~/.vim"
-    - "~/.config/nvim"
+    - "~/.config/nvim/lua/user"
+    - "~/.config/nvim/lua/plugins"
   tags:
     - neovim
 
@@ -28,6 +29,12 @@
   loop:
     - { file: ".ideavimrc", dest: "~/.ideavimrc" }
     - { file: ".config/nvim/init.lua", dest: "~/.config/nvim/init.lua" }
+    - { file: ".config/nvim/lua/user/autocmds.lua", dest: "~/.config/nvim/lua/user/autocmds.lua" }
+    - { file: ".config/nvim/lua/user/keymaps.lua",  dest: "~/.config/nvim/lua/user/keymaps.lua" }
+    - { file: ".config/nvim/lua/user/options.lua",  dest: "~/.config/nvim/lua/user/options.lua" }
+    - { file: ".config/nvim/lua/user/ui.lua",       dest: "~/.config/nvim/lua/user/ui.lua" }
+    - { file: ".config/nvim/lua/plugins/editor.lua",dest: "~/.config/nvim/lua/plugins/editor.lua" }
+    - { file: ".config/nvim/lua/plugins/lsp.lua",   dest: "~/.config/nvim/lua/plugins/lsp.lua" }
     - { file: "coc-settings.json", dest: "~/.vim/coc-settings.json" }
   tags:
     - dotfiles

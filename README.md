@@ -1,4 +1,5 @@
 [![Test](https://github.com/Tocyuki/dotfiles/actions/workflows/test.yml/badge.svg)](https://github.com/Tocyuki/dotfiles/actions/workflows/test.yml)
+[![Actionlint](https://github.com/Tocyuki/dotfiles/actions/workflows/actionlint.yml/badge.svg)](https://github.com/Tocyuki/dotfiles/actions/workflows/actionlint.yml)
 
 # dotfiles
 

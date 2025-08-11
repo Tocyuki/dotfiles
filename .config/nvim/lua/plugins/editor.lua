@@ -91,8 +91,8 @@ return {
       for i = 1, 10 do
         vim.keymap.set("n", "<Leader>"..i, "<Cmd>BufferLineGoToBuffer "..i.."<CR>", { silent = true })
       end
-      vim.keymap.set("n","<Tab>",    "<Cmd>BufferLineCycleNext<CR>", { silent = true })
-      vim.keymap.set("n","<S-Tab>",  "<Cmd>BufferLineCyclePrev<CR>", { silent = true })
+      vim.keymap.set("n","<C-n>", "<Cmd>BufferLineCycleNext<CR>", { silent = true })
+      vim.keymap.set("n","<C-p>", "<Cmd>BufferLineCyclePrev<CR>", { silent = true })
     end,
   },
 
@@ -112,7 +112,7 @@ return {
           local root_pat = "^" .. vim.pesc(vim.fn.fnamemodify(git_root, ":~:.") .. "/")
           return (vim.fn.fnamemodify(file, ":~:."):gsub(root_pat, ""))
         end
-        local clients = vim.lsp.get_active_clients({ bufnr = buf })
+        local clients = vim.lsp.get_clients({ bufnr = buf })
         if #clients > 0 and clients[1].config and clients[1].config.root_dir then
           local lsp_root = clients[1].config.root_dir
           local root_pat = "^" .. vim.pesc(vim.fn.fnamemodify(lsp_root, ":~:.") .. "/")
@@ -205,19 +205,23 @@ return {
       require("gitsigns").setup({
         sign_priority = 6,
         signs = {
-          add          = { text = "┃" },
-          change       = { text = "┃" },
-          delete       = { text = "_" },
-          topdelete    = { text = "‾" },
+          add          = { text = "▌" },
+          change       = { text = "▌" },
+          delete       = { text = "▁" },
+          topdelete    = { text = "▔" },
           changedelete = { text = "~" },
-          untracked    = { text = "█" },
+          untracked    = { text = "▌" },
         },
         signcolumn = true,
         numhl = true,
         linehl = false,
         word_diff = false,
+        current_line_blame = true,
+        attach_to_untracked = true,
         watch_gitdir = { follow_files = true },
         on_attach = function(bufnr)
+          vim.api.nvim_set_hl(0, "GitSignsUntrackedNr", { fg = "#ff6b6b" })
+          vim.api.nvim_set_hl(0, "GitSignsUntracked", { fg = "#ff6b6b" })
           local gs = require("gitsigns")
           local function m(mode, l, r, o) (o or {}).buffer = bufnr; vim.keymap.set(mode,l,r,o or {}) end
           m("n","]c", function() if vim.wo.diff then vim.cmd("normal ]c") else gs.next_hunk() end end)

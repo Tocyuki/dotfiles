@@ -6,6 +6,13 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # ==============================
+# Locale settings
+# ==============================
+export LANG=ja_JP.UTF-8
+export LC_ALL=ja_JP.UTF-8
+export LC_CTYPE=ja_JP.UTF-8
+
+# ==============================
 # Plugin: Anyframe key bind
 # ==============================
 # 過去に移動したことのあるディレクトリに移動する
@@ -65,9 +72,6 @@ setopt hist_reduce_blanks
 # cdrコマンドを使えるようにする
 autoload -Uz add-zsh-hock
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-# 文字コード
-export LANG=ja_JP.UTF-8
-export LC_CTYPE=en_US.UTF-8
 # ヒストリー設定
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
@@ -75,6 +79,8 @@ SAVEHIST=100000
 # Golangパス設定
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+# ClaudeCodeパス設定
+export PATH=$PATH:$HOME/.local/bin
 # dein.vimパス設定
 export XDG_CONFIG_HOME="$HOME/.config"
 # aqua path

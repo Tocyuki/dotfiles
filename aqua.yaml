@@ -45,3 +45,4 @@ packages:
 - name: kubernetes/minikube@v1.36.0
 - name: denoland/deno@v2.4.3
 - name: yarnpkg/yarn@v1.22.22
+- name: BurntSushi/ripgrep@14.1.1

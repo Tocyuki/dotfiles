@@ -6,7 +6,6 @@
     state: present
     update_homebrew: yes
   loop:
-    - ag
     - tree
     - watch
     - azure-cli

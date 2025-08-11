@@ -27,7 +27,7 @@
     force: yes
   loop:
     - { file: ".ideavimrc", dest: "~/.ideavimrc" }
-    - { file: ".config/nvim/init.vim", dest: "~/.config/nvim/init.vim" }
+    - { file: ".config/nvim/init.lua", dest: "~/.config/nvim/init.lua" }
     - { file: "coc-settings.json", dest: "~/.vim/coc-settings.json" }
   tags:
     - dotfiles

@@ -1,0 +1,25 @@
+name: actionlint
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # actionlint (https://github.com/rhysd/actionlint)
+      # For more details: https://github.com/koki-develop/github-actions-lint/blob/main/actionlint/action.yml
+      - name: run actionlint
+        uses: koki-develop/github-actions-lint/actionlint@v1

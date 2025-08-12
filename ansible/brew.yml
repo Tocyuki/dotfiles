@@ -27,6 +27,8 @@
     - displaylink
     - logi-options-plus
     - cleanshot
+    - discord
+    - visual-studio-code
   tags:
     - brew
 

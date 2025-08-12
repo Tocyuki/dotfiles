@@ -18,6 +18,14 @@ return {
       local ok_l, lsp  = pcall(require, "lspconfig")
       if not (ok_m and ok_l) then return end
 
+      -- Terraform ファイルタイプ設定
+      vim.filetype.add({
+        extension = {
+          tf = 'terraform',
+          tfvars = 'terraform',
+        },
+      })
+
       -- LSP Server
       mlsp.setup({
         automatic_installation = true,
@@ -28,7 +36,6 @@ return {
           "dockerls",
           "docker_compose_language_service",
           "terraformls",
-          "tflint",
           "pyright",
           "ts_ls",
           "gopls",
@@ -41,9 +48,10 @@ return {
       local on_attach = function(_, bufnr)
         local map = function(m,l,r) vim.keymap.set(m,l,r,{buffer=bufnr,silent=true}) end
         map("n","gd", vim.lsp.buf.definition)
-        map("n","K",  vim.lsp.buf.hover)
         map("n","gr", vim.lsp.buf.references)
         map("n","rn", vim.lsp.buf.rename)
+        map("n","K", vim.diagnostic.open_float)
+        map("n","<leader>q", vim.diagnostic.setloclist)
       end
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -56,23 +64,71 @@ return {
         lsp[server].setup({ on_attach = on_attach, capabilities = capabilities })
       end
 
+      local function setup_lua_ls()
+        lsp.lua_ls.setup({
+          on_attach = on_attach,
+          capabilities = capabilities,
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { "vim" }
+              },
+              workspace = {
+                checkThirdParty = false
+              }
+            }
+          },
+        })
+      end
+
+      local function setup_terraformls()
+        lsp.terraformls.setup({
+          on_attach = on_attach,
+          capabilities = capabilities,
+          settings = {
+            terraformls = {
+              experimentalFeatures = {
+                validateOnSave = true,
+                prefillRequiredFields = true,
+              },
+              validation = {
+                enableEnhancedValidation = true,
+              },
+              indexing = {
+                ignorePaths = {
+                  ".terraform/**",
+                  "**/.terraform/**",
+                }
+              },
+            },
+            terraform = {
+              validation = {
+                enableEnhancedValidation = true,
+              },
+              format = {
+                enable = true,
+                ignoreExtensionsOnCompletion = true,
+              },
+              logging = {
+                level = "warn",
+              },
+            },
+          },
+        })
+      end
+
       if type(mlsp.setup_handlers) == "function" then
         mlsp.setup_handlers({
           function(server) setup_default(server) end,
-          ["lua_ls"] = function()
-            lsp.lua_ls.setup({
-              on_attach = on_attach,
-              settings = { Lua = { diagnostics = { globals = { "vim" } }, workspace = { checkThirdParty=false } } },
-            })
-          end,
+          ["lua_ls"] = setup_lua_ls,
+          ["terraformls"] = setup_terraformls,
         })
       else
         for _, server in ipairs(mlsp.get_installed_servers()) do
           if server == "lua_ls" then
-            lsp.lua_ls.setup({
-              on_attach = on_attach,
-              settings = { Lua = { diagnostics = { globals = { "vim" } }, workspace = { checkThirdParty=false } } },
-            })
+            setup_lua_ls()
+          elseif server == "terraformls" then
+            setup_terraformls()
           else
             setup_default(server)
           end
@@ -91,7 +147,7 @@ return {
           -- Formatters
           "prettier", "black", "isort", "gofumpt", "goimports", "terraform_fmt",
           -- Linters
-          "eslint_d", "ruff", "golangci-lint",
+          "eslint_d", "ruff", "golangci-lint", "tflint",
         },
         auto_update = true,
         run_on_start = true,

@@ -173,7 +173,15 @@ return {
         close_if_last_window = true,
         enable_git_status = true,
         enable_diagnostics = true,
+        window = {
+          mappings = {
+            ["l"] = "open",
+          }
+        },
         filesystem = {
+          mappings = {
+            ["l"] = "open",
+          },
           filtered_items = { hide_dotfiles = false },
           follow_current_file = { enabled = true }, -- v3 仕様
           group_empty_dirs = true,

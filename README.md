@@ -23,3 +23,7 @@ make deploy
 ```bash
 make help
 ```
+
+## Documentation
+
+- [Neovim Git Operations](docs/neovim-git-operations.md) - Git操作のキーマッピングとコマンドガイド

@@ -1,0 +1,54 @@
+git:
+  autocommit: false
+  paging:
+    colorArg: always
+    pager: delta --paging=never --true-color=auto --dark --side-by-side --line-numbers --syntax-theme=zenburn --width=variable --navigate
+  customCommands:
+    - key: C
+      command: git cz
+      description: "commit with commitizen"
+      context: files
+      loadingText: "opening commitizen commit tool"
+      subprocess: true
+
+gui:
+  language: "en"
+  showIcons: true
+  # Desert
+  theme:
+    activeBorderColor:
+      - "#CD853F"
+      - bold
+    inactiveBorderColor:
+      - "#8FBC8F"
+
+    searchingActiveBorderColor:
+      - "#87CEEB"
+      - bold
+
+    optionsTextColor:
+      - "#696969"
+
+    selectedLineBgColor:
+      - "#556B2F"
+
+    inactiveViewSelectedLineBgColor:
+      - bold
+
+    cherryPickedCommitFgColor:
+      - "#696969"
+
+    cherryPickedCommitBgColor:
+      - "#87CEEB"
+
+    markedBaseCommitFgColor:
+      - "#87CEEB"
+
+    markedBaseCommitBgColor:
+      - "#F0E68C"
+
+    unstagedChangesColor:
+      - "#CD5C5C"
+
+    defaultFgColor:
+      - "#F5DEB3"

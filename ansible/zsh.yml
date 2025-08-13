@@ -16,9 +16,21 @@
   tags:
     - zsh
 
-- name: create sheldon directory
+- name: create directory
   file:
-    path: ~/.config/sheldon
+    path: "~/.config/{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - sheldon
+    - git
+  tags:
+    - dotfiles
+    - zsh
+
+- name: create claude directory
+  file:
+    path: "~/.claude"
     state: directory
     mode: "0755"
   tags:
@@ -33,8 +45,10 @@
     force: yes
   loop:
     - { file: ".zshrc", dest: "~/.zshrc" }
-    - { file: ".config/sheldon/plugins.toml", dest: "~/.config/sheldon/plugins.toml" }
     - { file: ".p10k.zsh", dest: "~/.p10k.zsh" }
+    - { file: ".claude/settings.json", dest: "~/.claude/settings.json" }
+    - { file: ".config/git/ignore", dest: "~/.config/git/ignore" }
+    - { file: ".config/sheldon/plugins.toml", dest: "~/.config/sheldon/plugins.toml" }
   tags:
     - dotfiles
     - zsh

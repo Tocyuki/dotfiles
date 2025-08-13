@@ -1,4 +1,33 @@
 -- lua/plugins/editor.lua
+local utils = require('user.utils')
+
+-- 定数
+local DISABLED_FILETYPES = {
+  "help","neo-tree","lazy","mason","Trouble","alpha","starter","dashboard",
+  "fzf","gitcommit","gitrebase","checkhealth","notify","qf","toggleterm"
+}
+
+local GIT_SYMBOLS = {
+  added     = "",
+  modified  = "",
+  deleted   = "",
+  renamed   = "󰁕",
+  untracked = "",
+  ignored   = "",
+  unstaged  = "󰄱",
+  staged    = "",
+  conflict  = "",
+}
+
+local GITSIGNS_SYMBOLS = {
+  add          = { text = "▌" },
+  change       = { text = "▌" },
+  delete       = { text = "▁" },
+  topdelete    = { text = "▔" },
+  changedelete = { text = "~" },
+  untracked    = { text = "▌" },
+}
+
 return {
   { "nvim-lua/plenary.nvim", lazy = true },
   { "MunifTanjim/nui.nvim",  lazy = true },
@@ -31,10 +60,7 @@ return {
         options = { try_as_border = true },
       })
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "help","neo-tree","lazy","mason","Trouble","alpha","starter","dashboard",
-          "fzf","gitcommit","gitrebase","checkhealth","notify","qf","toggleterm"
-        },
+        pattern = DISABLED_FILETYPES,
         callback = function() vim.b.miniindentscope_disable = true end,
       })
       require("mini.trailspace").setup()
@@ -88,9 +114,9 @@ return {
           },
         },
       })
-      for i = 1, 10 do
-        vim.keymap.set("n", "<Leader>"..i, "<Cmd>BufferLineGoToBuffer "..i.."<CR>", { silent = true })
-      end
+      utils.setup_buffer_keymaps(function(i)
+        return "<Cmd>BufferLineGoToBuffer "..i.."<CR>"
+      end)
       vim.keymap.set("n","<C-n>", "<Cmd>BufferLineCycleNext<CR>", { silent = true })
       vim.keymap.set("n","<C-p>", "<Cmd>BufferLineCyclePrev<CR>", { silent = true })
     end,
@@ -102,26 +128,6 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      local function hybrid_relative_path()
-        local buf  = vim.api.nvim_get_current_buf()
-        local file = vim.api.nvim_buf_get_name(buf)
-        if file == "" then return "[No Name]" end
-        local dir = vim.fn.fnamemodify(file, ":h")
-        local git_root = vim.fn.systemlist("git -C " .. vim.fn.shellescape(dir) .. " rev-parse --show-toplevel")[1]
-        if git_root and git_root ~= "" then
-          local root_pat = "^" .. vim.pesc(vim.fn.fnamemodify(git_root, ":~:.") .. "/")
-          return (vim.fn.fnamemodify(file, ":~:."):gsub(root_pat, ""))
-        end
-        local clients = vim.lsp.get_clients({ bufnr = buf })
-        if #clients > 0 and clients[1].config and clients[1].config.root_dir then
-          local lsp_root = clients[1].config.root_dir
-          local root_pat = "^" .. vim.pesc(vim.fn.fnamemodify(lsp_root, ":~:.") .. "/")
-          return (vim.fn.fnamemodify(file, ":~:."):gsub(root_pat, ""))
-        end
-        local cwd = vim.fn.getcwd()
-        local root_pat = "^" .. vim.pesc(vim.fn.fnamemodify(cwd, ":~:.") .. "/")
-        return (vim.fn.fnamemodify(file, ":~:."):gsub(root_pat, ""))
-      end
 
       require("lualine").setup({
         options = {
@@ -135,7 +141,7 @@ return {
         sections = {
           lualine_a = { "mode" },
           lualine_b = { "branch", "diff", "diagnostics" },
-          lualine_c = { hybrid_relative_path },
+          lualine_c = { utils.hybrid_relative_path },
           lualine_x = { "encoding", "fileformat", "filetype" },
           lualine_y = { "progress" },
           lualine_z = { "location" },
@@ -143,7 +149,7 @@ return {
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = { hybrid_relative_path },
+          lualine_c = { utils.hybrid_relative_path },
           lualine_x = { "location" },
           lualine_y = {},
           lualine_z = {},
@@ -187,19 +193,7 @@ return {
           group_empty_dirs = true,
         },
         default_component_configs = {
-          git_status = {
-            symbols = {
-              added     = "",
-              modified  = "",
-              deleted   = "",
-              renamed   = "󰁕",
-              untracked = "",
-              ignored   = "",
-              unstaged  = "󰄱",
-              staged    = "",
-              conflict  = "",
-            }
-          }
+          git_status = { GIT_SYMBOLS }
         }
       })
     end
@@ -212,14 +206,7 @@ return {
     config = function()
       require("gitsigns").setup({
         sign_priority = 6,
-        signs = {
-          add          = { text = "▌" },
-          change       = { text = "▌" },
-          delete       = { text = "▁" },
-          topdelete    = { text = "▔" },
-          changedelete = { text = "~" },
-          untracked    = { text = "▌" },
-        },
+        signs = GITSIGNS_SYMBOLS,
         signcolumn = true,
         numhl = true,
         linehl = false,

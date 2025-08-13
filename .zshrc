@@ -13,40 +13,6 @@ export LC_ALL=ja_JP.UTF-8
 export LC_CTYPE=ja_JP.UTF-8
 
 # ==============================
-# Plugin: Anyframe key bind
-# ==============================
-# 過去に移動したことのあるディレクトリに移動する
-bindkey '^xc'   anyframe-widget-cdr
-bindkey '^x^c'  anyframe-widget-cdr
-# historyのコマンドライン履歴から選んで実行する
-bindkey '^xr'   anyframe-widget-execute-history
-bindkey '^x^r'  anyframe-widget-execute-history
-# historyのコマンドライン履歴から選んでコマンドラインに挿入する
-bindkey '^xp'   anyframe-widget-put-history
-bindkey '^x^p'  anyframe-widget-put-history
-# ghqコマンドで管理しているリポジトリに移動する
-bindkey '^xg'   anyframe-widget-cd-ghq-repository
-bindkey '^x^g'  anyframe-widget-cd-ghq-repository
-# プロセスをkillする
-bindkey '^xk'   anyframe-widget-kill
-bindkey '^x^k'  anyframe-widget-kill
-# Gitブランチを切り替える
-bindkey '^xb'   anyframe-widget-checkout-git-branch
-bindkey '^x^b'  anyframe-widget-checkout-git-branch
-# Gitブランチ名をコマンドラインに挿入する
-bindkey '^xi'   anyframe-widget-insert-git-branch
-bindkey '^x^i'  anyframe-widget-insert-git-branch
-# ファイル名をコマンドラインに挿入する
-bindkey '^xf'   anyframe-widget-insert-filename
-bindkey '^x^f'  anyframe-widget-insert-filename
-# tmuxセッションを選んでアタッチする
-bindkey '^xt'   anyframe-widget-tmux-attach
-bindkey '^x^t'  anyframe-widget-tmux-attach
-# anyframe-widgetから選んでそれを実行する
-bindkey '^xa'   anyframe-widget-select-widget
-bindkey '^x^a'  anyframe-widget-select-widget
-
-# ==============================
 # Configuration: Global
 # ==============================
 # 補完の有効化
@@ -90,6 +56,8 @@ export EDITOR=nvim sheldon edit
 export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
 export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua/aqua.yaml"
 
+eval "$(sheldon source)"
+
 # ==============================
 # Key Bind
 # ==============================
@@ -97,6 +65,28 @@ export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua/aqua.yaml"
 bindkey -e
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
+
+# Plugin: Anyframe key bind
+# ghqコマンドで管理しているリポジトリに移動する
+bindkey '^g'   anyframe-widget-cd-ghq-repository
+# プロセスをkillする
+bindkey '^xk'   anyframe-widget-kill
+bindkey '^x^k'  anyframe-widget-kill
+# Gitブランチを切り替える
+bindkey '^xb'   anyframe-widget-checkout-git-branch
+bindkey '^x^b'  anyframe-widget-checkout-git-branch
+# Gitブランチ名をコマンドラインに挿入する
+bindkey '^xi'   anyframe-widget-insert-git-branch
+bindkey '^x^i'  anyframe-widget-insert-git-branch
+# ファイル名をコマンドラインに挿入する
+bindkey '^xf'   anyframe-widget-insert-filename
+bindkey '^x^f'  anyframe-widget-insert-filename
+# tmuxセッションを選んでアタッチする
+bindkey '^xt'   anyframe-widget-tmux-attach
+bindkey '^x^t'  anyframe-widget-tmux-attach
+# anyframe-widgetから選んでそれを実行する
+bindkey '^xa'   anyframe-widget-select-widget
+bindkey '^x^a'  anyframe-widget-select-widget
 
 # ==============================
 # Alias
@@ -110,10 +100,16 @@ alias ssh='TERM=xterm ssh'
 alias t='terraform'
 alias lg='lazygit'
 alias ld='lazydocker'
+alias proot='cd $(git rev-parse --show-toplevel)'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-eval "$(sheldon source)"
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# bun completions
+[ -s "/Users/tocyuki/.bun/_bun" ] && source "/Users/tocyuki/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

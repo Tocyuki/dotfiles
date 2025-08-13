@@ -45,6 +45,14 @@ return {
         },
       })
 
+      -- LSP診断の設定
+      vim.diagnostic.config({
+        float = {
+          border = "rounded",
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+        },
+      })
+
       local on_attach = function(_, bufnr)
         local map = function(m,l,r) vim.keymap.set(m,l,r,{buffer=bufnr,silent=true}) end
         map("n","gd", vim.lsp.buf.definition)
@@ -169,12 +177,29 @@ return {
     },
     config = function()
       vim.o.completeopt = "menu,menuone,noselect"
+      vim.o.pumblend = 20  -- 補完ウィンドウの透過度 (0-100)
+      vim.o.winblend = 20  -- フローティングウィンドウの透過度 (0-100)
+
       local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").lazy_load()
 
       local cmp = require("cmp")
       cmp.setup({
         snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
+        window = {
+          completion = {
+            border = "rounded",
+            winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder,CursorLine:CmpSel,Search:None",
+            winblend = 15,
+            col_offset = -3,
+            side_padding = 1,
+          },
+          documentation = {
+            border = "rounded",
+            winhighlight = "Normal:CmpDocNormal,FloatBorder:CmpDocBorder",
+            winblend = 15,
+          },
+        },
         mapping = cmp.mapping.preset.insert({
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<CR>"]      = cmp.mapping.confirm({ select = false }),

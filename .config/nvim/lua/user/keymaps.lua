@@ -1,5 +1,7 @@
 -- lua/user/keymaps.lua
 local map = vim.keymap.set
+local utils = require("user.utils")
+
 map("n","<Leader>k", ":bd<CR>")
 map("n","<Leader>w", ":w<CR>")
 map("n","<Leader>r", ":%s;\\<<C-r><C-w>\\>;g<Left><Left>;")
@@ -12,28 +14,8 @@ map('t', '<Leader>;f', function()
 end, { noremap = true })
 
 -- terminal helpers
-map("n",";lg", function()
-  vim.cmd("tab terminal lazygit")
-  -- ターミナル終了時に自動でタブを閉じる
-  vim.api.nvim_create_autocmd("TermClose", {
-    buffer = 0,
-    once = true,
-    callback = function()
-      vim.cmd("bd!")
-    end
-  })
-end)
-map("n",";ld", function()
-  vim.cmd("tab terminal lazydocker")
-  -- ターミナル終了時に自動でタブを閉じる
-  vim.api.nvim_create_autocmd("TermClose", {
-    buffer = 0,
-    once = true,
-    callback = function()
-      vim.cmd("bd!")
-    end
-  })
-end)
+map("n",";lg", utils.create_terminal_with_autocmd("lazygit"))
+map("n",";ld", utils.create_terminal_with_autocmd("lazydocker"))
 
 -- window move/split
 map("n","<C-h>", "<C-w>h"); map("n","<C-j>", "<C-w>j")

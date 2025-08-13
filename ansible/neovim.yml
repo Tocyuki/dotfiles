@@ -28,16 +28,18 @@
     force: yes
   loop:
     - { file: ".ideavimrc", dest: "~/.ideavimrc" }
+    - { file: "coc-settings.json", dest: "~/.vim/coc-settings.json" }
+    - { file: ".config/lazygit/config.yml", dest: "~/.config/lazygit/config.yml" }
     - { file: ".config/nvim/init.lua", dest: "~/.config/nvim/init.lua" }
     - { file: ".config/nvim/.luarc.json", dest: "~/.config/nvim/.luarc.json" }
     - { file: ".config/nvim/lua/user/autocmds.lua", dest: "~/.config/nvim/lua/user/autocmds.lua" }
     - { file: ".config/nvim/lua/user/keymaps.lua",  dest: "~/.config/nvim/lua/user/keymaps.lua" }
     - { file: ".config/nvim/lua/user/options.lua",  dest: "~/.config/nvim/lua/user/options.lua" }
     - { file: ".config/nvim/lua/user/ui.lua",       dest: "~/.config/nvim/lua/user/ui.lua" }
+    - { file: ".config/nvim/lua/user/utils.lua",       dest: "~/.config/nvim/lua/user/utils.lua" }
     - { file: ".config/nvim/lua/plugins/editor.lua",dest: "~/.config/nvim/lua/plugins/editor.lua" }
     - { file: ".config/nvim/lua/plugins/lsp.lua",   dest: "~/.config/nvim/lua/plugins/lsp.lua" }
     - { file: ".config/nvim/lua/plugins/claudecode.lua",   dest: "~/.config/nvim/lua/plugins/claudecode.lua" }
-    - { file: "coc-settings.json", dest: "~/.vim/coc-settings.json" }
   tags:
     - dotfiles
     - neovim

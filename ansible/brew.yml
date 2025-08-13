@@ -10,6 +10,7 @@
     - watch
     - azure-cli
     - chatgpt
+    - grep
   tags:
     - brew
 
@@ -29,6 +30,9 @@
     - cleanshot
     - discord
     - visual-studio-code
+    - intellij-idea
+    - claude
+    - docker
   tags:
     - brew
 

@@ -1,4 +1,6 @@
 -- ~/.config/nvim/lua/plugins/claudecode.lua
+local utils = require("user.utils")
+
 return {
   "coder/claudecode.nvim",
   dependencies = { "folke/snacks.nvim" },
@@ -13,7 +15,7 @@ return {
 
     -- Selection Tracking
     track_selection = true,
-    visual_demotion_delay_ms = 50,
+    visual_demotion_delay_ms = utils.DELAYS.VISUAL_DELAY,
 
     -- Terminal Configuration
     terminal = {
@@ -39,50 +41,9 @@ return {
   },
   keys = {
     { "<Leader>;c", "<cmd>ClaudeCode<cr>", desc = "Open ClaudeCode" },
-    {
-      "<Leader>;t",
-      function()
-        -- 既存のClaudeCodeウィンドウをチェック
-        local current_tab = vim.api.nvim_get_current_tabpage()
-        local wins = vim.api.nvim_tabpage_list_wins(current_tab)
-        local claude_win = nil
-
-        for _, win in ipairs(wins) do
-          local buf = vim.api.nvim_win_get_buf(win)
-          local success, buf_type = pcall(vim.api.nvim_buf_get_option, buf, 'buftype')
-
-          if success and buf_type == 'terminal' then
-            local buf_name = vim.api.nvim_buf_get_name(buf)
-            -- ClaudeCodeのターミナルかどうかをチェック
-            if string.match(buf_name:lower(), "claude") then
-              claude_win = win
-              break
-            end
-          end
-        end
-
-        if claude_win then
-          -- ClaudeCodeウィンドウが見つかった場合は閉じる
-          vim.api.nvim_win_close(claude_win, false)
-        else
-          -- ClaudeCodeウィンドウが見つからない場合は開く
-          vim.cmd("ClaudeCode")
-        end
-      end,
-      desc = "Toggle ClaudeCode"
-    },
+    { "<Leader>;t", utils.toggle_claudecode, desc = "Toggle ClaudeCode" },
     { "<Leader>;a", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept ClaudeCode Changing" },
     { "<Leader>;d", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny ClaudeCode Changing" },
-    {
-      "<Leader>;l",
-      function()
-        vim.cmd("ClaudeCodeSend")
-        vim.defer_fn(function()
-          vim.cmd("ClaudeCodeFocus")
-        end, 150)
-      end,
-      mode = "v",
-      desc = "Send Selection to ClaudeCode then focus",
-    },
+    { "<Leader>;l", utils.send_and_focus_claudecode, mode = "v", desc = "Send Selection to ClaudeCode then focus" },
   },
 }

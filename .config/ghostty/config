@@ -22,3 +22,8 @@ adjust-cell-height = 0
 
 # 文字エンコーディング
 term = xterm-256color
+
+# 透過設定
+background-opacity = 0.85
+background-blur-radius = 20
+

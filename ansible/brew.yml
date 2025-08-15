@@ -11,6 +11,8 @@
     - azure-cli
     - chatgpt
     - grep
+    - pgweb
+    - postgresql
   tags:
     - brew
 
@@ -33,6 +35,7 @@
     - intellij-idea
     - claude
     - docker
+    - zoom
   tags:
     - brew
 

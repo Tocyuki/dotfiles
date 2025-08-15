@@ -40,10 +40,12 @@ packages:
 - name: Azure/azure-dev@azure-dev-cli_1.18.1
 - name: derailed/k9s@v0.50.9
 - name: 1password/cli
-  version: "[SET PACKAGE VERSION]"
+  version: "[8.11.4]"
 - name: kubernetes/minikube@v1.36.0
 - name: denoland/deno@v2.4.3
 - name: yarnpkg/yarn@v1.22.22
 - name: BurntSushi/ripgrep@14.1.1
 - name: dandavison/delta@0.18.2
 - name: tfutils/tfenv@v3.0.0
+- name: google/jsonnet@v0.21.0
+- name: aws/session-manager-plugin@1.2.707.0

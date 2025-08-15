@@ -16,11 +16,17 @@
   tags:
     - tools
 
-- name: create aqua directory
+- name: create directory
   file:
-    path: ~/.config/aqua
+    path: "{{ item }}"
     state: directory
     mode: "0755"
+  loop:
+    - "~/.config/aqua"
+    - "~/.config/git"
+    - "~/.config/lazygit"
+    - "~/.config/ecsta"
+    - "~/.claude"
   tags:
     - dotfiles
     - tools
@@ -33,6 +39,10 @@
     force: yes
   loop:
     - { file: "aqua.yaml", dest: "~/.config/aqua/aqua.yaml" }
+    - { file: ".config/lazygit/config.yml", dest: "~/.config/lazygit/config.yml" }
+    - { file: ".config/git/ignore", dest: "~/.config/git/ignore" }
+    - { file: ".config/ecsta/config.json", dest: "~/.config/ecsta/config.json" }
+    - { file: ".claude/settings.json", dest: "~/.claude/settings.json" }
     - { file: ".gitconfig", dest: "~/.gitconfig" }
   tags:
     - dotfiles

@@ -18,11 +18,13 @@ return {
       local ok_l, lsp  = pcall(require, "lspconfig")
       if not (ok_m and ok_l) then return end
 
-      -- Terraform ファイルタイプ設定
+      -- ファイルタイプ設定
       vim.filetype.add({
         extension = {
           tf = 'terraform',
           tfvars = 'terraform',
+          jsonnet = 'jsonnet',
+          libsonnet = 'jsonnet',
         },
       })
 
@@ -42,6 +44,7 @@ return {
           "gh_actions_ls",
           "nginx_language_server",
           "ansiblels",
+          "jsonnet_ls",
         },
       })
 

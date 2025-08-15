@@ -1,0 +1,5 @@
+{
+  "filter_command": "fzf",
+  "output": "table",
+  "task_format_query": ""
+}

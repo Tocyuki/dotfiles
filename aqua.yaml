@@ -49,3 +49,4 @@ packages:
 - name: tfutils/tfenv@v3.0.0
 - name: google/jsonnet@v0.21.0
 - name: aws/session-manager-plugin@1.2.707.0
+- name: keidarcy/e1s@v1.0.50

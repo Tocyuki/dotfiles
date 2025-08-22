@@ -24,6 +24,6 @@ adjust-cell-height = 0
 term = xterm-256color
 
 # 透過設定
-background-opacity = 0.85
-background-blur-radius = 20
+background-opacity = 0.8
+background-blur-radius = 8
 

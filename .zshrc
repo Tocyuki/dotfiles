@@ -42,6 +42,10 @@ autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 HISTFILE=$HOME/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
+
+# ==============================
+# Configuration: EnvVars
+# ==============================
 # Golangパス設定
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
@@ -51,10 +55,13 @@ export PATH=$PATH:$HOME/.local/bin
 export XDG_CONFIG_HOME="$HOME/.config"
 # aqua path
 export PATH="$PATH:$(aqua root-dir)/bin"
+export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua/aqua.yaml"
 # sheldon editor path
 export EDITOR=nvim sheldon edit
 export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
-export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua/aqua.yaml"
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 eval "$(sheldon source)"
 
@@ -109,7 +116,3 @@ alias proot='cd $(git rev-parse --show-toplevel)'
 
 # bun completions
 [ -s "/Users/tocyuki/.bun/_bun" ] && source "/Users/tocyuki/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"

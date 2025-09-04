@@ -50,3 +50,4 @@ packages:
 - name: google/jsonnet@v0.21.0
 - name: aws/session-manager-plugin@1.2.707.0
 - name: keidarcy/e1s@v1.0.50
+- name: knqyf263/pet@v1.0.1

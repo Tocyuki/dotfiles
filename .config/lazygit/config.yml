@@ -14,41 +14,41 @@ git:
 gui:
   language: "en"
   showIcons: true
-  # Desert
+  # Tokyo Night
   theme:
     activeBorderColor:
-      - "#CD853F"
+      - "#7aa2f7"
       - bold
     inactiveBorderColor:
-      - "#8FBC8F"
+      - "#414868"
 
     searchingActiveBorderColor:
-      - "#87CEEB"
+      - "#ff9e64"
       - bold
 
     optionsTextColor:
-      - "#696969"
+      - "#e0e6ff"
 
     selectedLineBgColor:
-      - "#556B2F"
+      - "#283457"
 
     inactiveViewSelectedLineBgColor:
-      - bold
+      - "#1f2335"
 
     cherryPickedCommitFgColor:
-      - "#696969"
+      - "#bb9af7"
 
     cherryPickedCommitBgColor:
-      - "#87CEEB"
+      - "#283457"
 
     markedBaseCommitFgColor:
-      - "#87CEEB"
+      - "#73daca"
 
     markedBaseCommitBgColor:
-      - "#F0E68C"
+      - "#283457"
 
     unstagedChangesColor:
-      - "#CD5C5C"
+      - "#f7768e"
 
     defaultFgColor:
-      - "#F5DEB3"
+      - "#c0caf5"

@@ -1,7 +1,16 @@
 -- lua/user/ui.lua
+-- colorscheme - デフォルトテーマでfallback、TokyoNightが利用可能になったら切り替え
+if not pcall(function() vim.cmd.colorscheme("tokyonight-night") end) then
+  vim.cmd.colorscheme("desert")
+end
 
--- colorscheme
-vim.cmd.colorscheme("desert")
+-- プラグイン読み込み後にTokyoNightを再適用
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    pcall(function() vim.cmd.colorscheme("tokyonight-night") end)
+  end,
+})
 
 -- 透明化設定
 local function apply_transparent_bg()

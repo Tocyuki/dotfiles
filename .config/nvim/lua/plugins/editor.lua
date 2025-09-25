@@ -70,18 +70,13 @@ return {
     end
   },
 
-  -- mini.nvim（カーソル単語・インデント可視化・末尾空白・括弧/クォート自動補完）
+  -- mini.nvim（カーソル単語・末尾空白・括弧/クォート自動補完）
   {
     "echasnovski/mini.nvim",
     version = false,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("mini.cursorword").setup({ delay = 200 })
-      require("mini.indentscope").setup({
-        symbol = "│",
-        draw = { delay = 0, animation = require("mini.indentscope").gen_animation.none() },
-        options = { try_as_border = true },
-      })
       vim.api.nvim_create_autocmd("FileType", {
         pattern = DISABLED_FILETYPES,
         callback = function() vim.b.miniindentscope_disable = true end,
@@ -94,6 +89,19 @@ return {
         modes = { insert = true, command = true, terminal = false },
       })
     end,
+  },
+
+  -- indent-blankline
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "VeryLazy",
+    main = "ibl",
+    opts = {
+      indent = {
+        char = "┊",
+        tab_char = "╎",
+      },
+    },
   },
 
   -- fzf

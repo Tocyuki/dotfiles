@@ -136,12 +136,56 @@ return {
           mode = "buffers",
           numbers = "none",
           diagnostics = "nvim_lsp",
-          show_buffer_close_icons = true,
+          show_buffer_close_icons = false,
           show_close_icon = false,
-          separator_style = "slant",
           always_show_bufferline = true,
           offsets = {
-            { filetype = "neo-tree", text = "File Explorer", highlight = "Directory", separator = true },
+            { filetype = "neo-tree", text = "Neotree File Explorer", highlight = "Directory", separator = true },
+          },
+          indicator = {
+            icon = '▌',
+          },
+          modified_icon = '● ',
+          left_trunc_marker = ' ',
+          right_trunc_marker = ' ',
+        },
+        highlights = {
+          fill = {
+            bg = '#1a1b26',
+          },
+          background = {
+            bg = '#24283b',
+            fg = '#565f89',
+          },
+          buffer_visible = {
+            bg = '#292e42',
+            fg = '#a9b1d6',
+          },
+          buffer_selected = {
+            bg = '#1a1b26',
+            fg = '#c0caf5',
+            bold = true,
+            italic = false,
+          },
+          separator = {
+            fg = '#000000',
+            bg = '#000000',
+          },
+          separator_visible = {
+            fg = '#000000',
+            bg = '#000000',
+          },
+          separator_selected = {
+            fg = '#000000',
+            bg = '#000000',
+          },
+          tab_separator = {
+            fg = '#000000',
+            bg = '#000000',
+          },
+          tab_separator_selected = {
+            fg = '#000000',
+            bg = '#000000',
           },
         },
       })

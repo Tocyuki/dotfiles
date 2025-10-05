@@ -120,6 +120,7 @@ return {
       { "<Leader>g", ":GFiles<CR>",   mode="n" },
       { "<Leader>s", ":GFiles?<CR>",  mode="n" },
       { "<Leader>l", ":Lines<CR>",    mode="n" },
+      { "<Leader>j", ":Jump<CR>",     mode="n" },
       { "<Leader>a", "<cmd>Rg<CR>",   mode="n", desc="Ripgrep" },
     },
   },

@@ -184,6 +184,13 @@ return {
       vim.o.pumblend = 20  -- 補完ウィンドウの透過度 (0-100)
       vim.o.winblend = 20  -- フローティングウィンドウの透過度 (0-100)
 
+      -- 補完メニューのハイライト設定
+      vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1a1b26" })
+      vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#565f89", bg = "#1a1b26" })
+      vim.api.nvim_set_hl(0, "CmpSel", { bg = "#3d59a1", fg = "#c0caf5", bold = true })
+      vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = "#1a1b26" })
+      vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = "#565f89", bg = "#1a1b26" })
+
       local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -209,6 +216,14 @@ return {
           ["<CR>"]      = cmp.mapping.confirm({ select = false }),
           ["<C-n>"]     = cmp.mapping.select_next_item(),
           ["<C-p>"]     = cmp.mapping.select_prev_item(),
+          ["<C-e>"]     = cmp.mapping.abort(),  -- 補完をキャンセル
+          ["<Esc>"]     = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.abort()
+            else
+              fallback()
+            end
+          end, { "i", "s" }),
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then luasnip.expand_or_jump()

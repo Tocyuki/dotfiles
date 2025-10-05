@@ -266,6 +266,7 @@ return {
           filtered_items = { hide_dotfiles = false },
           follow_current_file = { enabled = true }, -- v3 仕様
           group_empty_dirs = true,
+          use_libuv_file_watcher = true, -- 外部変更を自動監視
         },
         default_component_configs = {
           git_status = { GIT_SYMBOLS }

@@ -39,6 +39,7 @@
     - { file: ".config/nvim/lua/plugins/editor.lua",dest: "~/.config/nvim/lua/plugins/editor.lua" }
     - { file: ".config/nvim/lua/plugins/lsp.lua",   dest: "~/.config/nvim/lua/plugins/lsp.lua" }
     - { file: ".config/nvim/lua/plugins/claudecode.lua",   dest: "~/.config/nvim/lua/plugins/claudecode.lua" }
+    - { file: ".config/nvim/lua/plugins/copilot.lua",   dest: "~/.config/nvim/lua/plugins/copilot.lua" }
   tags:
     - dotfiles
     - neovim

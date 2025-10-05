@@ -177,6 +177,7 @@ return {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
+      "hrsh7th/cmp-copilot",
     },
     config = function()
       vim.o.completeopt = "menu,menuone,noselect"
@@ -220,6 +221,7 @@ return {
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
+          { name = "copilot", group_index = 2 },
           { name = "nvim_lsp" },
           { name = "luasnip"  },
         }, {

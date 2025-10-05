@@ -187,10 +187,45 @@
 |---------|------|------|
 | `:Trim` | 末尾空白削除 | ファイル内の行末空白を一括削除 |
 
+## GitHub Copilot
+
+**プラグイン**: [copilot.vim](https://github.com/github/copilot.vim)
+
+### キーバインド
+
+| キーバインド | 機能 | モード | 説明 |
+|-------------|------|--------|------|
+| `<C-g>` | 候補を受け入れ | Insert | Copilotの提案を受け入れる |
+| `<C-j>` | 次の候補 | Insert | 次の提案候補を表示 |
+| `<C-k>` | 前の候補 | Insert | 前の提案候補を表示 |
+| `<C-x>` | 候補を消去 | Insert | 表示されている提案を消去 |
+| `<leader>ps` | 手動呼び出し | Normal | Copilotの提案を手動で呼び出す |
+| `<leader>pp` | パネルを開く | Normal | Copilotパネルを開く |
+
+### 無効化されているファイルタイプ
+
+- XML
+- Markdown
+
 ## ClaudeCode連携
+
+**プラグイン**: [claudecode.nvim](https://github.com/coder/claudecode.nvim)
+
+### キーバインド
+
+| キーバインド | 機能 | 説明 |
+|-------------|------|------|
+| `<Leader>;c` | ClaudeCode起動 | ClaudeCodeを開く |
+| `<Leader>;t` | ClaudeCodeトグル | ClaudeCodeの表示/非表示を切り替え |
+| `<Leader>;a` | 変更を受け入れ | ClaudeCodeの変更を受け入れる |
+| `<Leader>;d` | 変更を拒否 | ClaudeCodeの変更を拒否する |
+| `<Leader>;l` | 選択範囲送信 | ビジュアル選択範囲をClaudeCodeに送信してフォーカス |
+
+### ユーティリティ関数
 
 設定ファイル内でClaudeCode用のユーティリティ関数も定義されています：
 
 - **ウィンドウ検出**: ClaudeCodeターミナルの自動検出
 - **トグル機能**: ClaudeCodeの表示/非表示切り替え
-- **フォーカス制御**: 送信後の自動フォーカス移動
+- **フォーカス制御**: 送信後の自動フォーカス移動（150ms遅延）
+- **自動クローズ**: 差分受け入れ時の自動クローズ機能

@@ -105,6 +105,7 @@ alias la='ls -la'
 alias ll='ls -l'
 alias ssh='TERM=xterm ssh'
 alias t='terraform'
+alias k='kubernetes'
 alias lg='lazygit'
 alias ld='lazydocker'
 alias proot='cd $(git rev-parse --show-toplevel)'
@@ -116,3 +117,11 @@ alias proot='cd $(git rev-parse --show-toplevel)'
 
 # bun completions
 [ -s "/Users/tocyuki/.bun/_bun" ] && source "/Users/tocyuki/.bun/_bun"
+
+# pnpm
+export PNPM_HOME="/Users/tocyuki/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

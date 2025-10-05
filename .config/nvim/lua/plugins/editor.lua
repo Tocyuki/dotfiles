@@ -291,6 +291,7 @@ return {
         current_line_blame = true,
         attach_to_untracked = true,
         watch_gitdir = { follow_files = true },
+        update_debounce = 50,  -- デフォルト100ms（変更検知を高速化）
         on_attach = function(bufnr)
           vim.api.nvim_set_hl(0, "GitSignsUntrackedNr", { fg = "#ff6b6b" })
           vim.api.nvim_set_hl(0, "GitSignsUntracked", { fg = "#ff6b6b" })

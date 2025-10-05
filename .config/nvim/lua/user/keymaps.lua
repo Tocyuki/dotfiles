@@ -18,6 +18,12 @@ end, { noremap = true })
 map("n",";lg", utils.create_terminal_with_autocmd("lazygit"))
 map("n",";ld", utils.create_terminal_with_autocmd("lazydocker"))
 
+-- diagnostics navigation
+map("n", "]e", function() vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR}) end)
+map("n", "[e", function() vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR}) end)
+map("n", "]w", function() vim.diagnostic.goto_next({severity = vim.diagnostic.severity.WARN}) end)
+map("n", "[w", function() vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.WARN}) end)
+
 -- window move/split
 map("n","<C-h>", "<C-w>h"); map("n","<C-j>", "<C-w>j")
 map("n","<C-k>", "<C-w>k"); map("n","<C-l>", "<C-w>l")

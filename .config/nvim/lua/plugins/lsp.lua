@@ -45,6 +45,12 @@ return {
           "nginx_language_server",
           "ansiblels",
           "jsonnet_ls",
+          "bashls",
+          "marksman",
+          "html",
+          "cssls",
+          "sqlls",
+          "vimls",
         },
       })
 

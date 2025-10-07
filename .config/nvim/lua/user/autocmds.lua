@@ -14,12 +14,20 @@ vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold", "CursorHol
   end,
 })
 
+-- ファイル保存時に行末の空白を自動削除
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    local cursor_pos = vim.api.nvim_win_get_cursor(0)
+    vim.cmd([[%s/\s\+$//ge]])
+    vim.api.nvim_win_set_cursor(0, cursor_pos)
+  end,
+})
+
 -- Terraformファイル保存後に自動フォーマット
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.tf",
   callback = function()
-    local file = vim.fn.expand("%:p")
-
     -- シェル環境でterraformコマンドを実行（tfenv対応）
     local shell_cmd = string.format("cd %s && terraform fmt %s 2>&1",
       vim.fn.shellescape(vim.fn.expand("%:p:h")),

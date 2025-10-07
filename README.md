@@ -26,6 +26,7 @@ make help
 
 ## Documentation
 
+- [Neovim Plugin List](docs/neovim-plugin.md) - 使用しているプラグイン一覧と役割の説明
 - [Neovim Usage Guide](docs/neovim-usage.md) - Neovimの設定とキーバインド完全ガイド
 - [Neovim Git Operations](docs/neovim-git-operations.md) - Git操作のキーマッピングとコマンドガイド
 - [Tmux Configuration](docs/tmux-configuration.md) - tmux設定の詳細解説とキーバインド一覧

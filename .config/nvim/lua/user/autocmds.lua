@@ -5,6 +5,15 @@ vim.api.nvim_create_autocmd("TermOpen", {
   callback = function() vim.cmd("startinsert") end,
 })
 
+-- ファイルの外部変更を自動検知してバッファを更新
+vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold", "CursorHoldI"}, {
+  callback = function()
+    if vim.fn.mode() ~= 'c' then
+      vim.cmd("checktime")
+    end
+  end,
+})
+
 -- Terraformファイル保存後に自動フォーマット
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.tf",

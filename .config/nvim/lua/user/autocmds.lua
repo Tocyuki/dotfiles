@@ -24,6 +24,25 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
+-- 最後のバッファを閉じた時に空のバッファを表示
+vim.api.nvim_create_autocmd("BufDelete", {
+  callback = function()
+    -- 通常のバッファのみをカウント（特殊バッファを除外）
+    local buffers = vim.tbl_filter(function(buf)
+      return vim.api.nvim_buf_is_valid(buf)
+        and vim.bo[buf].buflisted
+        and vim.bo[buf].buftype == ""
+    end, vim.api.nvim_list_bufs())
+
+    -- 通常バッファが1つ以下になったら新しい空バッファを作成
+    if #buffers <= 1 then
+      vim.schedule(function()
+        vim.cmd("enew")
+      end)
+    end
+  end,
+})
+
 -- Terraformファイル保存後に自動フォーマット
 vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "*.tf",

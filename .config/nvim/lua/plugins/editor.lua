@@ -76,7 +76,7 @@ return {
     version = false,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("mini.cursorword").setup({ delay = 200 })
+      require("mini.cursorword").setup({ delay = 500 })
       vim.api.nvim_create_autocmd("FileType", {
         pattern = DISABLED_FILETYPES,
         callback = function() vim.b.miniindentscope_disable = true end,
@@ -267,7 +267,7 @@ return {
           filtered_items = { hide_dotfiles = false },
           follow_current_file = { enabled = true }, -- v3 仕様
           group_empty_dirs = true,
-          use_libuv_file_watcher = true, -- 外部変更を自動監視
+          use_libuv_file_watcher = false, -- CPU負荷軽減のため無効化
         },
         default_component_configs = {
           git_status = { GIT_SYMBOLS }
@@ -288,10 +288,10 @@ return {
         numhl = true,
         linehl = false,
         word_diff = false,
-        current_line_blame = true,
+        current_line_blame = false,  -- デフォルトでオフ（<leader>tbでトグル可能）
         attach_to_untracked = true,
         watch_gitdir = { follow_files = true },
-        update_debounce = 50,  -- デフォルト100ms（変更検知を高速化）
+        update_debounce = 500,  -- CPU負荷軽減のため500msに設定
         on_attach = function(bufnr)
           vim.api.nvim_set_hl(0, "GitSignsUntrackedNr", { fg = "#ff6b6b" })
           vim.api.nvim_set_hl(0, "GitSignsUntracked", { fg = "#ff6b6b" })

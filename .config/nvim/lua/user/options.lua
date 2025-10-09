@@ -11,7 +11,7 @@ vim.o.ambiwidth    = "single"
 
 vim.opt.clipboard:append("unnamed")
 vim.opt.signcolumn = "yes"
-vim.o.updatetime   = 100  -- Git表示の更新速度を向上（デフォルト4000ms）
+vim.o.updatetime   = 300
 vim.o.mouse        = "a"
 vim.o.scrolloff    = 5
 vim.o.autoread     = true

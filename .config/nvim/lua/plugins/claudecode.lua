@@ -34,7 +34,7 @@ return {
     -- Diff Integration
     diff_opts = {
       auto_close_on_accept = true,
-      vertical_split = true,
+      vertical_split = false,  -- 分割せずに現在のバッファで表示
       open_in_current_tab = true,
       keep_terminal_focus = false, -- If true, moves focus back to terminal after diff opens
     },

@@ -175,8 +175,8 @@ return {
           -- Linters
           "eslint_d", "ruff", "golangci-lint", "tflint",
         },
-        auto_update = true,
-        run_on_start = true,
+        auto_update = false,  -- 安定性のため自動更新を無効化
+        run_on_start = false,  -- 起動時の自動実行を無効化（手動で:MasonToolsUpdate）
       })
     end
   },

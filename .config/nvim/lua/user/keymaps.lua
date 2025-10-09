@@ -2,7 +2,7 @@
 local map = vim.keymap.set
 local utils = require("user.utils")
 
-map("n","<Leader>k", ":bd<CR>")
+map("n","<Leader>k", ":Bdelete<CR>")
 map("n","<Leader>K", ":%bd|e#|bd#<CR>")
 map("n","<Leader>w", ":w<CR>")
 map("n","<Leader>r", ":%s;\\<<C-r><C-w>\\>;g<Left><Left>;")

@@ -355,5 +355,70 @@ return {
       end, { desc = "Open URL under mouse cursor", silent = true })
     end,
   },
+
+  -- nvim-treesitter（シンタックスハイライトの安定化）
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        -- 型チェック用の必須フィールド
+        modules = {},
+        sync_install = false,
+        ignore_install = {},
+
+        ensure_installed = {
+          "bash", "c", "diff", "html", "javascript", "jsdoc", "json", "jsonc",
+          "lua", "luadoc", "luap", "markdown", "markdown_inline", "python",
+          "query", "regex", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml",
+          "go", "gomod", "gosum", "hcl", "terraform", "tmux",
+        },
+        auto_install = true,
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
+        indent = {
+          enable = true,
+        },
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ["af"] = "@function.outer",
+              ["if"] = "@function.inner",
+              ["ac"] = "@class.outer",
+              ["ic"] = "@class.inner",
+            },
+          },
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+              ["]m"] = "@function.outer",
+              ["]]"] = "@class.outer",
+            },
+            goto_next_end = {
+              ["]M"] = "@function.outer",
+              ["]["] = "@class.outer",
+            },
+            goto_previous_start = {
+              ["[m"] = "@function.outer",
+              ["[["] = "@class.outer",
+            },
+            goto_previous_end = {
+              ["[M"] = "@function.outer",
+              ["[]"] = "@class.outer",
+            },
+          },
+        },
+      })
+    end,
+  },
 }
 

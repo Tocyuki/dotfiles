@@ -203,6 +203,30 @@
 
 ## シンタックス・言語サポート
 
+### nvim-treesitter
+- **リポジトリ**: [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+- **役割**: 高精度シンタックスハイライト
+- **説明**: Tree-sitterベースの高度なシンタックスハイライト。従来の正規表現ベースより正確で高速
+- **対応言語**: Bash, C, JavaScript, TypeScript, Lua, Python, Go, Terraform, HCL, YAML, JSON, Markdown など
+- **機能**:
+  - シンタックスハイライトの安定化（大きなファイルでもハイライトが崩れにくい）
+  - インデント自動調整
+  - コードブロック認識
+
+### nvim-treesitter-textobjects
+- **リポジトリ**: [nvim-treesitter/nvim-treesitter-textobjects](https://github.com/nvim-treesitter/nvim-treesitter-textobjects)
+- **役割**: Treesitterベースのテキストオブジェクト
+- **説明**: 関数、クラスなどのコード構造単位での選択・移動を可能にする
+- **主なキーバインド**:
+  - テキストオブジェクト（オペレータと組み合わせて使用）:
+    - `af`/`if`: 関数全体/内部（例: `vaf`で選択、`dif`で削除、`yaf`でコピー）
+    - `ac`/`ic`: クラス全体/内部（例: `vac`で選択、`dic`で削除、`yic`でコピー）
+  - 移動:
+    - `]m`/`[m`: 次/前の関数の開始へ移動
+    - `]M`/`[M`: 次/前の関数の終了へ移動
+    - `]]`/`[[`: 次/前のクラスの開始へ移動
+    - `][`/`[]`: 次/前のクラスの終了へ移動
+
 ### vim-toml
 - **リポジトリ**: [cespare/vim-toml](https://github.com/cespare/vim-toml)
 - **役割**: TOML構文サポート
@@ -252,7 +276,7 @@
 
 ## プラグイン数
 
-**合計**: 約35プラグイン
+**合計**: 約37プラグイン
 
 カテゴリ別:
 - LSP・補完: 13プラグイン
@@ -261,5 +285,6 @@
 - Git連携: 2プラグイン
 - UI・見た目: 5プラグイン
 - エディタ機能強化: 4プラグイン
-- シンタックス: 3プラグイン
+- シンタックス: 5プラグイン
 - 依存ライブラリ: 3プラグイン
+

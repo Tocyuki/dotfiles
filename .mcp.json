@@ -5,8 +5,8 @@
       "args": ["-y", "@upstash/context7-mcp@latest"]
     },
     "deepwiki": {
-      "type": "sse",
-      "url": "https://mcp.deepwiki.com/sse"
+      "command": "npx",
+      "args": ["-y", "mcp-deepwiki@latest"]
     }
   }
 }

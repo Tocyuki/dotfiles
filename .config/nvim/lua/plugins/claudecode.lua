@@ -8,12 +8,13 @@ return {
     -- Server Configuration
     port_range = { min = 10000, max = 65535 },
     auto_start = true,
-    log_level = "info", -- "trace", "debug", "info", "warn", "error"
+    log_level = "info", -- "trace" for debugging, "info" for normal use
     terminal_cmd = nil, -- Custom terminal command (default: "claude")
                         -- For local installations: "~/.claude/local/claude"
                         -- For native binary: use output from 'which claude'
 
     -- Selection Tracking
+    -- ビジュアルモードでの選択を自動追跡
     track_selection = true,
     visual_demotion_delay_ms = utils.DELAYS.VISUAL_DELAY,
 
@@ -34,16 +35,22 @@ return {
     -- Diff Integration
     diff_opts = {
       auto_close_on_accept = true,
-      vertical_split = false,  -- 分割せずに現在のバッファで表示
+      vertical_split = true,
       open_in_current_tab = true,
-      keep_terminal_focus = false, -- If true, moves focus back to terminal after diff opens
+      keep_terminal_focus = false,
     },
   },
+
   keys = {
+    -- 基本操作
     { "<Leader>;c", "<cmd>ClaudeCode<cr>", desc = "Open ClaudeCode" },
     { "<Leader>;t", utils.toggle_claudecode, desc = "Toggle ClaudeCode" },
-    { "<Leader>;a", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept ClaudeCode Changing" },
-    { "<Leader>;d", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny ClaudeCode Changing" },
-    { "<Leader>;l", utils.send_and_focus_claudecode, mode = "v", desc = "Send Selection to ClaudeCode then focus" },
+
+    -- Diff操作（差分の承認・拒否）
+    { "<Leader>;a", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept ClaudeCode Diff" },
+    { "<Leader>;d", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny ClaudeCode Diff" },
+
+    -- コンテキスト送信
+    { "<Leader>;l", utils.send_and_focus_claudecode, mode = "v", desc = "Send Selection to Claude" },
   },
 }

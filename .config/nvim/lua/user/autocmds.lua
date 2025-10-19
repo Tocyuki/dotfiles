@@ -5,8 +5,11 @@ vim.api.nvim_create_autocmd("TermOpen", {
   callback = function() vim.cmd("startinsert") end,
 })
 
--- ファイルの外部変更を自動検知してバッファを更新（フォーカス時のみ、CPU負荷軽減）
-vim.api.nvim_create_autocmd({"FocusGained"}, {
+-- ファイルの外部変更を自動検知してバッファを更新
+-- FocusGained: ウィンドウがフォーカスを得た時
+-- BufEnter: バッファに入った時
+-- CursorHold: カーソルが一定時間（updatetime）動かなかった時
+vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold"}, {
   callback = function()
     if vim.fn.mode() ~= 'c' then
       vim.cmd("checktime")
@@ -42,25 +45,36 @@ local function get_real_buffers()
   end, vim.api.nvim_list_bufs())
 end
 
--- スマートなバッファ削除: 次のバッファをアクティブにしてから削除
+-- スマートなバッファ削除: 複数ウィンドウならウィンドウを閉じる、単一ウィンドウなら次のバッファへ
 local function smart_buffer_delete()
   local current_buf = vim.api.nvim_get_current_buf()
   local buffers = get_real_buffers()
 
-  -- 現在のバッファ以外の通常バッファを探す
-  local other_buffers = vim.tbl_filter(function(buf)
-    return buf ~= current_buf
-  end, buffers)
+  -- 現在のタブページで通常のウィンドウが複数あるかチェック
+  local normal_windows = vim.tbl_filter(function(win)
+    local buf = vim.api.nvim_win_get_buf(win)
+    return vim.bo[buf].buftype == ""  -- 通常のバッファのみカウント
+  end, vim.api.nvim_tabpage_list_wins(0))
 
-  if #other_buffers > 0 then
-    -- 他のバッファがあれば、次のバッファに切り替えてから削除
-    vim.cmd("bnext")
-    vim.api.nvim_buf_delete(current_buf, { force = false })
+  if #normal_windows > 1 then
+    -- 複数ウィンドウがある場合は、ウィンドウを閉じる
+    vim.cmd("close")
   else
-    -- 他のバッファがなければ、空のバッファを作成してから削除
-    vim.cmd("enew")
-    if vim.api.nvim_buf_is_valid(current_buf) then
+    -- 単一ウィンドウの場合は、バッファを切り替えてから削除
+    local other_buffers = vim.tbl_filter(function(buf)
+      return buf ~= current_buf
+    end, buffers)
+
+    if #other_buffers > 0 then
+      -- 他のバッファがあれば、次のバッファに切り替えてから削除
+      vim.cmd("bnext")
       vim.api.nvim_buf_delete(current_buf, { force = false })
+    else
+      -- 他のバッファがなければ、空のバッファを作成してから削除
+      vim.cmd("enew")
+      if vim.api.nvim_buf_is_valid(current_buf) then
+        vim.api.nvim_buf_delete(current_buf, { force = false })
+      end
     end
   end
 end
@@ -116,25 +130,30 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
--- Terraformファイル保存後に自動フォーマット
-vim.api.nvim_create_autocmd("BufWritePost", {
+-- 自動保存: インサートモードを抜けた時とテキスト変更時
+vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    -- 保存可能な条件をチェック
+    if vim.bo[buf].modified  -- バッファが変更されている
+      and vim.bo[buf].buftype == ""  -- 通常のバッファ
+      and vim.api.nvim_buf_get_name(buf) ~= ""  -- ファイル名が設定されている
+      and vim.bo[buf].readonly == false  -- 読み取り専用ではない
+      and vim.fn.filewritable(vim.api.nvim_buf_get_name(buf)) == 1  -- ファイルが書き込み可能
+    then
+      vim.cmd("silent! write")
+    end
+  end,
+})
+
+-- Terraformファイル保存前に自動フォーマット（LSP使用）
+vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.tf",
   callback = function()
-    -- シェル環境でterraformコマンドを実行（tfenv対応）
-    local shell_cmd = string.format("cd %s && terraform fmt %s 2>&1",
-      vim.fn.shellescape(vim.fn.expand("%:p:h")),
-      vim.fn.shellescape(vim.fn.expand("%:t")))
-
-    local result = vim.fn.system(shell_cmd)
-
-    if vim.v.shell_error == 0 then
-      -- フォーマット成功時はファイルを再読み込み
-      vim.cmd("checktime")
-    else
-      -- エラーが発生した場合は通知（ただし、tfenvの警告は無視）
-      if not string.match(result, "tfenv") then
-        vim.notify("terraform fmt failed: " .. result, vim.log.levels.ERROR)
-      end
+    -- LSPクライアントがアタッチされているかチェック
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    if #clients > 0 then
+      vim.lsp.buf.format({ async = false })
     end
   end,
 })

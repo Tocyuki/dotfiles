@@ -7,18 +7,6 @@ local DISABLED_FILETYPES = {
   "fzf","gitcommit","gitrebase","checkhealth","notify","qf","toggleterm"
 }
 
-local GIT_SYMBOLS = {
-  added     = "",
-  modified  = "",
-  deleted   = "",
-  renamed   = "󰁕",
-  untracked = "",
-  ignored   = "",
-  unstaged  = "󰄱",
-  staged    = "",
-  conflict  = "",
-}
-
 local GITSIGNS_SYMBOLS = {
   add          = { text = "▌" },
   change       = { text = "▌" },
@@ -109,7 +97,7 @@ return {
   {
     "junegunn/fzf.vim",
     dependencies = { "junegunn/fzf" },
-    cmd = { "Files","GFiles","Buffers","Rg","History","Commits","Commands","Lines" },
+    cmd = { "Files","GFiles","Buffers","Rg","RgContent","History","Commits","Commands","Lines" },
     keys = {
       { "<Leader>b", ":Buffers<CR>",  mode="n" },
       { "<Leader>C", ":Commands<CR>", mode="n" },
@@ -119,10 +107,33 @@ return {
       { "<Leader>f", ":Files<CR>",    mode="n" },
       { "<Leader>g", ":GFiles<CR>",   mode="n" },
       { "<Leader>s", ":GFiles?<CR>",  mode="n" },
-      { "<Leader>l", ":Lines<CR>",    mode="n" },
+      { "<Leader>l", ":BLines<CR>",   mode="n" },
       { "<Leader>j", ":Jump<CR>",     mode="n" },
       { "<Leader>a", "<cmd>Rg<CR>",   mode="n", desc="Ripgrep" },
     },
+    -- init関数は遅延読み込み前に実行されるため、設定が確実に反映される
+    -- CmpNormal, CmpSel, CmpBorder などのハイライトグループは snacks.nvim で定義済み
+    init = function()
+      -- fzfのポップアップカラーを補完ウィンドウと統一（ハイライトグループは snacks.nvim で定義）
+      vim.g.fzf_colors = {
+        fg      = {'fg', 'Normal'},
+        bg      = {'bg', 'CmpNormal'},
+        hl      = {'fg', 'Comment'},
+        ['fg+'] = {'fg', 'CmpSel'},
+        ['bg+'] = {'bg', 'CmpSel'},
+        ['hl+'] = {'fg', 'Statement'},
+        info    = {'fg', 'PreProc'},
+        border  = {'fg', 'CmpBorder'},
+        prompt  = {'fg', 'Conditional'},
+        pointer = {'fg', 'Exception'},
+        marker  = {'fg', 'Keyword'},
+        spinner = {'fg', 'Label'},
+        header  = {'fg', 'Comment'}
+      }
+
+      -- フローティングウィンドウでfzfを表示（補完ウィンドウと同じ角丸境界線）
+      vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, border = 'rounded' } }
+    end,
   },
 
   -- bufferline.nvim
@@ -270,7 +281,19 @@ return {
           use_libuv_file_watcher = false, -- CPU負荷軽減のため無効化
         },
         default_component_configs = {
-          git_status = { GIT_SYMBOLS }
+          git_status = {
+            symbols = {
+              added     = "",
+              modified  = "",
+              deleted   = "",
+              renamed   = "󰁕",
+              untracked = "",
+              ignored   = "",
+              unstaged  = "󰄱",
+              staged    = "",
+              conflict  = "",
+            }
+          }
         }
       })
     end
@@ -297,15 +320,35 @@ return {
           vim.api.nvim_set_hl(0, "GitSignsUntracked", { fg = "#ff6b6b" })
           local gs = require("gitsigns")
           local function m(mode, l, r, o) (o or {}).buffer = bufnr; vim.keymap.set(mode,l,r,o or {}) end
-          m("n","]c", function() if vim.wo.diff then vim.cmd("normal ]c") else gs.next_hunk() end end)
-          m("n","[c", function() if vim.wo.diff then vim.cmd("normal [c") else gs.prev_hunk() end end)
+          m("n","]c", function()
+            if vim.wo.diff then
+              vim.cmd("normal ]c")
+            else
+              ---@diagnostic disable-next-line: param-type-mismatch
+              gs.nav_hunk('next')
+            end
+          end)
+          m("n","[c", function()
+            if vim.wo.diff then
+              vim.cmd("normal [c")
+            else
+              ---@diagnostic disable-next-line: param-type-mismatch
+              gs.nav_hunk('prev')
+            end
+          end)
           m("n","<leader>hs", gs.stage_hunk);      m("n","<leader>hr", gs.reset_hunk)
           m("v","<leader>hs", function() gs.stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
           m("v","<leader>hr", function() gs.reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
           m("n","<leader>hS", gs.stage_buffer);    m("n","<leader>hR", gs.reset_buffer)
           m("n","<leader>hp", gs.preview_hunk);    m("n","<leader>hb", function() gs.blame_line({full=true}) end)
-          m("n","<leader>hd", gs.diffthis);        m("n","<leader>hD", function() gs.diffthis("~") end)
-          m("n","<leader>hq", gs.setqflist);       m("n","<leader>hQ", function() gs.setqflist("all") end)
+          m("n","<leader>hd", gs.diffthis);        m("n","<leader>hD", function()
+            ---@diagnostic disable-next-line: param-type-mismatch
+            gs.diffthis("~")
+          end)
+          m("n","<leader>hq", gs.setqflist);       m("n","<leader>hQ", function()
+            ---@diagnostic disable-next-line: param-type-mismatch
+            gs.setqflist("all")
+          end)
           m("n","<leader>tb", gs.toggle_current_line_blame)
           m("n","<leader>tw", gs.toggle_word_diff)
           m({"o","x"}, "ih", gs.select_hunk)

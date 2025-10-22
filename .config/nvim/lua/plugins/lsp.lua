@@ -65,11 +65,152 @@ return {
 
       -- LSP診断の設定
       vim.diagnostic.config({
+        -- 診断の更新タイミング
+        update_in_insert = false, -- 挿入モード中は更新しない（パフォーマンス向上）
+
+        -- 仮想テキスト（行末に表示されるエラーメッセージ）
+        virtual_text = {
+          spacing = 4,
+          source = "if_many", -- 複数のソースがある場合はソース名を表示
+          prefix = "●", -- アイコン
+          -- severity.minを削除してすべての診断を表示（ERROR, WARN, INFO, HINT全て）
+        },
+
+        -- サイン列（左端のアイコン）
+        signs = {
+          -- severity.minを削除してすべての診断を表示
+          priority = 10, -- gitsigns (6) より高く設定し、診断（error/warning等）を優先表示
+          text = {
+            [vim.diagnostic.severity.ERROR] = "🔴",
+            [vim.diagnostic.severity.WARN] = "⚠️",
+            [vim.diagnostic.severity.INFO] = "ℹ️",
+            [vim.diagnostic.severity.HINT] = "💡",
+          },
+        },
+
+        -- フロートウィンドウ（K キーで表示される詳細）
+        -- snacks.nvimで統一されたスタイルで表示
         float = {
           border = "rounded",
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder",
+          source = "always", -- ソース名を常に表示（例: [lua_ls]）
+          header = "", -- ヘッダーをカスタマイズ可能
+          format = function(diagnostic)
+            return string.format(
+              "[%s] %s",
+              diagnostic.source or "diagnostic",
+              diagnostic.message
+            )
+          end,
+          -- snacks.nvimで定義したハイライトグループで視覚的統一
+          winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder",
+          focusable = true, -- フロートウィンドウをフォーカス可能にする
+          scope = "cursor", -- カーソル位置の診断を表示
+          max_width = 80,
+          max_height = 20,
         },
+
+        -- アンダーライン（すべての診断を表示）
+        underline = true,
+
+        -- 重大度の順序（エラーを最優先で表示）
+        severity_sort = true,
       })
+
+      -- 診断が変更されたときに強制的に再表示（deprecated含む）
+      vim.api.nvim_create_autocmd("DiagnosticChanged", {
+        group = vim.api.nvim_create_augroup("LspDiagnosticRefresh", { clear = true }),
+        callback = function(args)
+          vim.diagnostic.show(nil, args.buf)
+        end,
+      })
+
+      -- LSPフロートウィンドウのハンドラーをsnacks.nvimで統一
+      -- ホバードキュメント用ハンドラー（Snacks.win使用）
+      vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
+        config = config or {}
+        config.focus_id = ctx.method
+
+        if not (result and result.contents) then
+          return
+        end
+
+        -- マークダウンコンテンツを取得
+        local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+        markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
+
+        if vim.tbl_isempty(markdown_lines) then
+          return
+        end
+
+        -- Snacks.winでフローティングウィンドウを作成
+        local win = require("snacks").win({
+          width = math.min(80, vim.o.columns - 4),
+          height = math.min(#markdown_lines + 2, math.floor(vim.o.lines * 0.5)),
+          border = "rounded",
+          title = " Hover ",
+          ft = "markdown",
+          wo = {
+            winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder",
+            wrap = true,
+            linebreak = true,
+            conceallevel = 3,
+          },
+          on_buf = function(self)
+            -- マークダウンコンテンツを設定
+            vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, markdown_lines)
+            vim.bo[self.buf].modifiable = false
+
+            -- キーマップ: qやEscで閉じる
+            vim.keymap.set("n", "q", function() self:hide() end, { buffer = self.buf })
+            vim.keymap.set("n", "<Esc>", function() self:hide() end, { buffer = self.buf })
+          end,
+        })
+
+        return win.buf, win.win
+      end
+
+      -- シグネチャヘルプ用ハンドラー（Snacks.win使用）
+      vim.lsp.handlers["textDocument/signatureHelp"] = function(_, result, ctx, config)
+        config = config or {}
+        config.focus_id = ctx.method
+
+        if not (result and result.signatures and #result.signatures > 0) then
+          return
+        end
+
+        -- シグネチャ情報をマークダウンに変換
+        local lines = vim.lsp.util.convert_signature_help_to_markdown_lines(result)
+        lines = vim.lsp.util.trim_empty_lines(lines)
+
+        if vim.tbl_isempty(lines) then
+          return
+        end
+
+        -- Snacks.winでフローティングウィンドウを作成
+        local win = require("snacks").win({
+          width = math.min(80, vim.o.columns - 4),
+          height = math.min(#lines + 2, 10),
+          border = "rounded",
+          title = " Signature ",
+          ft = "markdown",
+          wo = {
+            winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder",
+            wrap = true,
+            linebreak = true,
+            conceallevel = 3,
+          },
+          on_buf = function(self)
+            vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, lines)
+            vim.bo[self.buf].modifiable = false
+
+            -- キーマップ: qやEscで閉じる
+            vim.keymap.set("n", "q", function() self:hide() end, { buffer = self.buf })
+            vim.keymap.set("n", "<Esc>", function() self:hide() end, { buffer = self.buf })
+          end,
+        })
+
+        return win.buf, win.win
+      end
 
       local on_attach = function(_, bufnr)
         local map = function(m,l,r) vim.keymap.set(m,l,r,{buffer=bufnr,silent=true}) end
@@ -78,6 +219,13 @@ return {
         map("n","rn", vim.lsp.buf.rename)
         map("n","K", vim.diagnostic.open_float)
         map("n","<leader>q", vim.diagnostic.setloclist)
+
+        -- LSPアタッチ時に診断を強制的に表示（deprecated含む）
+        vim.defer_fn(function()
+          if vim.api.nvim_buf_is_valid(bufnr) then
+            vim.diagnostic.show(nil, bufnr)
+          end
+        end, 100)
       end
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -96,12 +244,21 @@ return {
           capabilities = capabilities,
           settings = {
             Lua = {
+              runtime = {
+                -- Neovim の Lua ランタイムバージョンを指定
+                version = 'LuaJIT',
+              },
               diagnostics = {
                 globals = { "vim" }
               },
               workspace = {
+                -- Neovim のランタイムファイルを認識させる
+                library = vim.api.nvim_get_runtime_file("", true),
                 checkThirdParty = false
-              }
+              },
+              telemetry = {
+                enable = false,
+              },
             }
           },
         })
@@ -200,11 +357,9 @@ return {
       vim.o.winblend = 20  -- フローティングウィンドウの透過度 (0-100)
 
       -- 補完メニューのハイライト設定
-      vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1a1b26" })
-      vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#565f89", bg = "#1a1b26" })
-      vim.api.nvim_set_hl(0, "CmpSel", { bg = "#3d59a1", fg = "#c0caf5", bold = true })
-      vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = "#1a1b26" })
-      vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = "#565f89", bg = "#1a1b26" })
+      -- CmpNormal, CmpBorder, CmpSel などのハイライトグループは
+      -- snacks.nvim (plugins/snacks.lua) で一元的に定義されています
+      -- これにより fzf、nvim-cmp、snacks で統一された UI が実現されます
 
       local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").lazy_load()

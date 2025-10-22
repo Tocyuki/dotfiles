@@ -4,6 +4,13 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
+    -- アニメーション機能の設定
+    animate = {
+      enabled = true,
+      duration = 20, -- 20ms（高速でスムーズ）
+      easing = "linear",
+      fps = 60,
+    },
     -- 通知システムの設定
     notifier = {
       enabled = true,
@@ -15,11 +22,11 @@ return {
       style = "compact", -- "compact", "fancy", "minimal"
       top_down = true, -- 通知を上から下に表示
       icons = {
-        error = " ",
-        warn = " ",
-        info = " ",
-        debug = " ",
-        trace = " ",
+        error = "🚨",
+        warn = "⚠️",
+        info = "💡",
+        debug = "🐛",
+        trace = "🔍",
       },
     },
 
@@ -35,6 +42,14 @@ return {
   },
 
   config = function(_, opts)
+    -- 共通のハイライトグループを定義（fzf、nvim-cmp、snacks で共有）
+    -- これにより、プラグインの読み込み順序に依存しない安定した色設定が可能になる
+    vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1a1b26" })
+    vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#565f89", bg = "#1a1b26" })
+    vim.api.nvim_set_hl(0, "CmpSel", { bg = "#3d59a1", fg = "#c0caf5", bold = true })
+    vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = "#1a1b26" })
+    vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = "#565f89", bg = "#1a1b26" })
+
     local snacks = require("snacks")
     snacks.setup(opts)
 

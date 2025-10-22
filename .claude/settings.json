@@ -1,9 +1,4 @@
 {
-  "statusLine": {
-    "type": "command",
-    "command": "bun x ccusage statusline",
-    "padding": 0
-  },
   "cleanupPeriodDays": 30,
   "preferredNotifChannel": "terminal_bell",
   "permissions": {

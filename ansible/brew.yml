@@ -42,6 +42,8 @@
     - zoom
     - raycast
     - chatgpt-atlas
+    - microsoft-office
+    - microsoft-teams
   tags:
     - brew
 

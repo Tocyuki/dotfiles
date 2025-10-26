@@ -1,6 +1,6 @@
 shell-integration = zsh
 theme = TokyoNight
-font-family = "JetBrainsMono Nerd Font"
+font-family = "Moralerspace Argon"
 font-size = 16
 fullscreen = true
 macos-non-native-fullscreen = true
@@ -10,9 +10,9 @@ font-feature = -calt,-liga,-kern,-dlig,-hlig
 font-thicken = true
 
 # 日本語フォールバック
-font-family-bold = "JetBrainsMono Nerd Font"
-font-family-italic = "JetBrainsMono Nerd Font"
-font-family-bold-italic = "JetBrainsMono Nerd Font"
+font-family-bold = "Moralerspace Argon"
+font-family-italic = "Moralerspace Argon"
+font-family-bold-italic = "Moralerspace Argon"
 
 # 文字間隔調整（日本語の可読性向上）
 adjust-cell-width = 0

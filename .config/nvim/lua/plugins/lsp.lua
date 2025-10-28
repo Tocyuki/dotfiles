@@ -48,7 +48,6 @@ return {
           "docker_compose_language_service",
           "terraformls",
           "pyright",
-          "ts_ls",
           "gopls",
           "gh_actions_ls",
           "nginx_language_server",

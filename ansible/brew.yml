@@ -15,7 +15,6 @@
     - pgweb
     - postgresql
     - awsdac
-    - codex
     - npm
   tags:
     - brew
@@ -46,6 +45,7 @@
     - microsoft-teams
     - kiro
     - aqua-voice
+    - codex
   tags:
     - brew
 

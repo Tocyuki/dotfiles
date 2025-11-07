@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: ❓ 質問・相談
+    url: https://github.com/Tocyuki/dotfiles/discussions
+    about: 使い方や設定についての質問は Discussions でお願いします

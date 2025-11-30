@@ -42,6 +42,7 @@
     - { file: ".config/nvim/lua/plugins/copilot.lua",   dest: "~/.config/nvim/lua/plugins/copilot.lua" }
     - { file: ".config/nvim/lua/plugins/snacks.lua",   dest: "~/.config/nvim/lua/plugins/snacks.lua" }
     - { file: ".config/nvim/lua/plugins/typescript.lua",   dest: "~/.config/nvim/lua/plugins/typescript.lua" }
+    - { file: ".config/nvim/lua/plugins/fyler.lua",   dest: "~/.config/nvim/lua/plugins/fyler.lua" }
   tags:
     - dotfiles
     - neovim

@@ -3,7 +3,7 @@ local utils = require('user.utils')
 
 -- 定数
 local DISABLED_FILETYPES = {
-  "help","neo-tree","lazy","mason","Trouble","alpha","starter","dashboard",
+  "help","fyler","lazy","mason","Trouble","alpha","starter","dashboard",
   "fzf","gitcommit","gitrebase","checkhealth","notify","qf","toggleterm"
 }
 
@@ -18,7 +18,6 @@ local GITSIGNS_SYMBOLS = {
 
 return {
   { "nvim-lua/plenary.nvim", lazy = true },
-  { "MunifTanjim/nui.nvim",  lazy = true },
   { "nvim-tree/nvim-web-devicons", lazy = true },
   { "simeji/winresizer", event = "VeryLazy" },
   { "cespare/vim-toml",  ft = { "toml" } },
@@ -152,7 +151,7 @@ return {
           show_close_icon = false,
           always_show_bufferline = true,
           offsets = {
-            { filetype = "neo-tree", text = "Neotree File Explorer", highlight = "Directory", separator = true },
+            { filetype = "fyler", text = "Fyler File Explorer", highlight = "Directory", separator = true },
           },
           indicator = {
             icon = '▌',
@@ -243,60 +242,6 @@ return {
         },
       })
     end,
-  },
-
-  -- neo-tree
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    cmd = { "Neotree" },
-    keys = {
-      { "<leader>e", ":Neotree toggle<CR>", mode="n" },
-      { "<leader>o", ":Neotree focus<CR>",  mode="n" },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "MunifTanjim/nui.nvim",
-    },
-    config = function()
-      local ok, neotree = pcall(require, "neo-tree")
-      if not ok then return end
-      neotree.setup({
-        close_if_last_window = true,
-        enable_git_status = true,
-        enable_diagnostics = true,
-        window = {
-          mappings = {
-            ["l"] = "open",
-          }
-        },
-        filesystem = {
-          mappings = {
-            ["l"] = "open",
-          },
-          filtered_items = { hide_dotfiles = false },
-          follow_current_file = { enabled = true }, -- v3 仕様
-          group_empty_dirs = true,
-          use_libuv_file_watcher = false, -- CPU負荷軽減のため無効化
-        },
-        default_component_configs = {
-          git_status = {
-            symbols = {
-              added     = "",
-              modified  = "",
-              deleted   = "",
-              renamed   = "󰁕",
-              untracked = "",
-              ignored   = "",
-              unstaged  = "󰄱",
-              staged    = "",
-              conflict  = "",
-            }
-          }
-        }
-      })
-    end
   },
 
   -- gitsigns
@@ -464,4 +409,3 @@ return {
     end,
   },
 }
-

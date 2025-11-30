@@ -108,10 +108,32 @@
 
 ## ファイラー・ナビゲーション
 
-### neo-tree.nvim
-- **リポジトリ**: [nvim-neo-tree/neo-tree.nvim](https://github.com/nvim-neo-tree/neo-tree.nvim)
+### fyler.nvim
+- **リポジトリ**: [A7Lavinraj/fyler.nvim](https://github.com/A7Lavinraj/fyler.nvim)
 - **役割**: ファイルエクスプローラー
-- **説明**: モダンなファイルツリー。Git連携、LSP診断表示、ライブ更新機能
+- **説明**: ファイルシステムをバッファのように編集できるモダンなファイルマネージャー。ツリービュー表示
+- **要件**: Neovim 0.11 以上
+- **主なキーバインド**:
+  - 起動:
+    - `<leader>e`: ファイルエクスプローラーをトグル（開く/閉じる）
+  - ファイル操作（fylerウィンドウ内）:
+    - `<CR>`: ファイルを開く / ディレクトリを展開・折りたたむ
+    - `q`: ウィンドウを閉じる
+    - `<C-t>`: 新しいタブで開く
+    - `|`: 垂直分割で開く
+    - `-`: 水平分割で開く
+  - ナビゲーション:
+    - `^`: 親ディレクトリに移動
+    - `=`: 現在の作業ディレクトリに移動
+    - `#`: すべて折りたたむ
+    - `<BS>`: ノードを折りたたむ
+- **バッファ編集機能**: ファイルツリーをバッファのように編集し、`:w` で反映
+  - ファイル名を編集 → リネーム
+  - 行を削除（`dd`） → ファイル削除
+  - 新しい行を追加（`o`） → ファイル/ディレクトリ作成
+- **コマンド**:
+  - `:Fyler`: ファイルエクスプローラーを開く
+  - `:Fyler dir=<path>`: 指定ディレクトリで開く
 
 ### fzf
 - **リポジトリ**: [junegunn/fzf](https://github.com/junegunn/fzf)
@@ -251,11 +273,6 @@
 - **役割**: Luaユーティリティライブラリ
 - **説明**: 多くのプラグインが依存する基本的なLua関数を提供
 
-### nui.nvim
-- **リポジトリ**: [MunifTanjim/nui.nvim](https://github.com/MunifTanjim/nui.nvim)
-- **役割**: UI コンポーネントライブラリ
-- **説明**: ポップアップ、入力ボックスなどのUIコンポーネントを提供
-
 ### snacks.nvim
 - **リポジトリ**: [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
 - **役割**: ターミナル・通知ライブラリ
@@ -269,6 +286,7 @@
 
 - [`.config/nvim/lua/plugins/lsp.lua`](../.config/nvim/lua/plugins/lsp.lua) - LSP、補完関連
 - [`.config/nvim/lua/plugins/editor.lua`](../.config/nvim/lua/plugins/editor.lua) - エディタ、UI、Git関連
+- [`.config/nvim/lua/plugins/fyler.lua`](../.config/nvim/lua/plugins/fyler.lua) - ファイルエクスプローラー設定
 - [`.config/nvim/lua/plugins/copilot.lua`](../.config/nvim/lua/plugins/copilot.lua) - GitHub Copilot設定
 - [`.config/nvim/lua/plugins/claudecode.lua`](../.config/nvim/lua/plugins/claudecode.lua) - Claude Code設定
 
@@ -276,7 +294,7 @@
 
 ## プラグイン数
 
-**合計**: 約37プラグイン
+**合計**: 約36プラグイン
 
 カテゴリ別:
 - LSP・補完: 13プラグイン
@@ -286,5 +304,5 @@
 - UI・見た目: 5プラグイン
 - エディタ機能強化: 4プラグイン
 - シンタックス: 5プラグイン
-- 依存ライブラリ: 3プラグイン
+- 依存ライブラリ: 2プラグイン
 

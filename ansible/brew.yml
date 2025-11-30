@@ -16,6 +16,7 @@
     - postgresql
     - awsdac
     - npm
+    - gemini-cli
   tags:
     - brew
 

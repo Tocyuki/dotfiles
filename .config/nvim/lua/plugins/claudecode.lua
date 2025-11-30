@@ -8,7 +8,16 @@ return {
     -- Server Configuration
     port_range = { min = 10000, max = 65535 },
     auto_start = true,
-    log_level = "info", -- "trace" for debugging, "info" for normal use
+
+    -- Logging Configuration
+    -- "trace": 詳細なデバッグ情報（WebSocketエラーの詳細を含む）- DEBUGメッセージが表示される
+    -- "debug": 開発時のデバッグ情報
+    -- "info": 通常の情報レベル（推奨）- エラーと重要な情報のみ表示
+    -- "warn": 警告のみ
+    -- "error": エラーのみ
+    -- トラブルシューティング時のみ "trace" に変更してください
+    log_level = "info", -- 通常運用時は "info" を推奨（DEBUGメッセージを非表示）
+
     terminal_cmd = nil, -- Custom terminal command (default: "claude")
                         -- For local installations: "~/.claude/local/claude"
                         -- For native binary: use output from 'which claude'
@@ -23,7 +32,11 @@ return {
       split_side = "right", -- "left" or "right"
       split_width_percentage = 0.30,
       provider = "auto", -- "auto", "snacks", "native", "external", or custom provider table
+
+      -- auto_close: ターミナルプロセス終了時に自動でウィンドウを閉じる
+      -- WebSocketエラー時の自動クリーンアップに重要
       auto_close = true,
+
       snacks_win_opts = {}, -- Opts to pass to `Snacks.terminal.open()`
 
       -- Provider-specific options

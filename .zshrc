@@ -155,3 +155,6 @@ esac
 
 # kiro
 [[ "$TERM_PROGRAM" == "kiro" ]] && . "$(kiro --locate-shell-integration-path zsh)"
+
+# Added by Antigravity
+export PATH="/Users/tocyuki/.antigravity/antigravity/bin:$PATH"

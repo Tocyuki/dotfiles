@@ -5,6 +5,62 @@ vim.api.nvim_create_autocmd("TermOpen", {
   callback = function() vim.cmd("startinsert") end,
 })
 
+-- ClaudeCodeターミナルの異常終了を検知してクリーンアップ
+-- WebSocketエラーなどでプロセスが終了した場合の処理
+vim.api.nvim_create_autocmd("TermClose", {
+  pattern = "*",
+  callback = function(args)
+    local buf_name = vim.api.nvim_buf_get_name(args.buf)
+
+    -- ClaudeCodeターミナルかチェック
+    if buf_name:match("claudecode") or buf_name:match("ClaudeCode") then
+      -- 終了コードを取得（0以外ならエラー）
+      local exit_code = vim.v.event.status or 0
+
+      if exit_code ~= 0 then
+        -- エラー終了の場合は通知
+        local has_snacks, snacks = pcall(require, "snacks")
+        if has_snacks then
+          snacks.notify.error(
+            string.format("ClaudeCodeターミナルが異常終了しました (exit code: %d)", exit_code),
+            { title = "ClaudeCode Error" }
+          )
+        else
+          vim.notify(
+            string.format("ClaudeCodeターミナルが異常終了しました (exit code: %d)", exit_code),
+            vim.log.levels.ERROR
+          )
+        end
+
+        -- エラーログを記録
+        vim.api.nvim_err_writeln(string.format(
+          "[ClaudeCode] Terminal exited with code %d. Buffer: %s",
+          exit_code,
+          buf_name
+        ))
+      end
+
+      -- バッファのクリーンアップ（auto_closeがtrueでも明示的に実行）
+      vim.defer_fn(function()
+        if vim.api.nvim_buf_is_valid(args.buf) then
+          -- バッファが他のウィンドウで使用されていないか確認
+          local wins = vim.fn.win_findbuf(args.buf)
+          if #wins == 0 then
+            pcall(vim.api.nvim_buf_delete, args.buf, { force = true })
+          end
+        end
+      end, 100)
+
+      -- 自動再起動オプション（必要に応じてコメントを外す）
+      -- if exit_code ~= 0 then
+      --   vim.defer_fn(function()
+      --     vim.cmd("ClaudeCode")
+      --   end, 1000)  -- 1秒後に再起動
+      -- end
+    end
+  end,
+})
+
 -- ファイルの外部変更を自動検知してバッファを更新
 -- FocusGained: ウィンドウがフォーカスを得た時
 -- BufEnter: バッファに入った時

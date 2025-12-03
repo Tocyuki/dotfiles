@@ -30,14 +30,24 @@ return {
       },
     },
 
-    -- 診断ピッカーの設定
+    -- ピッカーの設定（ファイル検索、grep、バッファ切り替えなど）
     picker = {
       enabled = true,
+      layout = {
+        preset = "default",
+      },
+      win = {
+        input = {
+          keys = {
+            ["<Esc>"] = { "close", mode = { "n", "i" } },
+          },
+        },
+      },
     },
   },
 
   config = function(_, opts)
-    -- 共通のハイライトグループを定義（fzf、nvim-cmp、snacks で共有）
+    -- 共通のハイライトグループを定義（nvim-cmp、snacks で共有）
     -- これにより、プラグインの読み込み順序に依存しない安定した色設定が可能になる
     vim.api.nvim_set_hl(0, "CmpNormal", { bg = "#1a1b26" })
     vim.api.nvim_set_hl(0, "CmpBorder", { fg = "#565f89", bg = "#1a1b26" })
@@ -102,6 +112,25 @@ return {
   end,
 
   keys = {
+    -- ファイル検索
+    { "<leader>f", function() require("snacks").picker.files() end, desc = "Find Files" },
+    { "<leader>g", function() require("snacks").picker.git_files() end, desc = "Git Files" },
+    { "<leader>s", function() require("snacks").picker.git_status() end, desc = "Git Status" },
+    { "<leader>a", function() require("snacks").picker.grep() end, desc = "Grep" },
+
+    -- バッファ・履歴
+    { "<leader>b", function() require("snacks").picker.buffers() end, desc = "Buffers" },
+    { "<leader>h", function() require("snacks").picker.recent() end, desc = "Recent Files" },
+    { "<leader>l", function() require("snacks").picker.lines() end, desc = "Buffer Lines" },
+    { "<leader>j", function() require("snacks").picker.jumps() end, desc = "Jump List" },
+
+    -- Git
+    { "<leader>c", function() require("snacks").picker.git_log() end, desc = "Git Commits" },
+
+    -- Vim コマンド
+    { "<leader>C", function() require("snacks").picker.commands() end, desc = "Commands" },
+    { "<leader>H", function() require("snacks").picker.command_history() end, desc = "Command History" },
+
     -- 診断ピッカー
     { "<leader>d", function() require("snacks").picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
     { "<leader>D", function() require("snacks").picker.diagnostics() end, desc = "Project Diagnostics" },

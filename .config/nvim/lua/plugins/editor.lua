@@ -4,7 +4,7 @@ local utils = require('user.utils')
 -- 定数
 local DISABLED_FILETYPES = {
   "help","fyler","lazy","mason","Trouble","alpha","starter","dashboard",
-  "fzf","gitcommit","gitrebase","checkhealth","notify","qf","toggleterm"
+  "gitcommit","gitrebase","checkhealth","notify","qf","toggleterm"
 }
 
 local GITSIGNS_SYMBOLS = {
@@ -89,50 +89,6 @@ return {
         tab_char = "╎",
       },
     },
-  },
-
-  -- fzf
-  { "junegunn/fzf", build = function() vim.fn["fzf#install"]() end },
-  {
-    "junegunn/fzf.vim",
-    dependencies = { "junegunn/fzf" },
-    cmd = { "Files","GFiles","Buffers","Rg","RgContent","History","Commits","Commands","Lines" },
-    keys = {
-      { "<Leader>b", ":Buffers<CR>",  mode="n" },
-      { "<Leader>C", ":Commands<CR>", mode="n" },
-      { "<Leader>c", ":Commits<CR>",  mode="n" },
-      { "<Leader>h", ":History<CR>",  mode="n" },
-      { "<Leader>H", ":History:<CR>", mode="n" },
-      { "<Leader>f", ":Files<CR>",    mode="n" },
-      { "<Leader>g", ":GFiles<CR>",   mode="n" },
-      { "<Leader>s", ":GFiles?<CR>",  mode="n" },
-      { "<Leader>l", ":BLines<CR>",   mode="n" },
-      { "<Leader>j", ":Jump<CR>",     mode="n" },
-      { "<Leader>a", "<cmd>Rg<CR>",   mode="n", desc="Ripgrep" },
-    },
-    -- init関数は遅延読み込み前に実行されるため、設定が確実に反映される
-    -- CmpNormal, CmpSel, CmpBorder などのハイライトグループは snacks.nvim で定義済み
-    init = function()
-      -- fzfのポップアップカラーを補完ウィンドウと統一（ハイライトグループは snacks.nvim で定義）
-      vim.g.fzf_colors = {
-        fg      = {'fg', 'Normal'},
-        bg      = {'bg', 'CmpNormal'},
-        hl      = {'fg', 'Comment'},
-        ['fg+'] = {'fg', 'CmpSel'},
-        ['bg+'] = {'bg', 'CmpSel'},
-        ['hl+'] = {'fg', 'Statement'},
-        info    = {'fg', 'PreProc'},
-        border  = {'fg', 'CmpBorder'},
-        prompt  = {'fg', 'Conditional'},
-        pointer = {'fg', 'Exception'},
-        marker  = {'fg', 'Keyword'},
-        spinner = {'fg', 'Label'},
-        header  = {'fg', 'Comment'}
-      }
-
-      -- フローティングウィンドウでfzfを表示（補完ウィンドウと同じ角丸境界線）
-      vim.g.fzf_layout = { window = { width = 0.9, height = 0.6, border = 'rounded' } }
-    end,
   },
 
   -- bufferline.nvim

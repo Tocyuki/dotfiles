@@ -135,16 +135,6 @@
   - `:Fyler`: ファイルエクスプローラーを開く
   - `:Fyler dir=<path>`: 指定ディレクトリで開く
 
-### fzf
-- **リポジトリ**: [junegunn/fzf](https://github.com/junegunn/fzf)
-- **役割**: ファジーファインダー（コア）
-- **説明**: 高速なファジー検索ツール
-
-### fzf.vim
-- **リポジトリ**: [junegunn/fzf.vim](https://github.com/junegunn/fzf.vim)
-- **役割**: fzf Vim連携
-- **説明**: ファイル検索、バッファ検索、Git検索、文字列検索など多機能
-
 ### vim-easymotion
 - **リポジトリ**: [easymotion/vim-easymotion](https://github.com/easymotion/vim-easymotion)
 - **役割**: 高速移動
@@ -275,8 +265,12 @@
 
 ### snacks.nvim
 - **リポジトリ**: [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
-- **役割**: ターミナル・通知ライブラリ
-- **説明**: ClaudeCodeで使用するターミナル機能を提供
+- **役割**: ファジーファインダー・通知・アニメーション
+- **説明**: 高機能なピッカー（ファイル検索、grep、バッファ切り替え）、通知システム、診断表示を提供
+- **主な機能**:
+  - `picker`: ファイル検索、Git検索、grep、バッファ、コマンド履歴など
+  - `notifier`: 通知システム（診断情報の自動通知）
+  - `animate`: スムーズなアニメーション
 
 ---
 
@@ -286,6 +280,7 @@
 
 - [`.config/nvim/lua/plugins/lsp.lua`](../.config/nvim/lua/plugins/lsp.lua) - LSP、補完関連
 - [`.config/nvim/lua/plugins/editor.lua`](../.config/nvim/lua/plugins/editor.lua) - エディタ、UI、Git関連
+- [`.config/nvim/lua/plugins/snacks.lua`](../.config/nvim/lua/plugins/snacks.lua) - ファジーファインダー、通知、診断設定
 - [`.config/nvim/lua/plugins/fyler.lua`](../.config/nvim/lua/plugins/fyler.lua) - ファイルエクスプローラー設定
 - [`.config/nvim/lua/plugins/copilot.lua`](../.config/nvim/lua/plugins/copilot.lua) - GitHub Copilot設定
 - [`.config/nvim/lua/plugins/claudecode.lua`](../.config/nvim/lua/plugins/claudecode.lua) - Claude Code設定
@@ -294,15 +289,15 @@
 
 ## プラグイン数
 
-**合計**: 約36プラグイン
+**合計**: 約34プラグイン
 
 カテゴリ別:
 - LSP・補完: 13プラグイン
 - AI支援: 3プラグイン
-- ファイラー・ナビゲーション: 4プラグイン
+- ファイラー・ナビゲーション: 2プラグイン
 - Git連携: 2プラグイン
 - UI・見た目: 5プラグイン
 - エディタ機能強化: 4プラグイン
 - シンタックス: 5プラグイン
-- 依存ライブラリ: 2プラグイン
+- 依存ライブラリ: 2プラグイン（snacks.nvimはpicker機能も提供）
 

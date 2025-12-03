@@ -302,48 +302,6 @@ return {
     end
   },
 
-  -- gx.nvim (リンクをクリックして開く)
-  {
-    "chrishrb/gx.nvim",
-    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
-    cmd = { "Browse" },
-    event = "VeryLazy",
-    init = function()
-      vim.g.netrw_nogx = 1 -- デフォルトのgxを無効化
-    end,
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("gx").setup({
-        open_browser_app = "open", -- macOSのデフォルトブラウザで開く
-        handlers = {
-          plugin = false,
-          github = false,
-          brewfile = false,
-          package_json = false,
-          npm = false,
-          packer = false,
-          search = false, -- Google検索を無効化
-        },
-      })
-
-      -- マウスダブルクリックでURLを直接開く
-      vim.keymap.set("n", "<2-LeftMouse>", function()
-        local line = vim.fn.getline(".")
-        local col = vim.fn.col(".")
-
-        -- URL検出パターン
-        local url_pattern = "https?://[%w%-._~:/?#%[%]@!$&'()*+,;=]+"
-        local start_pos, end_pos = string.find(line, url_pattern)
-
-        if start_pos and col >= start_pos and col <= end_pos then
-          local url = string.sub(line, start_pos, end_pos)
-          -- URLを直接開く
-          vim.fn.system("open '" .. url .. "'")
-        end
-      end, { desc = "Open URL under mouse cursor", silent = true })
-    end,
-  },
-
   -- nvim-treesitter（シンタックスハイライトの安定化）
   {
     "nvim-treesitter/nvim-treesitter",

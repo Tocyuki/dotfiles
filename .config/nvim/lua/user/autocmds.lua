@@ -70,8 +70,21 @@ vim.api.nvim_create_autocmd({"FocusGained", "BufEnter", "CursorHold"}, {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
+    if vim.b.trim_trailing_whitespace == false then return end
+    local ft = vim.bo.filetype
+    local skip = {
+      markdown = true,
+      gitcommit = true,
+      help = true,
+      man = true,
+      diff = true,
+      mail = true,
+      make = true,
+      tex = true,
+    }
+    if skip[ft] then return end
     local cursor_pos = vim.api.nvim_win_get_cursor(0)
-    vim.cmd([[%s/\s\+$//ge]])
+    vim.cmd([[keeppatterns %s/\s\+$//ge]])
     vim.api.nvim_win_set_cursor(0, cursor_pos)
   end,
 })
@@ -179,19 +192,77 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
--- 自動保存: インサートモードを抜けた時とフォーカスを失った時
-vim.api.nvim_create_autocmd({"InsertLeave", "FocusLost"}, {
-  callback = function()
-    local buf = vim.api.nvim_get_current_buf()
-    -- 保存可能な条件をチェック
-    if vim.bo[buf].modified  -- バッファが変更されている
-      and vim.bo[buf].buftype == ""  -- 通常のバッファ
-      and vim.api.nvim_buf_get_name(buf) ~= ""  -- ファイル名が設定されている
-      and vim.bo[buf].readonly == false  -- 読み取り専用ではない
-      and vim.fn.filewritable(vim.api.nvim_buf_get_name(buf)) == 1  -- ファイルが書き込み可能
-    then
-      vim.cmd("silent! write")
+-- 自動保存: ノーマルモードの変更は1秒デバウンス、InsertLeave/FocusLostは即保存
+-- TextChanged: ノーマルモードでテキストが変更された時（u, p, x など）
+-- FocusLost: ウィンドウからフォーカスが外れた時（即時保存）
+local autosave_timers = {}
+local AUTOSAVE_DELAY = 1000 -- 1秒後に保存
+local TF_FORMAT_FLAG = "_terraform_preformatted"
+
+local function try_save_buffer(buf)
+  -- 保存可能な条件をチェック
+  if vim.api.nvim_buf_is_valid(buf)
+    and vim.bo[buf].modified
+    and vim.bo[buf].buftype == ""
+    and vim.api.nvim_buf_get_name(buf) ~= ""
+    and vim.bo[buf].readonly == false
+    and vim.fn.filewritable(vim.api.nvim_buf_get_name(buf)) == 1
+  then
+    -- Terraformは保存前にフォーマット（autosave時も適用）
+    if vim.bo[buf].filetype == "terraform" then
+      local formatted = false
+      local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
+      local clients = get_clients({ bufnr = buf })
+      if #clients > 0 then
+        local ok = pcall(function()
+          vim.api.nvim_buf_call(buf, function()
+            vim.lsp.buf.format({ async = false, bufnr = buf })
+          end)
+        end)
+        formatted = ok
+      end
+      if formatted then
+        pcall(vim.api.nvim_buf_set_var, buf, TF_FORMAT_FLAG, true)
+      end
     end
+
+    vim.api.nvim_buf_call(buf, function()
+      vim.cmd("silent! write")
+    end)
+  end
+end
+
+local function stop_autosave_timer(buf)
+  if autosave_timers[buf] then
+    vim.fn.timer_stop(autosave_timers[buf])
+    autosave_timers[buf] = nil
+  end
+end
+
+local function start_autosave_timer(buf)
+  stop_autosave_timer(buf)
+  autosave_timers[buf] = vim.fn.timer_start(AUTOSAVE_DELAY, function()
+    vim.schedule(function()
+      try_save_buffer(buf)
+    end)
+    autosave_timers[buf] = nil
+  end)
+end
+
+vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged", "FocusLost"}, {
+  callback = function(args)
+    local buf = args.buf
+    if not vim.api.nvim_buf_is_valid(buf) then return end
+
+    -- FocusLost/InsertLeave は即時保存
+    if args.event == "FocusLost" or args.event == "InsertLeave" then
+      stop_autosave_timer(buf)
+      try_save_buffer(buf)
+      return
+    end
+
+    -- TextChanged はデバウンス付き
+    start_autosave_timer(buf)
   end,
 })
 
@@ -199,11 +270,20 @@ vim.api.nvim_create_autocmd({"InsertLeave", "FocusLost"}, {
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.tf",
   callback = function()
+    -- autosaveで事前にフォーマット済みならスキップ
+    local formatted = false
+    local ok, flag = pcall(vim.api.nvim_buf_get_var, 0, TF_FORMAT_FLAG)
+    if ok and flag then
+      formatted = true
+      pcall(vim.api.nvim_buf_del_var, 0, TF_FORMAT_FLAG)
+    end
+    if formatted then return end
+
     -- LSPクライアントがアタッチされているかチェック
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
+    local clients = get_clients({ bufnr = 0 })
     if #clients > 0 then
       vim.lsp.buf.format({ async = false })
     end
   end,
 })
-

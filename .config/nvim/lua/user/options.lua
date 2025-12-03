@@ -40,3 +40,10 @@ vim.o.hlsearch     = true
 vim.o.shell        = "/bin/zsh"
 vim.o.shellcmdflag = "-lc"
 
+-- パフォーマンス最適化
+vim.o.timeoutlen   = 300      -- マッピングシーケンスのタイムアウト（デフォルト1000ms）
+vim.o.ttimeoutlen  = 10       -- キーコードのタイムアウト（Escの反応速度向上）
+vim.o.lazyredraw   = true     -- マクロ・コマンド実行中の再描画を抑制
+vim.o.synmaxcol    = 300      -- 長い行のシンタックス解析を制限（300文字まで）
+vim.o.redrawtime   = 1500     -- 再描画のタイムアウト（デフォルト2000ms）
+

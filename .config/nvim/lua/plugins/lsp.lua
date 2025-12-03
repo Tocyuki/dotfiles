@@ -78,7 +78,7 @@ return {
           },
         },
 
-        -- フロートウィンドウ（K キーで表示される詳細）
+        -- フロートウィンドウ（必要に応じて手動で開く診断詳細）
         -- snacks.nvimで統一されたスタイルで表示
         float = {
           border = "rounded",
@@ -171,7 +171,6 @@ return {
         map("n","gd", vim.lsp.buf.definition)
         map("n","gr", vim.lsp.buf.references)
         map("n","rn", vim.lsp.buf.rename)
-        map("n","K", vim.diagnostic.open_float)
         map("n","<leader>q", vim.diagnostic.setloclist)
 
         -- LSPアタッチ時に診断を強制的に表示

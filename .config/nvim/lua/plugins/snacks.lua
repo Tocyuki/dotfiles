@@ -57,58 +57,6 @@ return {
 
     local snacks = require("snacks")
     snacks.setup(opts)
-
-    -- 診断の自動通知機能
-    -- エラーや警告が発生したときに通知を表示
-    local notified_diagnostics = {}
-
-    vim.api.nvim_create_autocmd("DiagnosticChanged", {
-      group = vim.api.nvim_create_augroup("SnacksDiagnosticNotify", { clear = true }),
-      callback = function(args)
-        local bufnr = args.buf
-        local diagnostics = vim.diagnostic.get(bufnr, { severity = { min = vim.diagnostic.severity.WARN } })
-
-        -- 新しい診断のみ通知（重複を避ける）
-        for _, diagnostic in ipairs(diagnostics) do
-          local key = string.format("%d:%d:%d:%s", bufnr, diagnostic.lnum, diagnostic.col, diagnostic.message)
-
-          if not notified_diagnostics[key] then
-            notified_diagnostics[key] = true
-
-            -- 重大度に応じたレベルを設定
-            local level = "info"
-            local title = "INFO"
-            if diagnostic.severity == vim.diagnostic.severity.ERROR then
-              level = "error"
-              title = "ERROR"
-            elseif diagnostic.severity == vim.diagnostic.severity.WARN then
-              level = "warn"
-              title = "WARN"
-            end
-
-            -- ファイル名と行番号を含むメッセージ
-            local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":t")
-            local line = diagnostic.lnum + 1
-            local msg = string.format("%s:%d\n%s", filename, line, diagnostic.message)
-
-            -- 通知を表示（同じバッファの診断は1つのグループにまとめる）
-            vim.notify(msg, level, {
-              id = "diagnostic_" .. bufnr,
-              title = title,
-              timeout = 5000,
-            })
-
-            -- 一定時間後にキャッシュをクリア（再通知を可能にする）
-            vim.defer_fn(function()
-              notified_diagnostics[key] = nil
-            end, 30000) -- 30秒後
-
-            -- 最初の診断のみ通知して、連続通知を防ぐ
-            break
-          end
-        end
-      end,
-    })
   end,
 
   keys = {

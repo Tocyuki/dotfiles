@@ -8,6 +8,22 @@ M.DELAYS = {
   DIAGNOSTIC_DEFER = 100,
 }
 
+-- Git root のキャッシュ（ディレクトリ単位）
+local git_root_cache = {}
+
+local function get_git_root(dir)
+  if git_root_cache[dir] ~= nil then
+    return git_root_cache[dir] or nil
+  end
+  local root = vim.fn.systemlist("git -C " .. vim.fn.shellescape(dir) .. " rev-parse --show-toplevel")[1]
+  if root and root ~= "" then
+    git_root_cache[dir] = root
+    return root
+  end
+  git_root_cache[dir] = false
+  return nil
+end
+
 -- LSPアタッチ時に診断を遅延表示（共通処理）
 function M.show_diagnostics_deferred(bufnr, delay)
   delay = delay or M.DELAYS.DIAGNOSTIC_DEFER
@@ -195,9 +211,9 @@ function M.hybrid_relative_path()
 
   local dir = vim.fn.fnamemodify(file, ":h")
 
-  -- Git root を優先
-  local git_root = vim.fn.systemlist("git -C " .. vim.fn.shellescape(dir) .. " rev-parse --show-toplevel")[1]
-  if git_root and git_root ~= "" then
+  -- Git root を優先（キャッシュ付き）
+  local git_root = get_git_root(dir)
+  if git_root then
     local root_pat = "^" .. vim.pesc(vim.fn.fnamemodify(git_root, ":~:.") .. "/")
     return (vim.fn.fnamemodify(file, ":~:."):gsub(root_pat, ""))
   end

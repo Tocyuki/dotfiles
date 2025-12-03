@@ -50,13 +50,6 @@ vim.api.nvim_create_autocmd("TermClose", {
           end
         end
       end, 100)
-
-      -- 自動再起動オプション（必要に応じてコメントを外す）
-      -- if exit_code ~= 0 then
-      --   vim.defer_fn(function()
-      --     vim.cmd("ClaudeCode")
-      --   end, 1000)  -- 1秒後に再起動
-      -- end
     end
   end,
 })

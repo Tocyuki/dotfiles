@@ -34,11 +34,6 @@ return {
     picker = {
       enabled = true,
     },
-
-    -- トグル機能の設定
-    toggle = {
-      enabled = true,
-    },
   },
 
   config = function(_, opts)

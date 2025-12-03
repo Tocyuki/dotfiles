@@ -83,10 +83,6 @@ return {
             filetypes = { "javascriptreact", "typescriptreact" },
           },
         },
-        handlers = {
-          -- TypeScript特有のハンドラーをカスタマイズ可能
-          -- 例: 特定の診断をフィルタリング
-        },
       })
     end,
   },

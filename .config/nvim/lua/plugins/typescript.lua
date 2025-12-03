@@ -33,12 +33,7 @@ return {
           vim.keymap.set(m, l, r, opts)
         end
 
-        -- 標準LSPコマンド
-        map("n", "gd", vim.lsp.buf.definition, "定義へジャンプ")
-        map("n", "gr", vim.lsp.buf.references, "参照を表示")
-        map("n", "rn", vim.lsp.buf.rename, "リネーム")
-        map("n", "K", vim.diagnostic.open_float, "診断を表示")
-        map("n", "<leader>q", vim.diagnostic.setloclist, "診断をロケーションリストへ")
+        -- 標準LSPコマンド（gd, gr, rn, K, leader+q）は lsp.lua で定義済み
 
         -- TypeScript専用コマンド（<leader>ts* プレフィックス）
         map("n", "<leader>tso", "<cmd>TSToolsOrganizeImports<CR>", "Import整理")

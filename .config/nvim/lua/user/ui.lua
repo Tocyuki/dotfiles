@@ -1,14 +1,11 @@
 -- lua/user/ui.lua
--- colorscheme - デフォルトテーマでfallback、TokyoNightが利用可能になったら切り替え
-if not pcall(function() vim.cmd.colorscheme("tokyonight-night") end) then
-  vim.cmd.colorscheme("desert")
-end
-
--- プラグイン読み込み後にTokyoNightを再適用
+-- colorscheme - VeryLazy時に適用（lazy.nvimでテーマ読み込み後）
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
-    pcall(function() vim.cmd.colorscheme("tokyonight-night") end)
+    if not pcall(function() vim.cmd.colorscheme("tokyonight-night") end) then
+      vim.cmd.colorscheme("desert")
+    end
   end,
 })
 

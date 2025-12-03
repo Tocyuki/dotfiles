@@ -186,8 +186,8 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
--- 自動保存: インサートモードを抜けた時とテキスト変更時
-vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged"}, {
+-- 自動保存: インサートモードを抜けた時とフォーカスを失った時
+vim.api.nvim_create_autocmd({"InsertLeave", "FocusLost"}, {
   callback = function()
     local buf = vim.api.nvim_get_current_buf()
     -- 保存可能な条件をチェック

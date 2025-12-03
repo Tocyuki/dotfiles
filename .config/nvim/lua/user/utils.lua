@@ -233,44 +233,4 @@ function M.setup_buffer_keymaps(callback)
   end
 end
 
-function M.setup_gitsigns_keymaps(bufnr, gs)
-  local function m(mode, l, r, o)
-    (o or {}).buffer = bufnr
-    vim.keymap.set(mode, l, r, o or {})
-  end
-
-  -- Navigation
-  m("n","]c", function()
-    if vim.wo.diff then
-      vim.cmd("normal ]c")
-    else
-      gs.next_hunk()
-    end
-  end)
-  m("n","[c", function()
-    if vim.wo.diff then
-      vim.cmd("normal [c")
-    else
-      gs.prev_hunk()
-    end
-  end)
-
-  -- Actions
-  m("n","<leader>hs", gs.stage_hunk)
-  m("n","<leader>hr", gs.reset_hunk)
-  m("v","<leader>hs", function() gs.stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
-  m("v","<leader>hr", function() gs.reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
-  m("n","<leader>hS", gs.stage_buffer)
-  m("n","<leader>hR", gs.reset_buffer)
-  m("n","<leader>hp", gs.preview_hunk)
-  m("n","<leader>hb", function() gs.blame_line({full=true}) end)
-  m("n","<leader>hd", gs.diffthis)
-  m("n","<leader>hD", function() gs.diffthis("~") end)
-  m("n","<leader>hq", gs.setqflist)
-  m("n","<leader>hQ", function() gs.setqflist("all") end)
-  m("n","<leader>tb", gs.toggle_current_line_blame)
-  m("n","<leader>tw", gs.toggle_word_diff)
-  m({"o","x"}, "ih", gs.select_hunk)
-end
-
 return M

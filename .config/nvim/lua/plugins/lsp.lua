@@ -14,15 +14,6 @@ return {
     event = { "BufReadPre","BufNewFile" },
     dependencies = { "williamboman/mason.nvim","williamboman/mason-lspconfig.nvim" },
     config = function()
-      -- lspconfigの非推奨警告を抑制
-      local notify = vim.notify
-      vim.notify = function(msg, ...)
-        if msg:match("lspconfig") and msg:match("deprecated") then
-          return
-        end
-        notify(msg, ...)
-      end
-
       local ok_m, mlsp = pcall(require, "mason-lspconfig")
       local ok_l, lsp  = pcall(require, "lspconfig")
       if not (ok_m and ok_l) then return end

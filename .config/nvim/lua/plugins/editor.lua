@@ -142,6 +142,7 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim" },
     config = function()
+      local separator_hl = { fg = '#000000', bg = '#000000' }
       require("bufferline").setup({
         options = {
           mode = "buffers",
@@ -178,26 +179,11 @@ return {
             bold = true,
             italic = false,
           },
-          separator = {
-            fg = '#000000',
-            bg = '#000000',
-          },
-          separator_visible = {
-            fg = '#000000',
-            bg = '#000000',
-          },
-          separator_selected = {
-            fg = '#000000',
-            bg = '#000000',
-          },
-          tab_separator = {
-            fg = '#000000',
-            bg = '#000000',
-          },
-          tab_separator_selected = {
-            fg = '#000000',
-            bg = '#000000',
-          },
+          separator = separator_hl,
+          separator_visible = separator_hl,
+          separator_selected = separator_hl,
+          tab_separator = separator_hl,
+          tab_separator_selected = separator_hl,
         },
       })
       utils.setup_buffer_keymaps(function(i)

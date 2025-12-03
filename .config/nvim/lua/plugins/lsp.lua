@@ -115,92 +115,56 @@ return {
       })
 
       -- LSPフロートウィンドウのハンドラーをsnacks.nvimで統一
-      -- ホバードキュメント用ハンドラー（Snacks.win使用）
-      vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-        config = config or {}
-        config.focus_id = ctx.method
+      local function create_lsp_float_handler(opts)
+        return function(_, result, ctx, config)
+          config = config or {}
+          config.focus_id = ctx.method
 
-        if not (result and result.contents) then
-          return
+          local lines = opts.get_lines(result)
+          if not lines or vim.tbl_isempty(lines) then return end
+
+          local win = require("snacks").win({
+            width = math.min(80, vim.o.columns - 4),
+            height = opts.get_height(lines),
+            border = "rounded",
+            title = opts.title,
+            ft = "markdown",
+            wo = {
+              winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder",
+              wrap = true,
+              linebreak = true,
+              conceallevel = 3,
+            },
+            on_buf = function(self)
+              vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, lines)
+              vim.bo[self.buf].modifiable = false
+              vim.keymap.set("n", "q", function() self:hide() end, { buffer = self.buf })
+              vim.keymap.set("n", "<Esc>", function() self:hide() end, { buffer = self.buf })
+            end,
+          })
+          return win.buf, win.win
         end
-
-        -- マークダウンコンテンツを取得
-        local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-        markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
-
-        if vim.tbl_isempty(markdown_lines) then
-          return
-        end
-
-        -- Snacks.winでフローティングウィンドウを作成
-        local win = require("snacks").win({
-          width = math.min(80, vim.o.columns - 4),
-          height = math.min(#markdown_lines + 2, math.floor(vim.o.lines * 0.5)),
-          border = "rounded",
-          title = " Hover ",
-          ft = "markdown",
-          wo = {
-            winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder",
-            wrap = true,
-            linebreak = true,
-            conceallevel = 3,
-          },
-          on_buf = function(self)
-            -- マークダウンコンテンツを設定
-            vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, markdown_lines)
-            vim.bo[self.buf].modifiable = false
-
-            -- キーマップ: qやEscで閉じる
-            vim.keymap.set("n", "q", function() self:hide() end, { buffer = self.buf })
-            vim.keymap.set("n", "<Esc>", function() self:hide() end, { buffer = self.buf })
-          end,
-        })
-
-        return win.buf, win.win
       end
 
-      -- シグネチャヘルプ用ハンドラー（Snacks.win使用）
-      vim.lsp.handlers["textDocument/signatureHelp"] = function(_, result, ctx, config)
-        config = config or {}
-        config.focus_id = ctx.method
+      vim.lsp.handlers["textDocument/hover"] = create_lsp_float_handler({
+        title = " Hover ",
+        get_lines = function(result)
+          if not (result and result.contents) then return nil end
+          local lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
+          return vim.lsp.util.trim_empty_lines(lines)
+        end,
+        get_height = function(lines) return math.min(#lines + 2, math.floor(vim.o.lines * 0.5)) end,
+      })
 
-        if not (result and result.signatures and #result.signatures > 0) then
-          return
-        end
-
-        -- シグネチャ情報をマークダウンに変換
-        local lines = vim.lsp.util.convert_signature_help_to_markdown_lines(result)
-        lines = vim.lsp.util.trim_empty_lines(lines)
-
-        if vim.tbl_isempty(lines) then
-          return
-        end
-
-        -- Snacks.winでフローティングウィンドウを作成
-        local win = require("snacks").win({
-          width = math.min(80, vim.o.columns - 4),
-          height = math.min(#lines + 2, 10),
-          border = "rounded",
-          title = " Signature ",
-          ft = "markdown",
-          wo = {
-            winhighlight = "Normal:CmpNormal,FloatBorder:CmpBorder",
-            wrap = true,
-            linebreak = true,
-            conceallevel = 3,
-          },
-          on_buf = function(self)
-            vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, lines)
-            vim.bo[self.buf].modifiable = false
-
-            -- キーマップ: qやEscで閉じる
-            vim.keymap.set("n", "q", function() self:hide() end, { buffer = self.buf })
-            vim.keymap.set("n", "<Esc>", function() self:hide() end, { buffer = self.buf })
-          end,
-        })
-
-        return win.buf, win.win
-      end
+      vim.lsp.handlers["textDocument/signatureHelp"] = create_lsp_float_handler({
+        title = " Signature ",
+        get_lines = function(result)
+          if not (result and result.signatures and #result.signatures > 0) then return nil end
+          local lines = vim.lsp.util.convert_signature_help_to_markdown_lines(result)
+          return vim.lsp.util.trim_empty_lines(lines)
+        end,
+        get_height = function(lines) return math.min(#lines + 2, 10) end,
+      })
 
       local on_attach = function(_, bufnr)
         local map = function(m,l,r) vim.keymap.set(m,l,r,{buffer=bufnr,silent=true}) end

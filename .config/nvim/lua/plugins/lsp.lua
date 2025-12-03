@@ -210,12 +210,8 @@ return {
         map("n","K", vim.diagnostic.open_float)
         map("n","<leader>q", vim.diagnostic.setloclist)
 
-        -- LSPアタッチ時に診断を強制的に表示（deprecated含む）
-        vim.defer_fn(function()
-          if vim.api.nvim_buf_is_valid(bufnr) then
-            vim.diagnostic.show(nil, bufnr)
-          end
-        end, 100)
+        -- LSPアタッチ時に診断を強制的に表示
+        require("user.utils").show_diagnostics_deferred(bufnr)
       end
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()

@@ -5,7 +5,18 @@ local M = {}
 M.DELAYS = {
   FOCUS_DELAY = 150,
   VISUAL_DELAY = 50,
+  DIAGNOSTIC_DEFER = 100,
 }
+
+-- LSPアタッチ時に診断を遅延表示（共通処理）
+function M.show_diagnostics_deferred(bufnr, delay)
+  delay = delay or M.DELAYS.DIAGNOSTIC_DEFER
+  vim.defer_fn(function()
+    if vim.api.nvim_buf_is_valid(bufnr) then
+      vim.diagnostic.show(nil, bufnr)
+    end
+  end, delay)
+end
 
 -- ターミナルコマンドの共通処理
 function M.create_terminal_with_autocmd(cmd_name)
@@ -21,46 +32,24 @@ function M.create_terminal_with_autocmd(cmd_name)
   end
 end
 
--- ClaudeCodeウィンドウの検出（エラーハンドリング強化版）
+-- ClaudeCodeウィンドウの検出
 function M.find_claudecode_window()
   local current_tab = vim.api.nvim_get_current_tabpage()
   local wins = vim.api.nvim_tabpage_list_wins(current_tab)
 
   for _, win in ipairs(wins) do
-    -- ウィンドウの有効性チェック
-    if not vim.api.nvim_win_is_valid(win) then
-      goto continue
-    end
-
-    local success, buf = pcall(vim.api.nvim_win_get_buf, win)
-    if not success then
-      -- バッファ取得エラーをログ
-      vim.api.nvim_err_writeln(string.format("[ClaudeCode] Failed to get buffer for window %d", win))
-      goto continue
-    end
-
-    -- バッファの有効性チェック
-    if not vim.api.nvim_buf_is_valid(buf) then
-      goto continue
-    end
-
-    local buf_type_success, buf_type = pcall(vim.api.nvim_buf_get_option, buf, 'buftype')
-    if not buf_type_success then
-      -- buftypeの取得エラーは通常発生しないが、念のためログ
-      goto continue
-    end
-
-    if buf_type == 'terminal' then
-      local name_success, buf_name = pcall(vim.api.nvim_buf_get_name, buf)
-      if name_success then
-        -- より厳密なClaudeCodeターミナルの判定
-        if buf_name:match("claudecode") or buf_name:match("ClaudeCode") then
-          return win
+    if vim.api.nvim_win_is_valid(win) then
+      local success, buf = pcall(vim.api.nvim_win_get_buf, win)
+      if success and vim.api.nvim_buf_is_valid(buf) then
+        local buf_type = vim.bo[buf].buftype
+        if buf_type == 'terminal' then
+          local name_success, buf_name = pcall(vim.api.nvim_buf_get_name, buf)
+          if name_success and (buf_name:match("claudecode") or buf_name:match("ClaudeCode")) then
+            return win
+          end
         end
       end
     end
-
-    ::continue::
   end
   return nil
 end

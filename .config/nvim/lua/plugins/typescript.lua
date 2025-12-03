@@ -45,12 +45,8 @@ return {
         map("n", "<leader>tsr", "<cmd>TSToolsRenameFile<CR>", "ファイルリネーム")
         map("n", "<leader>tsF", "<cmd>TSToolsFileReferences<CR>", "ファイル参照を表示")
 
-        -- LSPアタッチ時に診断を強制的に表示（既存設定と同じ）
-        vim.defer_fn(function()
-          if vim.api.nvim_buf_is_valid(bufnr) then
-            vim.diagnostic.show(nil, bufnr)
-          end
-        end, 100)
+        -- LSPアタッチ時に診断を強制的に表示
+        require("user.utils").show_diagnostics_deferred(bufnr)
       end
 
       -- typescript-tools.nvimのセットアップ

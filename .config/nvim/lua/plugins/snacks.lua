@@ -33,6 +33,12 @@ return {
     -- ピッカーの設定（ファイル検索、grep、バッファ切り替えなど）
     picker = {
       enabled = true,
+      sources = {
+        -- ドットファイル・無視ファイルも対象にする
+        files = { hidden = true, ignored = false },
+        grep  = { hidden = true, ignored = false },
+        explorer = { hidden = true, ignored = false },
+      },
       layout = {
         preset = "default",
       },

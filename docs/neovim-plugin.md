@@ -158,10 +158,10 @@
 
 ## UI・見た目
 
-### tokyonight.nvim
-- **リポジトリ**: [folke/tokyonight.nvim](https://github.com/folke/tokyonight.nvim)
+### kanagawa.nvim
+- **リポジトリ**: [rebelot/kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim)
 - **役割**: カラースキーム
-- **説明**: 高品質なダークテーマ（night style）。透過背景対応
+- **説明**: 和色ベースのダークテーマ（dragonを採用）。透過背景対応
 
 ### bufferline.nvim
 - **リポジトリ**: [akinsho/bufferline.nvim](https://github.com/akinsho/bufferline.nvim)
@@ -300,4 +300,3 @@
 - エディタ機能強化: 4プラグイン
 - シンタックス: 5プラグイン
 - 依存ライブラリ: 2プラグイン（snacks.nvimはpicker機能も提供）
-

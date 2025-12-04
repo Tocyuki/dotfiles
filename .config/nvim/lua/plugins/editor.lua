@@ -34,24 +34,9 @@ return {
     config = function()
       require("kanagawa").setup({
         compile = false,
-        theme = "wave", -- wave / dragon / lotus
+        theme = "dragon", -- wave / dragon / lotus
         transparent = true,
-        background = { dark = "wave", light = "lotus" },
-        colors = {
-          palette = {
-            -- 透明前提で暗めのパレットを少しだけ暗く
-            sumiInk0 = "#16161d",
-            sumiInk1 = "#1f1f28",
-            sumiInk2 = "#2a2a37",
-          },
-        },
-        overrides = function(colors)
-          local palette = colors.palette
-          return {
-            FloatBorder = { fg = palette.sumiInk2, bg = palette.sumiInk1 },
-            NormalFloat = { bg = palette.sumiInk1 },
-          }
-        end,
+        background = { dark = "dragon", light = "lotus" },
       })
     end,
   },
@@ -106,11 +91,12 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim" },
     config = function()
+      local colors = require("kanagawa.colors").setup({ theme = "dragon" })
       local palette = {
-        bg = "#1f1f28",
-        alt = "#2a2a37",
-        fg = "#dcd7ba",
-        muted = "#9cabbd",
+        bg = colors.palette.dragonBlack3,
+        alt = colors.palette.dragonBlack4,
+        fg = colors.palette.dragonWhite,
+        muted = colors.palette.dragonGray3,
       }
       local separator_hl = { fg = palette.bg, bg = palette.bg }
       require("bufferline").setup({

@@ -14,41 +14,41 @@ git:
 gui:
   language: "en"
   showIcons: true
-  # Tokyo Night
+  # Kanagawa (wave)
   theme:
     activeBorderColor:
-      - "#7aa2f7"
+      - "#8ba4b0"
       - bold
     inactiveBorderColor:
-      - "#414868"
+      - "#282727"
 
     searchingActiveBorderColor:
-      - "#ff9e64"
+      - "#c4b28a"
       - bold
 
     optionsTextColor:
-      - "#e0e6ff"
+      - "#c5c9c5"
 
     selectedLineBgColor:
-      - "#283457"
+      - "#282727"
 
     inactiveViewSelectedLineBgColor:
-      - "#1f2335"
+      - "#181616"
 
     cherryPickedCommitFgColor:
-      - "#bb9af7"
+      - "#8992a7"
 
     cherryPickedCommitBgColor:
-      - "#283457"
+      - "#282727"
 
     markedBaseCommitFgColor:
-      - "#73daca"
+      - "#87a987"
 
     markedBaseCommitBgColor:
-      - "#283457"
+      - "#282727"
 
     unstagedChangesColor:
-      - "#f7768e"
+      - "#c4746e"
 
     defaultFgColor:
-      - "#c0caf5"
+      - "#c5c9c5"

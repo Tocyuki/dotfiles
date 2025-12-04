@@ -53,21 +53,16 @@ return {
   },
 
   config = function(_, opts)
-    local palette = {
-      bg = "#1f1f28",
-      bg_alt = "#2a2a37",
-      border = "#2a2a37",
-      select = "#223249",
-      fg = "#dcd7ba",
-    }
+    local colors = require("kanagawa.colors").setup({ theme = "dragon" })
+    local palette = colors.palette
 
     -- 共通のハイライトグループを定義（nvim-cmp、snacks で共有）
     -- これにより、プラグインの読み込み順序に依存しない安定した色設定が可能になる
-    vim.api.nvim_set_hl(0, "CmpNormal", { bg = palette.bg })
-    vim.api.nvim_set_hl(0, "CmpBorder", { fg = palette.border, bg = palette.bg })
-    vim.api.nvim_set_hl(0, "CmpSel", { bg = palette.select, fg = palette.fg, bold = true })
-    vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = palette.bg })
-    vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = palette.border, bg = palette.bg })
+    vim.api.nvim_set_hl(0, "CmpNormal", { bg = palette.dragonBlack3 })
+    vim.api.nvim_set_hl(0, "CmpBorder", { fg = palette.dragonBlack4, bg = palette.dragonBlack3 })
+    vim.api.nvim_set_hl(0, "CmpSel", { bg = palette.dragonBlack4, fg = palette.dragonYellow, bold = true })
+    vim.api.nvim_set_hl(0, "CmpDocNormal", { bg = palette.dragonBlack3 })
+    vim.api.nvim_set_hl(0, "CmpDocBorder", { fg = palette.dragonBlack4, bg = palette.dragonBlack3 })
 
     local snacks = require("snacks")
     snacks.setup(opts)

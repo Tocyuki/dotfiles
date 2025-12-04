@@ -3,7 +3,7 @@
 vim.api.nvim_create_autocmd("User", {
   pattern = "VeryLazy",
   callback = function()
-    if not pcall(function() vim.cmd.colorscheme("kanagawa-wave") end) then
+    if not pcall(function() vim.cmd.colorscheme("kanagawa-dragon") end) then
       vim.cmd.colorscheme("habamax")
     end
   end,

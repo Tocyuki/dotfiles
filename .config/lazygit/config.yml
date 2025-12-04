@@ -14,13 +14,13 @@ git:
 gui:
   language: "en"
   showIcons: true
-  # Kanagawa (wave)
+  # Kanagawa (dragon)
   theme:
     activeBorderColor:
-      - "#8ba4b0"
+      - "#c4b28a"
       - bold
     inactiveBorderColor:
-      - "#282727"
+      - "#54546d"
 
     searchingActiveBorderColor:
       - "#c4b28a"

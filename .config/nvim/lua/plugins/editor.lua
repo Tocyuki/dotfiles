@@ -26,24 +26,32 @@ return {
   { "markonm/traces.vim", event = "VeryLazy" },
   { "vim-jp/vimdoc-ja",   lazy = true },
 
-  -- TokyoNight テーマ
+  -- Kanagawa テーマ
   {
-    "folke/tokyonight.nvim",
+    "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require("tokyonight").setup({
-        style = "night", -- storm, moon, night, day
+      require("kanagawa").setup({
+        compile = false,
+        theme = "wave", -- wave / dragon / lotus
         transparent = true,
-        terminal_colors = true,
-        styles = {
-          comments = { italic = true },
-          keywords = { italic = true },
-          functions = {},
-          variables = {},
-          sidebars = "transparent",
-          floats = "transparent",
+        background = { dark = "wave", light = "lotus" },
+        colors = {
+          palette = {
+            -- 透明前提で暗めのパレットを少しだけ暗く
+            sumiInk0 = "#16161d",
+            sumiInk1 = "#1f1f28",
+            sumiInk2 = "#2a2a37",
+          },
         },
+        overrides = function(colors)
+          local palette = colors.palette
+          return {
+            FloatBorder = { fg = palette.sumiInk2, bg = palette.sumiInk1 },
+            NormalFloat = { bg = palette.sumiInk1 },
+          }
+        end,
       })
     end,
   },
@@ -98,7 +106,13 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons", "lewis6991/gitsigns.nvim" },
     config = function()
-      local separator_hl = { fg = '#000000', bg = '#000000' }
+      local palette = {
+        bg = "#1f1f28",
+        alt = "#2a2a37",
+        fg = "#dcd7ba",
+        muted = "#9cabbd",
+      }
+      local separator_hl = { fg = palette.bg, bg = palette.bg }
       require("bufferline").setup({
         options = {
           mode = "buffers",
@@ -119,19 +133,19 @@ return {
         },
         highlights = {
           fill = {
-            bg = '#1a1b26',
+            bg = palette.bg,
           },
           background = {
-            bg = '#24283b',
-            fg = '#565f89',
+            bg = palette.alt,
+            fg = palette.muted,
           },
           buffer_visible = {
-            bg = '#292e42',
-            fg = '#a9b1d6',
+            bg = palette.alt,
+            fg = palette.fg,
           },
           buffer_selected = {
-            bg = '#1a1b26',
-            fg = '#c0caf5',
+            bg = palette.bg,
+            fg = palette.fg,
             bold = true,
             italic = false,
           },

@@ -15,7 +15,6 @@ map('t', '<Leader>;f', function()
 end, { noremap = true })
 
 -- terminal helpers
-map("n",";lg", utils.create_terminal_with_autocmd("lazygit"))
 map("n",";ld", utils.create_terminal_with_autocmd("lazydocker"))
 
 -- diagnostics navigation

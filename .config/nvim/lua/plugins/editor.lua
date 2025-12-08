@@ -227,7 +227,7 @@ return {
           m("v","<leader>hs", function() gs.stage_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
           m("v","<leader>hr", function() gs.reset_hunk({vim.fn.line("."), vim.fn.line("v")}) end)
           m("n","<leader>hS", gs.stage_buffer);    m("n","<leader>hR", gs.reset_buffer)
-          m("n","<leader>hp", gs.preview_hunk);    m("n","<leader>hb", function() gs.blame_line({full=true}) end)
+          m("n","<leader>hp", gs.preview_hunk)
           m("n","<leader>hd", gs.diffthis);        m("n","<leader>hD", function()
             ---@diagnostic disable-next-line: param-type-mismatch
             gs.diffthis("~")

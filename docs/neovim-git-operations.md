@@ -34,9 +34,8 @@ GitSignsプラグインによるGit差分（hunk）操作のキーマッピン�
 | キー | 機能 |
 |------|------|
 | `<leader>hp` | ハンクプレビュー表示 |
-| `<leader>hb` | blame情報表示 |
+| `gb` | blame情報表示 |
 | `<leader>hd` | 差分表示 |
-| `<leader>hD` | HEADとの差分表示 |
 
 #### 差分表示から戻る方法
 
@@ -78,5 +77,5 @@ GitSignsプラグインによるGit差分（hunk）操作のキーマッピン�
 
 ## 設定ファイル
 
-- GitSigns設定: `.config/nvim/lua/plugins/editor.lua:229-247`
+- GitSigns設定: `.config/nvim/lua/plugins/editor.lua:205-244`
 - LSP設定: `.config/nvim/lua/plugins/lsp.lua:48-56`

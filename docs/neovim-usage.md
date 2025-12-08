@@ -61,7 +61,7 @@
 
 | キーバインド | 機能 | 説明 |
 |-------------|------|------|
-| `;lg` | Lazygit起動 | 新しいタブでLazygitを開く |
+| `gl` | Lazygit起動（Snacks） | SnacksのターミナルでLazygitを開く |
 | `;ld` | Lazydocker起動 | 新しいタブでLazydockerを開く |
 | `<Leader>;f` | ターミナルから戻る | ターミナルモードから前のウィンドウに戻る |
 

@@ -34,9 +34,8 @@ GitSignsプラグインによるGit差分（hunk）操作のキーマッピン�
 | キー | 機能 |
 |------|------|
 | `<leader>hp` | ハンクプレビュー表示 |
-| `<leader>hb` | blame情報表示 |
+| `gb` | blame情報表示 |
 | `<leader>hd` | 差分表示 |
-| `<leader>hD` | HEADとの差分表示 |
 
 #### 差分表示から戻る方法
 

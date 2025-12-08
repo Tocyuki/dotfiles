@@ -70,33 +70,23 @@ return {
 
   keys = {
     -- ファイル検索
-    { "<leader>f", function() require("snacks").picker.files() end, desc = "Find Files" },
-    { "<leader>g", function() require("snacks").picker.git_files() end, desc = "Git Files" },
-    { "<leader>s", function() require("snacks").picker.git_status() end, desc = "Git Status" },
-    { "<leader>a", function() require("snacks").picker.grep() end, desc = "Grep" },
+    { "<C-f>", function() require("snacks").picker.files() end, desc = "Find Files" },
+    { "gf",    function() require("snacks").picker.git_files() end, desc = "Git Files" },
+    { "gs",    function() require("snacks").picker.git_status() end, desc = "Git Status" },
+    { "gb",    function() require("snacks").git.blame_line() end, desc = "Git Blame Line" },
+    { "go",    function() require("snacks").gitbrowse.open() end, desc = "Git Open in Browser" },
+    { "ga",    function() require("snacks").picker.grep() end, desc = "Grep" },
+    { "gl",    function() require("snacks").terminal.open({ "lazygit" }) end, desc = "LazyGit (Snacks Terminal)" },
 
     -- バッファ・履歴
     { "<leader>b", function() require("snacks").picker.buffers() end, desc = "Buffers" },
-    { "<leader>h", function() require("snacks").picker.recent() end, desc = "Recent Files" },
     { "<leader>l", function() require("snacks").picker.lines() end, desc = "Buffer Lines" },
     { "<leader>j", function() require("snacks").picker.jumps() end, desc = "Jump List" },
 
     -- Git
     { "<leader>c", function() require("snacks").picker.git_log() end, desc = "Git Commits" },
 
-    -- Vim コマンド
-    { "<leader>C", function() require("snacks").picker.commands() end, desc = "Commands" },
-    { "<leader>H", function() require("snacks").picker.command_history() end, desc = "Command History" },
-
     -- 診断ピッカー
     { "<leader>d", function() require("snacks").picker.diagnostics_buffer() end, desc = "Buffer Diagnostics" },
-    { "<leader>D", function() require("snacks").picker.diagnostics() end, desc = "Project Diagnostics" },
-
-    -- 診断トグル
-    { "<leader>td", function() require("snacks").toggle.diagnostics() end, desc = "Toggle Diagnostics" },
-
-    -- 通知履歴
-    { "<leader>nh", function() require("snacks").notifier.show_history() end, desc = "Notification History" },
-    { "<leader>nd", function() require("snacks").notifier.hide() end, desc = "Dismiss Notifications" },
   },
 }

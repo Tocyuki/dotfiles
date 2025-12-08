@@ -1,6 +1,7 @@
 {
   "cleanupPeriodDays": 30,
   "preferredNotifChannel": "terminal_bell",
+  "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
       "Bash(npm:*)",

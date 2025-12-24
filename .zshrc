@@ -158,3 +158,6 @@ esac
 
 # Added by Antigravity
 export PATH="/Users/tocyuki/.antigravity/antigravity/bin:$PATH"
+
+# Local settings (not tracked by git)
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local

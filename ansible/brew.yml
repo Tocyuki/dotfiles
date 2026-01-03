@@ -17,6 +17,7 @@
     - awsdac
     - npm
     - gemini-cli
+    - witr
   tags:
     - brew
 

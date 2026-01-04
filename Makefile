@@ -31,6 +31,9 @@ setup-zsh: ## Setup zsh
 setup-ghostty: ## Setup ghostty
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags ghostty -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
+setup-wezterm: ## Setup wezterm
+	@ansible-playbook -i localhost, -c local ansible/main.yml --tags wezterm -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
+
 setup-tmux: ## Setup tmux
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags tmux -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 

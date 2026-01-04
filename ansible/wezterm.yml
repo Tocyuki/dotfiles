@@ -1,0 +1,53 @@
+---
+- name: Get git repository root
+  command: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+  tags:
+    - wezterm
+
+- name: install wezterm
+  homebrew:
+    name: wezterm
+    state: present
+    update_homebrew: yes
+  tags:
+    - wezterm
+
+- name: create wezterm directory
+  file:
+    path: ~/.config/wezterm
+    state: directory
+    mode: "0755"
+  tags:
+    - dotfiles
+    - wezterm
+
+- name: create wezterm colors directory
+  file:
+    path: ~/.config/wezterm/colors
+    state: directory
+    mode: "0755"
+  tags:
+    - dotfiles
+    - wezterm
+
+- name: link dotfiles
+  file:
+    src: "{{ git_root.stdout }}/{{ item.file }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { file: ".config/wezterm/wezterm.lua", dest: "~/.config/wezterm/wezterm.lua" }
+    - { file: ".config/wezterm/utils.lua", dest: "~/.config/wezterm/utils.lua" }
+    - { file: ".config/wezterm/keymaps.lua", dest: "~/.config/wezterm/keymaps.lua" }
+    - { file: ".config/wezterm/tab_bar.lua", dest: "~/.config/wezterm/tab_bar.lua" }
+    - { file: ".config/wezterm/on.lua", dest: "~/.config/wezterm/on.lua" }
+    - { file: ".config/wezterm/zen-mode.lua", dest: "~/.config/wezterm/zen-mode.lua" }
+    - { file: ".config/wezterm/colors/kanagawa_dragon.lua", dest: "~/.config/wezterm/colors/kanagawa_dragon.lua" }
+  tags:
+    - dotfiles
+    - wezterm

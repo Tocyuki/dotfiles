@@ -16,6 +16,9 @@
     - name: setup ghostty
       import_tasks: ghostty.yml
 
+    - name: setup wezterm
+      import_tasks: wezterm.yml
+
     - name: setup tmux
       import_tasks: tmux.yml
 

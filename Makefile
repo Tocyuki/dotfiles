@@ -40,6 +40,9 @@ setup-tmux: ## Setup tmux
 setup-neovim: ## Setup neovim
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags neovim -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
+setup-claude: ## Setup claude
+	@ansible-playbook -i localhost, -c local ansible/main.yml --tags claude -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
+
 dotfiles: ## Linking dotfils
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags dotfiles -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 

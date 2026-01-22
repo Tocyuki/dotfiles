@@ -25,3 +25,6 @@
     - name: setup neovim
       import_tasks: neovim.yml
 
+    - name: setup claude
+      import_tasks: claude.yml
+

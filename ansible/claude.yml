@@ -1,0 +1,32 @@
+---
+- name: Get git repository root
+  command: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+  tags:
+    - claude
+
+- name: create ~/.claude directory
+  file:
+    path: ~/.claude
+    state: directory
+    mode: "0755"
+  tags:
+    - claude
+
+- name: link claude dotfiles
+  file:
+    src: "{{ git_root.stdout }}/{{ item.file }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { file: ".claude/agents", dest: "~/.claude/agents" }
+    - { file: ".claude/commands", dest: "~/.claude/commands" }
+    - { file: ".claude/rules", dest: "~/.claude/rules" }
+    - { file: ".claude/skills", dest: "~/.claude/skills" }
+  tags:
+    - dotfiles
+    - claude

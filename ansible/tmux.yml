@@ -35,3 +35,24 @@
     - dotfiles
     - tmux
 
+- name: install rustup-init
+  homebrew:
+    name: rustup-init
+    state: present
+  tags:
+    - tmux
+
+- name: initialize rustup
+  ansible.builtin.command: rustup-init -y
+  args:
+    creates: ~/.cargo/bin/cargo
+  tags:
+    - tmux
+
+- name: install tmuxcc via cargo
+  ansible.builtin.command: ~/.cargo/bin/cargo install tmuxcc
+  args:
+    creates: ~/.cargo/bin/tmuxcc
+  tags:
+    - tmux
+

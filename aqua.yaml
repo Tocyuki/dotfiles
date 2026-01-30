@@ -51,3 +51,4 @@ packages:
 - name: fujiwara/lambroll@v1.4.1
 - name: bahdotsh/wrkflw@v0.7.3
 - name: reproio/terraform-j2md@v0.0.9
+- name: k1LoW/git-wt@v0.16.1

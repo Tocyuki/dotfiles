@@ -1,8 +1,8 @@
 git:
   autocommit: false
-  paging:
-    colorArg: always
-    pager: delta --paging=never --true-color=auto --dark --side-by-side --line-numbers --syntax-theme=zenburn --width=variable --navigate
+  pagers:
+    - colorArg: always
+      pager: delta --paging=never --true-color=auto --dark --side-by-side --line-numbers --syntax-theme=zenburn --width=variable --navigate
   customCommands:
     - key: C
       command: git cz
@@ -10,7 +10,6 @@ git:
       context: files
       loadingText: "opening commitizen commit tool"
       subprocess: true
-
 gui:
   language: "en"
   showIcons: true
@@ -21,34 +20,24 @@ gui:
       - bold
     inactiveBorderColor:
       - "#54546d"
-
     searchingActiveBorderColor:
       - "#c4b28a"
       - bold
-
     optionsTextColor:
       - "#c5c9c5"
-
     selectedLineBgColor:
       - "#282727"
-
     inactiveViewSelectedLineBgColor:
       - "#181616"
-
     cherryPickedCommitFgColor:
       - "#8992a7"
-
     cherryPickedCommitBgColor:
       - "#282727"
-
     markedBaseCommitFgColor:
       - "#87a987"
-
     markedBaseCommitBgColor:
       - "#282727"
-
     unstagedChangesColor:
       - "#c4746e"
-
     defaultFgColor:
       - "#c5c9c5"

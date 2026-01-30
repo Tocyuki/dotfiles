@@ -1,5 +1,15 @@
 [core]
-  editor = vim -c \"set fenc=utf-8\"
+  editor = vim -c "set fenc=utf-8"
+
+[user]
+  name = Tocyuki
+  email = tocguitar1@gmail.com
+
 [ghq]
   root=~/ghq
 
+[includeIf "gitdir:~/ghq/github.com/studypocket/"]
+  path = ~/.gitconfig-studypocket
+
+[coderabbit]
+	machineId = cli/8ca949905a314ceaa8c3fbe73175310b

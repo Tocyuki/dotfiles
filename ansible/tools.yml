@@ -44,6 +44,7 @@
     - { file: ".config/ecsta/config.json", dest: "~/.config/ecsta/config.json" }
     - { file: ".claude/settings.json", dest: "~/.claude/settings.json" }
     - { file: ".gitconfig", dest: "~/.gitconfig" }
+    - { file: ".gitconfig-studypocket", dest: "~/.gitconfig-studypocket" }
   tags:
     - dotfiles
     - tools

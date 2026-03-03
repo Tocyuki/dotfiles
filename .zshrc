@@ -36,7 +36,7 @@ setopt hist_ignore_space
 # ヒストリに保存するときに余分なスペースを削除する
 setopt hist_reduce_blanks
 # cdrコマンドを使えるようにする
-autoload -Uz add-zsh-hock
+autoload -Uz add-zsh-hook
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
 # ヒストリー設定
 HISTFILE=$HOME/.zsh_history
@@ -116,22 +116,17 @@ alias cc='tmuxcc'
 # ==============================
 if [ -n "$TMUX" ]; then
   function tmux_rename_window() {
-    # Gitリポジトリのルートディレクトリを取得
-    local git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+    local git_root
+    git_root=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -n "$git_root" ]; then
-      # リポジトリ名を取得
-      local repo_name=$(basename "$git_root")
-      tmux rename-window "$repo_name"
+      tmux rename-window "$(basename "$git_root")"
     else
-      # Gitリポジトリでない場合はカレントディレクトリ名
       tmux rename-window "$(basename "$PWD")"
     fi
   }
 
-  # ディレクトリ変更時に自動実行
   add-zsh-hook chpwd tmux_rename_window
-
-  # 初回起動時にも実行
+  add-zsh-hook precmd tmux_rename_window
   tmux_rename_window
 fi
 

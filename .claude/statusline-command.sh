@@ -277,6 +277,22 @@ c_diff=$(build_diff "$lines_added" "$lines_removed")
 c_style=$(build_style "$output_style")
 c_vim=$(build_vim "$vim_mode")
 
+# ── Write state for tmux integration ────────────────────
+# Atomic write (mktemp + mv) to avoid tmux reading partial JSON.
+# jq -n --arg for safe JSON escaping (branch names may contain quotes).
+{
+  tmp_state=$(mktemp "$HOME/.claude/.tmux-state.XXXXXX")
+  jq -n \
+    --arg model "$c_model" \
+    --arg context_pct "$remaining" \
+    --arg project "$c_project" \
+    --arg git "$c_git" \
+    --arg agent "$c_agent" \
+    --arg cost "$c_cost" \
+    '{model: $model, context_pct: $context_pct, project: $project, git: $git, agent: $agent, cost: $cost}' \
+    > "$tmp_state" && mv "$tmp_state" "$HOME/.claude/.tmux-state"
+} 2>/dev/null &
+
 # Priority-ordered component list (highest priority first)
 all_components=(
   "$c_model"

@@ -35,6 +35,27 @@
     - dotfiles
     - tmux
 
+- name: create tmux scripts directory
+  file:
+    path: ~/.tmux/scripts
+    state: directory
+  tags:
+    - tmux
+
+- name: link tmux scripts
+  file:
+    src: "{{ git_root.stdout }}/.tmux/scripts/{{ item }}"
+    dest: "~/.tmux/scripts/{{ item }}"
+    state: link
+    force: yes
+  loop:
+    - claude-tmux-status.sh
+    - claude-popup.sh
+    - claude-layout.sh
+  tags:
+    - dotfiles
+    - tmux
+
 - name: install rustup-init
   homebrew:
     name: rustup-init

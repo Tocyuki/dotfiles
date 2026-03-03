@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
 # Claude Code Status Line v2
-# Components (priority order):
-#   Model │ Context Bar │ Project │ Git │ Cost │ Agent │ Duration │ Diff │ Style │ Vim
+# Components:
+#   Model │ Context Bar │ Project │ Git │ Cost │ Agent │ Duration │ Diff │ Style
 
 set -euo pipefail
 
 # ── Constants ────────────────────────────────────────────
 readonly SEP=" │ "
-readonly SEP_LEN=3  # Approximate display width of separator
 readonly BAR_WIDTH=10
 
 # ── Read JSON input (single jq call for performance) ─────
@@ -25,7 +24,6 @@ _raw=$(echo "$input" | jq -r '[
   (.cost.total_lines_added // 0),
   (.cost.total_lines_removed // 0),
   (.output_style.name // ""),
-  (.vim.mode // ""),
   (.agent.name // "")
 ] | join("\u001f")')
 
@@ -41,16 +39,7 @@ duration_ms="${_f[6]:-0}"
 lines_added="${_f[7]:-0}"
 lines_removed="${_f[8]:-0}"
 output_style="${_f[9]:-}"
-vim_mode="${_f[10]:-}"
-agent_name="${_f[11]:-}"
-
-# ── Terminal width detection ─────────────────────────────
-_tput_cols=$(tput cols 2>/dev/null || true)
-if [[ "${_tput_cols:-}" =~ ^[0-9]+$ ]] && [[ "$_tput_cols" -gt 0 ]]; then
-  term_width=${COLUMNS:-$_tput_cols}
-else
-  term_width=${COLUMNS:-120}
-fi
+agent_name="${_f[10]:-}"
 
 # ── Helper: build progress bar ───────────────────────────
 _build_bar() {
@@ -236,14 +225,6 @@ build_style() {
   echo "$style"
 }
 
-build_vim() {
-  local mode="$1"
-
-  [[ -z "$mode" ]] && return 0
-
-  echo "-- ${mode} --"
-}
-
 build_agent() {
   local name="$1"
 
@@ -252,22 +233,11 @@ build_agent() {
   echo "agent:${name}"
 }
 
-# ── Width-adaptive assembly ──────────────────────────────
-
-if [[ "$term_width" -ge 100 ]]; then
-  ctx_style="full"
-elif [[ "$term_width" -ge 80 ]]; then
-  ctx_style="compact"
-else
-  ctx_style="minimal"
-fi
-
-model_compact="false"
-[[ "$term_width" -lt 80 ]] && model_compact="true"
+# ── Assembly ─────────────────────────────────────────────
 
 # Generate all components
-c_model=$(build_model "$model" "$model_compact")
-c_context=$(build_context "$remaining" "$ctx_style" "$ctx_size")
+c_model=$(build_model "$model" "false")
+c_context=$(build_context "$remaining" "full" "$ctx_size")
 c_project=$(build_project "$cwd" "$project_dir")
 c_git=$(build_git "$cwd")
 c_cost=$(build_cost "$cost_usd")
@@ -275,7 +245,6 @@ c_agent=$(build_agent "$agent_name")
 c_duration=$(build_duration "$duration_ms")
 c_diff=$(build_diff "$lines_added" "$lines_removed")
 c_style=$(build_style "$output_style")
-c_vim=$(build_vim "$vim_mode")
 
 # ── Write state for tmux integration ────────────────────
 # Atomic write (mktemp + mv) to avoid tmux reading partial JSON.
@@ -293,7 +262,7 @@ c_vim=$(build_vim "$vim_mode")
     > "$tmp_state" && mv "$tmp_state" "$HOME/.claude/.tmux-state"
 } 2>/dev/null &
 
-# Priority-ordered component list (highest priority first)
+# Component list
 all_components=(
   "$c_model"
   "$c_context"
@@ -304,27 +273,16 @@ all_components=(
   "$c_duration"
   "$c_diff"
   "$c_style"
-  "$c_vim"
 )
 
-# Build output respecting terminal width
+# Join all non-empty components with separator
 output=""
-output_len=0
-
 for comp in "${all_components[@]}"; do
   [[ -z "$comp" ]] && continue
-
-  comp_len=${#comp}
-
   if [[ -z "$output" ]]; then
     output="$comp"
-    output_len=$comp_len
   else
-    new_len=$(( output_len + SEP_LEN + comp_len ))
-    if [[ "$new_len" -le "$term_width" ]]; then
-      output+="${SEP}${comp}"
-      output_len=$new_len
-    fi
+    output+="${SEP}${comp}"
   fi
 done
 

@@ -1,10 +1,10 @@
 {
-  "cleanupPeriodDays": 30,
+  "cleanupPeriodDays": 90,
   "preferredNotifChannel": "terminal_bell",
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
-      "Bash(*)",
+      "Bash(**)",
       "Read(**)",
       "Read(~/**)",
       "Edit(~/projects/**)",

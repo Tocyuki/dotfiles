@@ -39,6 +39,15 @@ Launch 3 agents in parallel:
 First agent 1, then agent 2, then agent 3
 ```
 
+## External Review Tools
+
+PR 作成前のローカルレビューで使用する外部ツール:
+
+| ツール | コマンド | 備考 |
+|--------|----------|------|
+| CodeRabbit CLI | `cr review --plain --base main --type committed` | `--plain` 必須（非対話環境で Raw mode エラー回避） |
+| Codex | `codex review --base main` | `--base` でブランチ比較 |
+
 ## Multi-Perspective Analysis
 
 For complex problems, use split role sub-agents:

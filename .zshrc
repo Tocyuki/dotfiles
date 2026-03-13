@@ -109,7 +109,7 @@ alias k='kubernetes'
 alias lg='lazygit'
 alias ld='lazydocker'
 alias proot='cd $(git rev-parse --show-toplevel)'
-alias cc='tmuxcc'
+alias c='claude --permission-mode plan --allow-dangerously-skip-permissions'
 
 # ==============================
 # tmux: ディレクトリ変更時にウィンドウ名を更新

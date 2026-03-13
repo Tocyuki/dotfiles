@@ -70,10 +70,4 @@
   tags:
     - tmux
 
-- name: install tmuxcc via cargo
-  ansible.builtin.command: ~/.cargo/bin/cargo install tmuxcc
-  args:
-    creates: ~/.cargo/bin/tmuxcc
-  tags:
-    - tmux
 

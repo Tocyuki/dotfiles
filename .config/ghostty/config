@@ -46,9 +46,13 @@ unfocused-split-opacity = 0.7
 
 # macOS固有設定
 window-theme = auto
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
 macos-option-as-alt = true
 quit-after-last-window-closed = false
+
+# コマンド完了通知（v1.3.0）
+notify-on-command-finish = unfocused
+notify-on-command-finish-after = 10s
 
 # キーバインド - 分割ウィンドウ
 keybind = cmd+|=new_split:right

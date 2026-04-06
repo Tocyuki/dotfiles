@@ -18,7 +18,6 @@ packages:
 - name: jesseduffield/lazydocker@v0.24.4
 - name: jesseduffield/lazynpm@v0.1.4
 - name: neovim/neovim@v0.11.6
-- name: docker/cli@v29.2.0
 - name: kubernetes/kubectl@v1.35.0
 - name: jqlang/jq@jq-1.8.1
 - name: ynqa/jnv@v0.6.1

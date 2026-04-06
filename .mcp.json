@@ -7,6 +7,10 @@
     "deepwiki": {
       "command": "npx",
       "args": ["-y", "mcp-deepwiki@latest"]
+    },
+    "mfc_ca": {
+      "type": "http",
+      "url": "https://alpha.mcp.developers.biz.moneyforward.com/mcp/ca/v3"
     }
   }
 }

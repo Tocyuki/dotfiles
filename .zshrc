@@ -109,7 +109,8 @@ alias k='kubernetes'
 alias lg='lazygit'
 alias ld='lazydocker'
 alias proot='cd $(git rev-parse --show-toplevel)'
-alias c='claude --permission-mode plan --allow-dangerously-skip-permissions'
+alias cc='CLAUDE_CODE_NO_FLICKER=1 claude --permission-mode plan --allow-dangerously-skip-permissions'
+alias cx='codex --full-auto'
 
 # ==============================
 # tmux: ディレクトリ変更時にウィンドウ名を更新
@@ -157,3 +158,8 @@ export PATH="/Users/tocyuki/.antigravity/antigravity/bin:$PATH"
 
 # Local settings (not tracked by git)
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/tocyuki/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

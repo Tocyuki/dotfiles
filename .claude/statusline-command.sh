@@ -1,14 +1,27 @@
 #!/usr/bin/env bash
 
-# Claude Code Status Line v2
+# Claude Code Status Line v3
 # Components:
 #   Model │ Context Bar │ Project │ Git │ Cost │ Agent │ Duration │ Diff │ Style
+# v3: ANSI colors applied at assembly time only, so the tmux state
+#     file keeps plain-text values.
 
 set -euo pipefail
 
 # ── Constants ────────────────────────────────────────────
-readonly SEP=" │ "
 readonly BAR_WIDTH=10
+
+# ── Colors (p10k-like) ───────────────────────────────────
+readonly C_RESET=$'\033[0m'
+readonly C_CYAN=$'\033[36m'
+readonly C_WHITE=$'\033[97m'
+readonly C_MAGENTA=$'\033[35m'
+readonly C_YELLOW=$'\033[33m'
+readonly C_GREEN=$'\033[32m'
+readonly C_RED=$'\033[31m'
+readonly C_DIM=$'\033[90m'
+
+readonly SEP="${C_DIM} │ ${C_RESET}"
 
 # ── Read JSON input (single jq call for performance) ─────
 input=$(cat)
@@ -262,7 +275,19 @@ c_style=$(build_style "$output_style")
     > "$tmp_state" && mv "$tmp_state" "$HOME/.claude/.tmux-state"
 } 2>/dev/null &
 
-# Component list
+# Context bar color: green → yellow (≤50% remaining) → red (≤20% remaining)
+ctx_color="$C_GREEN"
+if [[ -n "$remaining" ]]; then
+  _pct_int=$(printf "%.0f" "$remaining")
+  if [[ "$_pct_int" -le 20 ]]; then
+    ctx_color="$C_RED"
+  elif [[ "$_pct_int" -le 50 ]]; then
+    ctx_color="$C_YELLOW"
+  fi
+fi
+
+# Component list (paired with colors, applied here only — builders and
+# the tmux state stay plain-text)
 all_components=(
   "$c_model"
   "$c_context"
@@ -274,15 +299,28 @@ all_components=(
   "$c_diff"
   "$c_style"
 )
+all_colors=(
+  "$C_CYAN"
+  "$ctx_color"
+  "$C_WHITE"
+  "$C_MAGENTA"
+  "$C_YELLOW"
+  "$C_CYAN"
+  "$C_DIM"
+  "$C_DIM"
+  "$C_DIM"
+)
 
 # Join all non-empty components with separator
 output=""
-for comp in "${all_components[@]}"; do
+for i in "${!all_components[@]}"; do
+  comp="${all_components[$i]}"
   [[ -z "$comp" ]] && continue
+  colored="${all_colors[$i]}${comp}${C_RESET}"
   if [[ -z "$output" ]]; then
-    output="$comp"
+    output="$colored"
   else
-    output+="${SEP}${comp}"
+    output+="${SEP}${colored}"
   fi
 done
 

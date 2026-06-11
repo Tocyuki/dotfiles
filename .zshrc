@@ -56,6 +56,13 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # aqua path
 export PATH="$PATH:$(aqua root-dir)/bin"
 export AQUA_GLOBAL_CONFIG="$HOME/.config/aqua/aqua.yaml"
+# tfenv (aqua 管理の tfenv を terraform のバージョンマネージャとして使用)
+# TFENV_ROOT は未設定。tfenv が自身の install dir(aqua pkg)を自動解決し、
+# terraform 版もそこの versions/ に格納される。
+if command -v aqua >/dev/null 2>&1; then
+  # tfenv pkg の bin(terraform シム入り)を PATH 先頭へ。aqua which で固定パスを避ける
+  export PATH="$(dirname "$(aqua which tfenv)"):$PATH"
+fi
 # sheldon editor path
 export EDITOR=nvim sheldon edit
 export ZSH="$HOME/.local/share/sheldon/repos/github.com/ohmyzsh/ohmyzsh"
@@ -66,6 +73,42 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 eval "$(sheldon source)"
 
 # ==============================
+# Project navigation
+# ==============================
+export GHQ_SELECTOR=fzf
+export GHQ_SELECTOR_OPTS="${GHQ_SELECTOR_OPTS:-}"
+
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+function ghq-roots() {
+  local selected
+  selected=$(ghq list --full-path | roots | fzf --height 40% --reverse)
+  if [ -n "$selected" ]; then
+    cd "$selected" || return
+  fi
+}
+
+function __ghq_roots_widget() {
+  ghq-roots
+  zle reset-prompt
+}
+
+function git-wt-cd() {
+  local selected
+  selected=$(git-wt | fzf --header-lines=1 --height 40% --reverse | awk '{if ($1 == "*") print $2; else print $1}')
+  if [ -n "$selected" ]; then
+    cd "$selected" || return
+  fi
+}
+
+function __git_wt_cd_widget() {
+  git-wt-cd
+  zle reset-prompt
+}
+
+# ==============================
 # Key Bind
 # ==============================
 # Ctrl-a/e を zsh 標準の行頭/行末へ
@@ -73,9 +116,15 @@ bindkey -e
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
+# ghqで管理しているリポジトリとmonorepo内のrootを選んで移動する
+zle -N __ghq_roots_widget
+bindkey '^g'   __ghq_roots_widget
+# git-wtで管理しているworktreeを選んで移動する
+zle -N __git_wt_cd_widget
+bindkey '^xw'   __git_wt_cd_widget
+bindkey '^x^w'  __git_wt_cd_widget
+
 # Plugin: Anyframe key bind
-# ghqコマンドで管理しているリポジトリに移動する
-bindkey '^g'   anyframe-widget-cd-ghq-repository
 # プロセスをkillする
 bindkey '^xk'   anyframe-widget-kill
 bindkey '^x^k'  anyframe-widget-kill
@@ -110,7 +159,10 @@ alias lg='lazygit'
 alias ld='lazydocker'
 alias proot='cd $(git rev-parse --show-toplevel)'
 alias cc='CLAUDE_CODE_NO_FLICKER=1 claude --permission-mode plan --allow-dangerously-skip-permissions'
-alias cx='codex --full-auto'
+alias cx='codex'
+alias gg='ghq get'
+alias gwt='git wt'
+alias gwtd='git wt -D'
 
 # ==============================
 # tmux: ディレクトリ変更時にウィンドウ名を更新
@@ -163,3 +215,9 @@ fpath=(/Users/tocyuki/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<

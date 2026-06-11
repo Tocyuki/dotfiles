@@ -24,6 +24,18 @@ make deploy
 make help
 ```
 
+### Project navigation
+
+`make deploy` または `make install-tools` で `ghq`, `roots`, `git-wt`, `fzf`, `zoxide` が利用できるようになります。
+
+| Key / command | Description |
+| --- | --- |
+| `Ctrl-G` / `ghq-roots` | `ghq list --full-path \| roots \| fzf` で ghq 管理リポジトリと monorepo 内の root を選択して移動 |
+| `Ctrl-X W` / `git-wt-cd` | `git-wt` の worktree 一覧から fzf で選択して移動 |
+| `z` / `zi` | zoxide で履歴ベースにディレクトリ移動 |
+| `gg` | `ghq get` |
+| `gwt` / `gwtd` | `git wt` / `git wt -D` |
+
 ## Documentation
 
 - [Neovim Plugin List](docs/neovim-plugin.md) - 使用しているプラグイン一覧と役割の説明

@@ -1,6 +1,5 @@
 {
   "cleanupPeriodDays": 9999,
-  "preferredNotifChannel": "terminal_bell",
   "includeCoAuthoredBy": false,
   "permissions": {
     "allow": [
@@ -152,5 +151,30 @@
       "Write(//etc/shadow)",
       "Write(//etc/sudoers)"
     ]
-  }
+  },
+  "model": "claude-fable-5[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline-command.sh"
+  },
+  "enabledPlugins": {
+    "actrun@studypocket-claude-plugins": true,
+    "agent-browser@studypocket-claude-plugins": true,
+    "gh-cli@studypocket-claude-plugins": true,
+    "git-workflow@studypocket-claude-plugins": true,
+    "googleworkspace@studypocket-claude-plugins": true,
+    "markitdown@studypocket-claude-plugins": true,
+    "vercel-toolkit@studypocket-claude-plugins": true,
+    "frontend-design@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "code-review@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "security-guidance@claude-plugins-official": true
+  },
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
+  "preferredNotifChannel": "terminal_bell",
+  "skipAutoPermissionPrompt": true
 }

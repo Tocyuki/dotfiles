@@ -23,10 +23,6 @@
     state: link
     force: yes
   loop:
-    - { file: ".claude/agents", dest: "~/.claude/agents" }
-    - { file: ".claude/commands", dest: "~/.claude/commands" }
-    - { file: ".claude/rules", dest: "~/.claude/rules" }
-    - { file: ".claude/skills", dest: "~/.claude/skills" }
     - { file: ".claude/statusline-command.sh", dest: "~/.claude/statusline-command.sh" }
   tags:
     - dotfiles

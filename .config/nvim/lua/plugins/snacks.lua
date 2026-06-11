@@ -71,12 +71,12 @@ return {
   keys = {
     -- ファイル検索
     { "<C-f>", function() require("snacks").picker.files() end, desc = "Find Files" },
-    { "gf",    function() require("snacks").picker.git_files() end, desc = "Git Files" },
-    { "gs",    function() require("snacks").picker.git_status() end, desc = "Git Status" },
-    { "gb",    function() require("snacks").git.blame_line() end, desc = "Git Blame Line" },
-    { "go",    function() require("snacks").gitbrowse.open() end, desc = "Git Open in Browser" },
-    { "ga",    function() require("snacks").picker.grep() end, desc = "Grep" },
-    { "gl",    function() require("snacks").terminal.open({ "lazygit" }) end, desc = "LazyGit (Snacks Terminal)" },
+    { "gf", function() require("snacks").picker.git_files() end, desc = "Git Files" },
+    { "gs", function() require("snacks").picker.git_status() end, desc = "Git Status" },
+    { "gb", function() require("snacks").git.blame_line() end, desc = "Git Blame Line" },
+    { "go", function() require("snacks").gitbrowse.open() end, desc = "Git Open in Browser" },
+    { "ga", function() require("snacks").picker.grep() end, desc = "Grep" },
+    { "gl", function() require("snacks").terminal.open({ "lazygit" }) end, desc = "LazyGit (Snacks Terminal)" },
 
     -- バッファ・履歴
     { "<leader>b", function() require("snacks").picker.buffers() end, desc = "Buffers" },

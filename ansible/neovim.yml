@@ -20,6 +20,14 @@
   tags:
     - neovim
 
+- name: remove deprecated copilot config
+  file:
+    path: "~/.config/nvim/lua/plugins/copilot.lua"
+    state: absent
+  tags:
+    - dotfiles
+    - neovim
+
 - name: link dotfiles
   file:
     src: "{{ git_root.stdout }}/{{ item.file }}"
@@ -39,11 +47,9 @@
     - { file: ".config/nvim/lua/plugins/editor.lua",dest: "~/.config/nvim/lua/plugins/editor.lua" }
     - { file: ".config/nvim/lua/plugins/lsp.lua",   dest: "~/.config/nvim/lua/plugins/lsp.lua" }
     - { file: ".config/nvim/lua/plugins/claudecode.lua",   dest: "~/.config/nvim/lua/plugins/claudecode.lua" }
-    - { file: ".config/nvim/lua/plugins/copilot.lua",   dest: "~/.config/nvim/lua/plugins/copilot.lua" }
     - { file: ".config/nvim/lua/plugins/snacks.lua",   dest: "~/.config/nvim/lua/plugins/snacks.lua" }
     - { file: ".config/nvim/lua/plugins/typescript.lua",   dest: "~/.config/nvim/lua/plugins/typescript.lua" }
     - { file: ".config/nvim/lua/plugins/fyler.lua",   dest: "~/.config/nvim/lua/plugins/fyler.lua" }
   tags:
     - dotfiles
     - neovim
-

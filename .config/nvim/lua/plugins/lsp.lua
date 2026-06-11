@@ -15,8 +15,7 @@ return {
     dependencies = { "williamboman/mason.nvim","williamboman/mason-lspconfig.nvim" },
     config = function()
       local ok_m, mlsp = pcall(require, "mason-lspconfig")
-      local ok_l, lsp  = pcall(require, "lspconfig")
-      if not (ok_m and ok_l) then return end
+      if not ok_m then return end
 
       -- ファイルタイプ設定
       vim.filetype.add({
@@ -167,11 +166,13 @@ return {
       })
 
       local on_attach = function(_, bufnr)
-        local map = function(m,l,r) vim.keymap.set(m,l,r,{buffer=bufnr,silent=true}) end
-        map("n","gd", vim.lsp.buf.definition)
-        map("n","gr", vim.lsp.buf.references)
-        map("n","rn", vim.lsp.buf.rename)
-        map("n","<leader>q", vim.diagnostic.setloclist)
+        local map = function(m,l,r,desc) vim.keymap.set(m,l,r,{buffer=bufnr,silent=true,desc=desc}) end
+        map("n","gd", vim.lsp.buf.definition, "Go to definition")
+        map("n","gr", vim.lsp.buf.references, "List references")
+        map("n","K", vim.lsp.buf.hover, "Show hover")
+        map("n","rn", vim.lsp.buf.rename, "Rename symbol")
+        map("n","<leader>ca", vim.lsp.buf.code_action, "Code action")
+        map("n","<leader>q", vim.diagnostic.setloclist, "Diagnostics to location list")
 
         -- LSPアタッチ時に診断を強制的に表示
         require("user.utils").show_diagnostics_deferred(bufnr)
@@ -183,14 +184,20 @@ return {
         capabilities = cmp_lsp.default_capabilities(capabilities)
       end
 
+      local function setup_server(server, opts)
+        vim.lsp.config(server, vim.tbl_deep_extend("force", {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        }, opts or {}))
+        vim.lsp.enable(server)
+      end
+
       local function setup_default(server)
-        lsp[server].setup({ on_attach = on_attach, capabilities = capabilities })
+        setup_server(server)
       end
 
       local function setup_lua_ls()
-        lsp.lua_ls.setup({
-          on_attach = on_attach,
-          capabilities = capabilities,
+        setup_server("lua_ls", {
           settings = {
             Lua = {
               runtime = {
@@ -214,9 +221,7 @@ return {
       end
 
       local function setup_terraformls()
-        lsp.terraformls.setup({
-          on_attach = on_attach,
-          capabilities = capabilities,
+        setup_server("terraformls", {
           settings = {
             terraformls = {
               experimentalFeatures = {
@@ -298,7 +303,6 @@ return {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
-      "hrsh7th/cmp-copilot",
     },
     config = function()
       vim.o.completeopt = "menu,menuone,noselect"
@@ -355,7 +359,6 @@ return {
           end, { "i", "s" }),
         }),
         sources = cmp.config.sources({
-          { name = "copilot", group_index = 2 },
           { name = "nvim_lsp" },
           { name = "luasnip"  },
         }, {

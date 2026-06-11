@@ -87,17 +87,6 @@
 
 ## AI支援
 
-### copilot.vim
-- **リポジトリ**: [github/copilot.vim](https://github.com/github/copilot.vim)
-- **役割**: GitHub Copilot連携
-- **説明**: AIによるコード補完。リアルタイムでコード提案
-- **無効化**: XML, Markdown
-
-### cmp-copilot
-- **リポジトリ**: [hrsh7th/cmp-copilot](https://github.com/hrsh7th/cmp-copilot)
-- **役割**: Copilot補完ソース
-- **説明**: nvim-cmp用のGitHub Copilot補完ソース
-
 ### claudecode.nvim
 - **リポジトリ**: [coder/claudecode.nvim](https://github.com/coder/claudecode.nvim)
 - **役割**: Claude Code連携
@@ -282,18 +271,17 @@
 - [`.config/nvim/lua/plugins/editor.lua`](../.config/nvim/lua/plugins/editor.lua) - エディタ、UI、Git関連
 - [`.config/nvim/lua/plugins/snacks.lua`](../.config/nvim/lua/plugins/snacks.lua) - ファジーファインダー、通知、診断設定
 - [`.config/nvim/lua/plugins/fyler.lua`](../.config/nvim/lua/plugins/fyler.lua) - ファイルエクスプローラー設定
-- [`.config/nvim/lua/plugins/copilot.lua`](../.config/nvim/lua/plugins/copilot.lua) - GitHub Copilot設定
 - [`.config/nvim/lua/plugins/claudecode.lua`](../.config/nvim/lua/plugins/claudecode.lua) - Claude Code設定
 
 ---
 
 ## プラグイン数
 
-**合計**: 約34プラグイン
+**合計**: 約32プラグイン
 
 カテゴリ別:
-- LSP・補完: 13プラグイン
-- AI支援: 3プラグイン
+- LSP・補完: 12プラグイン
+- AI支援: 1プラグイン
 - ファイラー・ナビゲーション: 2プラグイン
 - Git連携: 2プラグイン
 - UI・見た目: 5プラグイン

@@ -105,8 +105,7 @@ function M.restart_claudecode()
       if vim.api.nvim_buf_is_valid(buf) then
         local success, buf_name = pcall(vim.api.nvim_buf_get_name, buf)
         if success and (buf_name:match("claudecode") or buf_name:match("ClaudeCode")) then
-          local buf_type_success, buf_type = pcall(vim.api.nvim_buf_get_option, buf, 'buftype')
-          if buf_type_success and buf_type == 'terminal' then
+          if vim.bo[buf].buftype == 'terminal' then
             pcall(vim.api.nvim_buf_delete, buf, { force = true })
           end
         end

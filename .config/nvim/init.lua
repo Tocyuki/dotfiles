@@ -15,9 +15,10 @@ vim.g.loaded_tarPlugin = 1
 
 -- lazy.nvim bootstrap
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+local uv = vim.uv or vim.loop
+if not uv.fs_stat(lazypath) then
   vim.fn.system({
-    "git","clone","--filter=blob:none",
+    "git", "clone", "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
     "--branch=stable", lazypath
   })
@@ -39,4 +40,3 @@ require("user.ui")
 
 -- プラグイン読み込み（lua/plugins/*.lua を自動で読む）
 require("lazy").setup({ import = "plugins" })
-

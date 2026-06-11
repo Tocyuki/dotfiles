@@ -199,7 +199,23 @@ local autosave_timers = {}
 local AUTOSAVE_DELAY = 1000 -- 1秒後に保存
 local TF_FORMAT_FLAG = "_terraform_preformatted"
 
+if vim.g.autosave_enabled == nil then
+  vim.g.autosave_enabled = true
+end
+
+local function is_autosave_enabled()
+  return vim.g.autosave_enabled ~= false
+end
+
+local function notify_autosave_state()
+  local enabled = is_autosave_enabled()
+  local message = enabled and "Autosave enabled" or "Autosave disabled"
+  vim.notify(message, enabled and vim.log.levels.INFO or vim.log.levels.WARN)
+end
+
 local function try_save_buffer(buf)
+  if not is_autosave_enabled() then return end
+
   -- 保存可能な条件をチェック
   if vim.api.nvim_buf_is_valid(buf)
     and vim.bo[buf].modified
@@ -240,6 +256,7 @@ local function stop_autosave_timer(buf)
 end
 
 local function start_autosave_timer(buf)
+  if not is_autosave_enabled() then return end
   stop_autosave_timer(buf)
   autosave_timers[buf] = vim.fn.timer_start(AUTOSAVE_DELAY, function()
     vim.schedule(function()
@@ -248,6 +265,29 @@ local function start_autosave_timer(buf)
     autosave_timers[buf] = nil
   end)
 end
+
+vim.api.nvim_create_user_command("AutosaveToggle", function()
+  vim.g.autosave_enabled = not is_autosave_enabled()
+  if not is_autosave_enabled() then
+    for buf in pairs(autosave_timers) do
+      stop_autosave_timer(buf)
+    end
+  end
+  notify_autosave_state()
+end, { desc = "Toggle autosave" })
+
+vim.api.nvim_create_user_command("AutosaveEnable", function()
+  vim.g.autosave_enabled = true
+  notify_autosave_state()
+end, { desc = "Enable autosave" })
+
+vim.api.nvim_create_user_command("AutosaveDisable", function()
+  vim.g.autosave_enabled = false
+  for buf in pairs(autosave_timers) do
+    stop_autosave_timer(buf)
+  end
+  notify_autosave_state()
+end, { desc = "Disable autosave" })
 
 vim.api.nvim_create_autocmd({"InsertLeave", "TextChanged", "FocusLost"}, {
   callback = function(args)

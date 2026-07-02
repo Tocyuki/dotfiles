@@ -24,6 +24,19 @@ make deploy
 make help
 ```
 
+### Android setup
+
+`make deploy` または `make install-brew` で Android Studio をインストールします。
+初回起動後、セットアップウィザードまたは SDK Manager で以下をインストールしてください。
+
+- Android SDK Platform 35
+- Android SDK Build-Tools 35.x
+- Android SDK Platform-Tools
+- Android Emulator
+- Android SDK Command-line Tools
+
+`targetSdkVersion=35` の Android プロジェクトでは Android SDK Platform 35 が必要です。
+
 ### Project navigation
 
 `make deploy` または `make install-tools` で `ghq`, `roots`, `git-wt`, `fzf`, `zoxide` が利用できるようになります。

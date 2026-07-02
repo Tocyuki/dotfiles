@@ -210,6 +210,12 @@ export PATH="/Users/tocyuki/.antigravity/antigravity/bin:$PATH"
 
 # Local settings (not tracked by git)
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# Android SDK
+export ANDROID_SDK_ROOT="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-$HOME/Library/Android/sdk}}"
+export ANDROID_HOME="${ANDROID_HOME:-$ANDROID_SDK_ROOT}"
+export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
+
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/tocyuki/.docker/completions $fpath)
 autoload -Uz compinit

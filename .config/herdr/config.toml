@@ -1,0 +1,86 @@
+# herdr configuration — managed in dotfiles #   path : ~/.config/herdr/config.toml  (symlinked from this repo)
+#   apply: herdr server reload-config   (herdr の再起動は不要)
+#   defaults reference: `herdr --default-config`
+#
+# ランタイム生成物 (session.json / *.log / *.sock) は同ディレクトリに作られるが
+# dotfiles では config.toml のみを管理する。
+
+[theme]
+# Built-in: catppuccin, terminal, tokyo-night, dracula, nord,
+#           gruvbox, one-dark, solarized, kanagawa, rose-pine, vesper
+name = "terminal"          # 端末 (wezterm / ghostty) の配色をそのまま継承
+auto_switch = false        # 端末のライト/ダーク切替に追従しない
+# dark_name = "catppuccin"
+# light_name = "catppuccin-latte"
+# [theme.custom]
+# accent = "#a6e3a1"
+# panel_bg = "reset"
+
+[ui.toast]
+delivery = "off"           # トースト通知オフ ("off" / "herdr" / "terminal" / "system")
+# delay_seconds = 1
+
+[experimental]
+pane_history = false
+# allow_nested = false
+# kitty_graphics = false
+
+# ─────────────────────────────────────────────────────────────
+# 以下は必要になったら有効化するリファレンス (すべて既定値・コメントアウト)
+# ─────────────────────────────────────────────────────────────
+
+# [terminal]
+# default_shell = ""       # 空 = $SHELL → /bin/sh
+# shell_mode = "auto"      # "auto" / "login" / "non_login"
+# new_cwd = "follow"       # "follow" / "home" / "current" / 固定パス
+
+# [ui]
+# sidebar_width = 32
+sidebar_min_width = 5
+sidebar_max_width = 48
+# mouse_capture = true
+# confirm_close = true
+# prompt_new_tab_name = true
+# pane_borders = true
+# pane_gaps = true
+
+# [ui.sound]
+# enabled = true
+# path = "sounds/notification.mp3"
+
+# [update]
+# channel = "stable"       # "stable" / "preview"
+# version_check = true
+# manifest_check = true
+
+# [session]
+# resume_agents_on_restore = true
+
+# [advanced]
+# scrollback_limit_bytes = 10485760
+
+# --- keybindings (prefix モード。既定は ctrl+b) -----------------
+# [keys]
+# prefix = "ctrl+b"
+# new_tab = "prefix+c"
+# previous_tab = "prefix+p"
+# next_tab = "prefix+n"
+# switch_tab = "prefix+1..9"
+# close_tab = "prefix+shift+x"
+# split_vertical = "prefix+v"
+# split_horizontal = "prefix+minus"
+# close_pane = "prefix+x"
+# zoom = "prefix+z"
+# focus_pane_left = "prefix+h"
+# focus_pane_down = "prefix+j"
+# focus_pane_up = "prefix+k"
+# focus_pane_right = "prefix+l"
+# toggle_sidebar = "prefix+b"
+# reload_config = "prefix+shift+r"
+
+# --- 独自コマンド (例: lazygit を一時ペインで起動) --------------
+# [[keys.command]]
+# key = "prefix+alt+g"
+# type = "pane"            # "pane"(一時ペイン) / "shell"(バックグラウンド) / "plugin_action"
+# command = "lazygit"
+# description = "run lazygit"

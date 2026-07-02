@@ -19,6 +19,7 @@
     - gemini-cli
     - witr
     - gh
+    - herdr
   tags:
     - brew
 
@@ -53,4 +54,3 @@
     - homerow
   tags:
     - brew
-

@@ -43,6 +43,9 @@ setup-neovim: ## Setup neovim
 setup-claude: ## Setup claude
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags claude -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
+setup-herdr: ## Setup herdr
+	@ansible-playbook -i localhost, -c local ansible/main.yml --tags herdr -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
+
 dotfiles: ## Linking dotfils
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags dotfiles -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 

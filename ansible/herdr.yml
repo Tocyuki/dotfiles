@@ -1,0 +1,31 @@
+---
+# herdr 本体のインストールは brew.yml が担当。ここでは config.toml のリンクのみ行う。
+- name: Get git repository root
+  command: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+  tags:
+    - herdr
+
+- name: create herdr directory
+  file:
+    path: ~/.config/herdr
+    state: directory
+    mode: "0755"
+  tags:
+    - dotfiles
+    - herdr
+
+- name: link dotfiles
+  file:
+    src: "{{ git_root.stdout }}/{{ item.file }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: yes
+  loop:
+    - { file: ".config/herdr/config.toml", dest: "~/.config/herdr/config.toml" }
+  tags:
+    - dotfiles
+    - herdr

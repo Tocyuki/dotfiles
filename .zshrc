@@ -76,22 +76,22 @@ eval "$(sheldon source)"
 # Project navigation
 # ==============================
 export GHQ_SELECTOR=fzf
-export GHQ_SELECTOR_OPTS="${GHQ_SELECTOR_OPTS:-}"
+export GHQ_SELECTOR_OPTS="${GHQ_SELECTOR_OPTS:---height 40% --reverse}"
 
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
 
-function ghq-roots() {
+function ghq-cd() {
   local selected
-  selected=$(ghq list --full-path | roots | fzf --height 40% --reverse)
+  selected=$(ghq list --full-path | "$GHQ_SELECTOR" ${=GHQ_SELECTOR_OPTS})
   if [ -n "$selected" ]; then
     cd "$selected" || return
   fi
 }
 
-function __ghq_roots_widget() {
-  ghq-roots
+function __ghq_cd_widget() {
+  ghq-cd
   zle reset-prompt
 }
 
@@ -116,9 +116,9 @@ bindkey -e
 bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
-# ghqで管理しているリポジトリとmonorepo内のrootを選んで移動する
-zle -N __ghq_roots_widget
-bindkey '^g'   __ghq_roots_widget
+# ghqで管理しているリポジトリを選んで移動する
+zle -N __ghq_cd_widget
+bindkey '^g'   __ghq_cd_widget
 # git-wtで管理しているworktreeを選んで移動する
 zle -N __git_wt_cd_widget
 bindkey '^xw'   __git_wt_cd_widget

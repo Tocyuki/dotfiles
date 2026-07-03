@@ -29,3 +29,20 @@
   tags:
     - dotfiles
     - herdr
+
+- name: Get installed herdr plugins
+  command: herdr plugin list --json
+  register: herdr_plugin_list
+  changed_when: false
+  failed_when: false
+  tags:
+    - herdr
+
+- name: install herdr-file-viewer plugin
+  command: herdr plugin install smarzban/herdr-file-viewer --ref v1.7.0 --yes
+  when: >
+    herdr_plugin_list.rc != 0 or
+    '"plugin_id":"herdr-file-viewer"' not in herdr_plugin_list.stdout
+  changed_when: true
+  tags:
+    - herdr

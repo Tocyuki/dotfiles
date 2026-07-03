@@ -42,6 +42,7 @@ packages:
 - name: yarnpkg/yarn@v1.22.22
 - name: BurntSushi/ripgrep@15.1.0
 - name: dandavison/delta@0.18.2
+- name: charmbracelet/glow@v2.1.2
 - name: tfutils/tfenv@v3.0.0
 - name: google/jsonnet@v0.21.0
 - name: aws/session-manager-plugin@1.2.764.0

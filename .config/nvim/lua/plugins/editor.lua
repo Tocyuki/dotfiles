@@ -245,75 +245,101 @@ return {
   },
 
   -- nvim-treesitter（シンタックスハイライトの安定化）
+  -- main ブランチは Neovim 0.12+ と tree-sitter CLI が必要（どちらも aqua で管理）。
+  -- ハイライト・インデントは自動では有効にならないため、FileType で有効化する。
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false, -- main は遅延読み込み非対応
     build = ":TSUpdate",
-    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
     },
     config = function()
-      require("nvim-treesitter.configs").setup({
-        -- 型チェック用の必須フィールド
-        modules = {},
-        sync_install = false,
-        ignore_install = {},
+      local ts = require("nvim-treesitter")
 
-        ensure_installed = {
-          "bash", "c", "diff", "html", "javascript", "jsdoc", "json", "jsonc",
-          "lua", "luadoc", "luap", "markdown", "markdown_inline", "python",
-          "query", "regex", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml",
-          "go", "gomod", "gosum", "hcl", "terraform", "tmux",
-        },
-        auto_install = true,
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = false,
-          -- 大規模ファイルでハイライトを無効化（パフォーマンス向上）
-          disable = function(_, buf)
-            local max_filesize = 100 * 1024 -- 100KB
-            local uv = vim.uv or vim.loop
-            local ok, stats = pcall(uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-            if ok and stats and stats.size > max_filesize then
-              return true
-            end
-          end,
-        },
-        indent = {
-          enable = true,
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-            },
-          },
-          move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-              ["]m"] = "@function.outer",
-              ["]]"] = "@class.outer",
-            },
-            goto_next_end = {
-              ["]M"] = "@function.outer",
-              ["]["] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[m"] = "@function.outer",
-              ["[["] = "@class.outer",
-            },
-            goto_previous_end = {
-              ["[M"] = "@function.outer",
-              ["[]"] = "@class.outer",
-            },
-          },
-        },
+      -- main で廃止された jsonc (json で代替) と tmux は除外
+      ts.install({
+        "bash", "c", "diff", "html", "javascript", "jsdoc", "json",
+        "lua", "luadoc", "luap", "markdown", "markdown_inline", "python",
+        "query", "regex", "toml", "tsx", "typescript", "vim", "vimdoc", "yaml",
+        "go", "gomod", "gosum", "hcl", "terraform",
+      })
+
+      require("nvim-treesitter-textobjects").setup({
+        select = { lookahead = true },
+        move = { set_jumps = true },
+      })
+
+      local select_maps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+      }
+      local move_maps = {
+        goto_next_start = { ["]m"] = "@function.outer", ["]]"] = "@class.outer" },
+        goto_next_end = { ["]M"] = "@function.outer", ["]["] = "@class.outer" },
+        goto_previous_start = { ["[m"] = "@function.outer", ["[["] = "@class.outer" },
+        goto_previous_end = { ["[M"] = "@function.outer", ["[]"] = "@class.outer" },
+      }
+
+      -- 大規模ファイルではハイライトを無効化（パフォーマンス向上）
+      local max_filesize = 100 * 1024 -- 100KB
+      local function is_large(buf)
+        local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+        return ok and stats and stats.size > max_filesize
+      end
+
+      local function attach(buf, lang)
+        if not vim.api.nvim_buf_is_valid(buf) or not vim.treesitter.language.add(lang) then
+          return
+        end
+        if not is_large(buf) then
+          vim.treesitter.start(buf, lang)
+        end
+        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+        -- master 版と同様にバッファローカルで割り当て、ftplugin の ]] などより優先させる
+        local sel = require("nvim-treesitter-textobjects.select")
+        for key, query in pairs(select_maps) do
+          vim.keymap.set({ "x", "o" }, key, function()
+            sel.select_textobject(query, "textobjects")
+          end, { buffer = buf, desc = "TS select " .. query })
+        end
+        local move = require("nvim-treesitter-textobjects.move")
+        for fn, maps in pairs(move_maps) do
+          for key, query in pairs(maps) do
+            vim.keymap.set({ "n", "x", "o" }, key, function()
+              move[fn](query, "textobjects")
+            end, { buffer = buf, desc = "TS " .. fn .. " " .. query })
+          end
+        end
+      end
+
+      -- master 版の auto_install 相当: 未導入のパーサーは開いた時にインストールする
+      local available = {}
+      for _, lang in ipairs(ts.get_available()) do
+        available[lang] = true
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("user_treesitter", { clear = true }),
+        callback = function(args)
+          local lang = vim.treesitter.language.get_lang(args.match)
+          if not lang or not available[lang] then
+            return
+          end
+          if vim.list_contains(ts.get_installed(), lang) then
+            attach(args.buf, lang)
+          else
+            ts.install(lang):await(function(err)
+              if not err then
+                vim.schedule(function() attach(args.buf, lang) end)
+              end
+            end)
+          end
+        end,
       })
     end,
   },

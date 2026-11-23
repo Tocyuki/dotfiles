@@ -28,4 +28,4 @@ jobs:
         run: ansible-galaxy collection install community.general
 
       - name: deploy
-        run: ansible-playbook -i localhost, -c local ansible/main.yml -K -e "ansible_python_interpreter=/usr/local/bin/python3"
+        run: ansible-playbook -i localhost, -c local ansible/main.yml -e "ansible_python_interpreter=/usr/local/bin/python3"

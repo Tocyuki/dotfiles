@@ -1,11 +1,12 @@
 ---
-- name: install nerd font
+- name: install fonts
   community.general.homebrew_cask:
     name: "{{ item }}"
     state: present
   loop:
     - font-hack-nerd-font
     - font-jetbrains-mono-nerd-font
+    - font-moralerspace  # Ghostty の font-family (Moralerspace Argon)
   tags:
     - fonts
 

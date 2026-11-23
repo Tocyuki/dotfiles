@@ -1,3 +1,4 @@
+onboarding = false
 # herdr configuration — managed in dotfiles #   path : ~/.config/herdr/config.toml  (symlinked from this repo)
 #   apply: herdr server reload-config   (herdr の再起動は不要)
 #   defaults reference: `herdr --default-config`
@@ -8,7 +9,7 @@
 [theme]
 # Built-in: catppuccin, terminal, tokyo-night, dracula, nord,
 #           gruvbox, one-dark, solarized, kanagawa, rose-pine, vesper
-name = "terminal"          # 端末 (wezterm / ghostty) の配色をそのまま継承
+name = "terminal"          # 端末 (ghostty) の配色をそのまま継承
 auto_switch = false        # 端末のライト/ダーク切替に追従しない
 # dark_name = "catppuccin"
 # light_name = "catppuccin-latte"
@@ -16,8 +17,13 @@ auto_switch = false        # 端末のライト/ダーク切替に追従しな�
 # accent = "#a6e3a1"
 # panel_bg = "reset"
 
+[ui]
+# [ui] 見出しがコメントアウトされていて [experimental] 扱いになっていたため、ここへ移動
+sidebar_min_width = 5
+sidebar_max_width = 48
+
 [ui.toast]
-delivery = "off"           # トースト通知オフ ("off" / "herdr" / "terminal" / "system")
+delivery = "off"
 # delay_seconds = 1
 
 [experimental]
@@ -36,8 +42,6 @@ pane_history = false
 
 # [ui]
 # sidebar_width = 32
-sidebar_min_width = 5
-sidebar_max_width = 48
 # mouse_capture = true
 # confirm_close = true
 # prompt_new_tab_name = true

@@ -14,10 +14,10 @@ init: ## Install homebrew & ansible for Mac
 	@ansible-galaxy collection install community.general
 
 deploy: ## Install all packages & Linking dotfiles
-	@ansible-playbook -i localhost, -c local ansible/main.yml -K -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
+	@ansible-playbook -i localhost, -c local ansible/main.yml -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
 install-brew: ## Install brew packages
-	@ansible-playbook -i localhost, -c local ansible/main.yml --tags brew -K -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
+	@ansible-playbook -i localhost, -c local ansible/main.yml --tags brew -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
 install-tools: ## Install tools via aqua
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags tools -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
@@ -30,9 +30,6 @@ setup-zsh: ## Setup zsh
 
 setup-ghostty: ## Setup ghostty
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags ghostty -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
-
-setup-wezterm: ## Setup wezterm
-	@ansible-playbook -i localhost, -c local ansible/main.yml --tags wezterm -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"
 
 setup-tmux: ## Setup tmux
 	@ansible-playbook -i localhost, -c local ansible/main.yml --tags tmux -e "ansible_python_interpreter=${PYTHON_INTERPRETER}"

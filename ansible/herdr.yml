@@ -7,7 +7,7 @@
   register: git_root
   changed_when: false
   tags:
-    - herdr
+    - always
 
 - name: create herdr directory
   file:

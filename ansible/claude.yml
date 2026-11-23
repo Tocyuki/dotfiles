@@ -6,7 +6,7 @@
   register: git_root
   changed_when: false
   tags:
-    - claude
+    - always
 
 - name: create ~/.claude directory
   file:

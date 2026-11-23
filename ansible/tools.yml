@@ -58,6 +58,15 @@
   tags:
     - tools
 
+# .zshrc が BUN_INSTALL=~/.bun を前提にしているため公式インストーラーで入れる (更新は bun upgrade)
+- name: install bun via official installer
+  ansible.builtin.shell: set -o pipefail && curl -fsSL https://bun.sh/install | bash
+  args:
+    executable: /bin/bash
+    creates: ~/.bun/bin/bun
+  tags:
+    - tools
+
 - name: aqua - install tools
   ansible.builtin.command: aqua i -l
   args:

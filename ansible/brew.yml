@@ -113,6 +113,7 @@
         - grok-bot
         - devin-desktop
         - devin-cli
+        - vercel  # Vercel CLI (ネイティブ版)
         - stablyai/orca/orca
 
   always:

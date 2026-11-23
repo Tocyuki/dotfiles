@@ -14,6 +14,7 @@
     - grep
     - pgweb
     - postgresql
+    - python@3.13  # mason の pypi 系 LSP (nginx-language-server など) は python <3.14 が必要
     - awsdac
     - npm
     - gemini-cli
@@ -23,35 +24,100 @@
   tags:
     - brew
 
-- name: install cask packages
-  community.general.homebrew_cask:
+- name: install npm global packages
+  community.general.npm:
     name: "{{ item }}"
+    global: true
     state: present
-    install_options: force
   loop:
-    - google-chrome
-    - 1password
-    - slack
-    - notion
-    - anki
-    - displaylink
-    - logi-options-plus
-    - cleanshot
-    - discord
-    - visual-studio-code
-    - intellij-idea
-    - android-studio
-    - claude
-    - docker-desktop
-    - zoom
-    - raycast
-    - chatgpt-atlas
-    - microsoft-office
-    - microsoft-teams
-    - kiro
-    - aqua-voice
-    - codex
-    - cursor
-    - homerow
+    - cf  # Cloudflare CLI (https://github.com/cloudflare/cf)
   tags:
     - brew
+
+# cask の .pkg インストーラーは brew 内部で sudo を呼ぶが、Ansible のモジュールには
+# TTY が無いためパスワード入力ができない。SUDO_ASKPASS を渡して brew に sudo -A を使わせる。
+- name: check passwordless sudo
+  ansible.builtin.command: sudo -n true
+  register: sudo_nopasswd
+  changed_when: false
+  failed_when: false
+  tags:
+    - brew
+
+- name: prompt sudo password for cask installers
+  ansible.builtin.pause:
+    prompt: "sudo password (cask installers)"
+    echo: false
+  register: sudo_password_prompt
+  when:
+    - sudo_password is not defined
+    - sudo_nopasswd.rc != 0
+  tags:
+    - brew
+
+- name: install cask packages
+  tags:
+    - brew
+  block:
+    - name: create sudo askpass helper
+      ansible.builtin.tempfile:
+        state: file
+        suffix: .askpass
+      register: sudo_askpass
+
+    - name: write sudo askpass helper
+      ansible.builtin.copy:
+        dest: "{{ sudo_askpass.path }}"
+        mode: "0700"
+        content: |
+          #!/bin/sh
+          printf '%s\n' {{ (sudo_password | default(sudo_password_prompt.user_input | default(''))) | quote }}
+      no_log: true
+
+    - name: verify sudo password
+      ansible.builtin.command: sudo -A -k true
+      environment:
+        SUDO_ASKPASS: "{{ sudo_askpass.path }}"
+      changed_when: false
+      when: sudo_nopasswd.rc != 0
+
+    - name: install cask packages
+      community.general.homebrew_cask:
+        name: "{{ item }}"
+        state: present
+        install_options: force
+      environment:
+        SUDO_ASKPASS: "{{ sudo_askpass.path }}"
+      ignore_errors: true
+      loop:
+        - google-chrome
+        - 1password
+        - slack
+        - notion
+        - displaylink
+        - logi-options-plus
+        - cleanshot
+        - discord
+        - android-studio
+        - claude
+        - docker-desktop
+        - zoom
+        - raycast
+        - microsoft-office
+        - microsoft-teams
+        - kiro
+        - aqua-voice
+        - codex
+        - cursor
+        - homerow
+        - grok-bot
+        - devin-desktop
+        - devin-cli
+        - stablyai/orca/orca
+
+  always:
+    - name: remove sudo askpass helper
+      ansible.builtin.file:
+        path: "{{ sudo_askpass.path }}"
+        state: absent
+      when: sudo_askpass.path is defined

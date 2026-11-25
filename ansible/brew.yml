@@ -81,11 +81,11 @@
       changed_when: false
       when: sudo_nopasswd.rc != 0
 
+    # install_options: force を付けるとインストール済み判定がスキップされ毎回再インストールになるため付けない
     - name: install cask packages
       community.general.homebrew_cask:
         name: "{{ item }}"
         state: present
-        install_options: force
       environment:
         SUDO_ASKPASS: "{{ sudo_askpass.path }}"
       ignore_errors: true

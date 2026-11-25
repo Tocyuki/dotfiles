@@ -67,6 +67,15 @@
   tags:
     - tools
 
+# brew/aqua 未提供のため公式インストーラーで入れる (~/.local/bin に入り .zshrc で PATH 済み。更新は再実行)
+- name: install gwscli via official installer
+  ansible.builtin.shell: set -o pipefail && curl -fsSL https://dl.google.com/workspace-cli/install.sh | bash
+  args:
+    executable: /bin/bash
+    creates: ~/.local/bin/gwscli
+  tags:
+    - tools
+
 - name: aqua - install tools
   ansible.builtin.command: aqua i -l
   args:

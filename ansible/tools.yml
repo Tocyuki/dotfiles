@@ -76,6 +76,16 @@
   tags:
     - tools
 
+# 自己アップデートするため公式インストーラーで入れる (~/.local/bin に入る。更新は hermes update)
+# Ansible には TTY が無いので --non-interactive で対話ステップを飛ばす (初期設定は hermes setup)
+- name: install hermes agent via official installer
+  ansible.builtin.shell: set -o pipefail && curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash -s -- --non-interactive
+  args:
+    executable: /bin/bash
+    creates: ~/.local/bin/hermes
+  tags:
+    - tools
+
 - name: aqua - install tools
   ansible.builtin.command: aqua i -l
   args:
